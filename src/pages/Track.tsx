@@ -3,18 +3,36 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Search, Package, CreditCard, Mailbox, Calendar } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Search, Package, CreditCard, Mailbox, Calendar, Globe } from "lucide-react";
 
 const Track = () => {
   const [trackingNumber, setTrackingNumber] = useState("");
   const [isHeaderScrolled, setIsHeaderScrolled] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [language, setLanguage] = useState("DE");
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,6 +42,23 @@ const Track = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (email === "codedesuivi@gmail.com" && password === "20250") {
+      toast({
+        title: "Erfolgreich angemeldet",
+        description: "Willkommen zurück!",
+      });
+      navigate("/dashboard");
+    } else {
+      toast({
+        title: "Fehler",
+        description: "Ungültige Anmeldeinformationen",
+        variant: "destructive",
+      });
+    }
+  };
 
   const handleTracking = (e: React.FormEvent) => {
     e.preventDefault();
@@ -69,19 +104,58 @@ const Track = () => {
             </nav>
           </div>
           <div className="flex items-center space-x-4">
-            <Button 
-              variant="ghost" 
-              size="sm"
-              className="text-blue-600"
-            >
-              DE
-            </Button>
-            <Button 
-              variant="default"
-              className="bg-blue-600 hover:bg-blue-700 transition-colors"
-            >
-              Anmelden
-            </Button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="sm" className="flex items-center">
+                  <Globe className="h-4 w-4 mr-2" />
+                  {language}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem onClick={() => setLanguage("DE")}>Deutsch</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setLanguage("FR")}>Français</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setLanguage("EN")}>English</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button 
+                  variant="default"
+                  className="bg-blue-600 hover:bg-blue-700 transition-colors"
+                >
+                  Anmelden
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                  <DialogTitle>Anmelden</DialogTitle>
+                </DialogHeader>
+                <form onSubmit={handleLogin} className="space-y-4 mt-4">
+                  <div className="space-y-2">
+                    <Input
+                      type="email"
+                      placeholder="E-Mail"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Input
+                      type="password"
+                      placeholder="Passwort"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <Button type="submit" className="w-full">
+                    Anmelden
+                  </Button>
+                </form>
+              </DialogContent>
+            </Dialog>
           </div>
         </div>
       </header>
