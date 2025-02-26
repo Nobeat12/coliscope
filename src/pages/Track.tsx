@@ -53,7 +53,13 @@ const Track = () => {
       >
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-12">
-            <a href="/" className="font-bold text-2xl">Logo</a>
+            <a href="/" className="w-12 h-12">
+              <img 
+                src="/lovable-uploads/9dd54a53-50ad-417d-a0a2-3b4110ef83fb.png" 
+                alt="Logo" 
+                className="w-full h-full object-contain"
+              />
+            </a>
             <nav className="hidden md:flex space-x-8">
               <a href="/track" className="hover:text-blue-600 transition-colors">Pakete verfolgen</a>
               <a href="#services" className="hover:text-blue-600 transition-colors">Unsere Dienste</a>
