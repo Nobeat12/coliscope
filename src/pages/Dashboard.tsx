@@ -81,7 +81,19 @@ const Dashboard = () => {
   });
 
   const onSubmit = (data: z.infer<typeof packageSchema>) => {
-    setPackages([...packages, data]);
+    // Ensure customerInfo is not undefined (fixes TypeScript error)
+    const newPackage: Package = {
+      trackingNumber: data.trackingNumber,
+      recipientName: data.recipientName,
+      phoneNumber: data.phoneNumber,
+      receiptLocation: data.receiptLocation,
+      receiptDate: data.receiptDate,
+      deliveryLocation: data.deliveryLocation,
+      status: data.status,
+      customerInfo: data.customerInfo || "", // Provide default empty string if undefined
+    };
+    
+    setPackages([...packages, newPackage]);
     toast({
       title: "Paket hinzugefügt",
       description: `Tracking Nummer: ${data.trackingNumber}`,

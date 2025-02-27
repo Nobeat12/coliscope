@@ -5,6 +5,13 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
 import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
   Accordion,
   AccordionContent,
   AccordionItem,
@@ -24,8 +31,42 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import {
-  Search, Package, CreditCard, Mailbox, Calendar, Globe
+  Search, Package, CreditCard, Mailbox, Calendar, Globe, MapPin, Phone, User, TruckIcon, Clock, AlertCircle
 } from "lucide-react";
+
+// Exemple de données de colis pour la démonstration
+const DEMO_PACKAGES = [
+  {
+    trackingNumber: "PKT-123456789",
+    recipientName: "Max Mustermann",
+    phoneNumber: "+49123456789",
+    receiptLocation: "Berlin",
+    receiptDate: "2023-06-15",
+    deliveryLocation: "München",
+    status: "In Zustellung",
+    customerInfo: "Sperrgut, bitte vorsichtig behandeln"
+  },
+  {
+    trackingNumber: "PKT-987654321",
+    recipientName: "Anna Schmidt",
+    phoneNumber: "+49987654321",
+    receiptLocation: "Hamburg",
+    receiptDate: "2023-06-14",
+    deliveryLocation: "Frankfurt",
+    status: "Versandt",
+    customerInfo: "Express Lieferung"
+  },
+  {
+    trackingNumber: "PKT-456789123",
+    recipientName: "Thomas Weber",
+    phoneNumber: "+49456789123",
+    receiptLocation: "München",
+    receiptDate: "2023-06-13",
+    deliveryLocation: "Köln",
+    status: "Zugestellt",
+    customerInfo: "Bitte beim Nachbarn abgeben"
+  }
+];
 
 // Traductions
 const translations = {
@@ -57,6 +98,21 @@ const translations = {
     menuHelp: "Hilfe",
     menuFaq: "FAQ",
     menuContact: "Kontakt",
+    packageDetails: "Paketdetails",
+    recipient: "Empfänger",
+    phone: "Telefon",
+    origin: "Abholort",
+    destination: "Lieferort",
+    date: "Datum",
+    status: "Status",
+    additionalInfo: "Zusätzliche Informationen",
+    packageNotFound: "Paket nicht gefunden",
+    tryAgain: "Bitte überprüfen Sie die Tracking-Nummer und versuchen Sie es erneut.",
+    inProcess: "In Bearbeitung",
+    shipped: "Versandt",
+    inDelivery: "In Zustellung",
+    delivered: "Zugestellt",
+    problem: "Problem"
   },
   FR: {
     trackPackage: "Suivez votre colis",
@@ -86,6 +142,21 @@ const translations = {
     menuHelp: "Aide",
     menuFaq: "FAQ",
     menuContact: "Contact",
+    packageDetails: "Détails du colis",
+    recipient: "Destinataire",
+    phone: "Téléphone",
+    origin: "Lieu de collecte",
+    destination: "Lieu de livraison",
+    date: "Date",
+    status: "Statut",
+    additionalInfo: "Informations supplémentaires",
+    packageNotFound: "Colis non trouvé",
+    tryAgain: "Veuillez vérifier le numéro de suivi et réessayer.",
+    inProcess: "En traitement",
+    shipped: "Expédié",
+    inDelivery: "En cours de livraison",
+    delivered: "Livré",
+    problem: "Problème"
   },
   EN: {
     trackPackage: "Track Your Package",
@@ -115,6 +186,21 @@ const translations = {
     menuHelp: "Help",
     menuFaq: "FAQ",
     menuContact: "Contact",
+    packageDetails: "Package Details",
+    recipient: "Recipient",
+    phone: "Phone",
+    origin: "Collection Location",
+    destination: "Delivery Location",
+    date: "Date",
+    status: "Status",
+    additionalInfo: "Additional Information",
+    packageNotFound: "Package not found",
+    tryAgain: "Please check the tracking number and try again.",
+    inProcess: "In Process",
+    shipped: "Shipped",
+    inDelivery: "In Delivery",
+    delivered: "Delivered",
+    problem: "Problem"
   }
 };
 
@@ -124,6 +210,8 @@ const Track = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [language, setLanguage] = useState("DE");
+  const [foundPackage, setFoundPackage] = useState<any>(null);
+  const [showResults, setShowResults] = useState(false);
   const { toast } = useToast();
   const navigate = useNavigate();
   
@@ -166,10 +254,36 @@ const Track = () => {
       });
       return;
     }
-    toast({
-      title: t.searchingPackage,
-      description: `${t.trackingNumber}: ${trackingNumber}`,
-    });
+    
+    // Recherche du colis dans les données de démonstration
+    const pkg = DEMO_PACKAGES.find(p => p.trackingNumber === trackingNumber);
+    setFoundPackage(pkg);
+    setShowResults(true);
+    
+    if (pkg) {
+      toast({
+        title: t.packageDetails,
+        description: `${t.trackingNumber}: ${trackingNumber}`,
+      });
+    } else {
+      toast({
+        title: t.packageNotFound,
+        description: t.tryAgain,
+        variant: "destructive",
+      });
+    }
+  };
+
+  // Traduire le statut du colis
+  const getTranslatedStatus = (status: string) => {
+    switch(status) {
+      case "In Bearbeitung": return t.inProcess;
+      case "Versandt": return t.shipped;
+      case "In Zustellung": return t.inDelivery;
+      case "Zugestellt": return t.delivered;
+      case "Problem": return t.problem;
+      default: return status;
+    }
   };
 
   return (
@@ -281,6 +395,94 @@ const Track = () => {
             </form>
           </div>
         </div>
+
+        {/* Package Results Section */}
+        {showResults && (
+          <div className="max-w-3xl mx-auto px-4 py-10">
+            {foundPackage ? (
+              <Card className="shadow-lg border border-[#E3F2FD] animate-in fade-in">
+                <CardHeader className="bg-[#F5F7FA]/50">
+                  <CardTitle className="flex items-center justify-between">
+                    <span>{t.packageDetails}</span>
+                    <span className={`px-3 py-1 rounded-full text-sm ${
+                      foundPackage.status === "Zugestellt" 
+                        ? "bg-green-100 text-green-600" 
+                        : foundPackage.status === "Problem"
+                        ? "bg-red-100 text-red-600"
+                        : "bg-[#E3F2FD] text-blue-600"
+                    }`}>
+                      {getTranslatedStatus(foundPackage.status)}
+                    </span>
+                  </CardTitle>
+                  <CardDescription>
+                    {t.trackingNumber}: <span className="font-semibold">{foundPackage.trackingNumber}</span>
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="pt-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-4">
+                      <div className="flex items-start">
+                        <User className="h-5 w-5 mr-3 text-gray-500 mt-0.5" />
+                        <div>
+                          <p className="text-sm text-gray-500">{t.recipient}</p>
+                          <p className="font-medium">{foundPackage.recipientName}</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start">
+                        <Phone className="h-5 w-5 mr-3 text-gray-500 mt-0.5" />
+                        <div>
+                          <p className="text-sm text-gray-500">{t.phone}</p>
+                          <p className="font-medium">{foundPackage.phoneNumber}</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start">
+                        <MapPin className="h-5 w-5 mr-3 text-gray-500 mt-0.5" />
+                        <div>
+                          <p className="text-sm text-gray-500">{t.origin}</p>
+                          <p className="font-medium">{foundPackage.receiptLocation}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="space-y-4">
+                      <div className="flex items-start">
+                        <TruckIcon className="h-5 w-5 mr-3 text-gray-500 mt-0.5" />
+                        <div>
+                          <p className="text-sm text-gray-500">{t.destination}</p>
+                          <p className="font-medium">{foundPackage.deliveryLocation}</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start">
+                        <Clock className="h-5 w-5 mr-3 text-gray-500 mt-0.5" />
+                        <div>
+                          <p className="text-sm text-gray-500">{t.date}</p>
+                          <p className="font-medium">{new Date(foundPackage.receiptDate).toLocaleDateString()}</p>
+                        </div>
+                      </div>
+                      {foundPackage.customerInfo && (
+                        <div className="flex items-start">
+                          <AlertCircle className="h-5 w-5 mr-3 text-gray-500 mt-0.5" />
+                          <div>
+                            <p className="text-sm text-gray-500">{t.additionalInfo}</p>
+                            <p className="font-medium">{foundPackage.customerInfo}</p>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ) : (
+              <Card className="shadow-lg border border-red-100 animate-in fade-in">
+                <CardHeader className="bg-red-50">
+                  <CardTitle className="text-red-600">{t.packageNotFound}</CardTitle>
+                  <CardDescription className="text-red-500">
+                    {t.tryAgain}
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            )}
+          </div>
+        )}
 
         {/* Services Section */}
         <div id="services" className="max-w-3xl mx-auto px-4 py-20">
