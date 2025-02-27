@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
@@ -49,6 +49,34 @@ interface Package {
   customerInfo: string;
 }
 
+// Fonctions pour gérer le stockage local des colis
+const savePackageToLocalStorage = (pkg: Package) => {
+  const existingPackages = JSON.parse(localStorage.getItem('packages') || '[]');
+  
+  // Vérifier si ce numéro de suivi existe déjà
+  const index = existingPackages.findIndex((p: Package) => p.trackingNumber === pkg.trackingNumber);
+  
+  if (index >= 0) {
+    // Mise à jour d'un colis existant
+    existingPackages[index] = pkg;
+  } else {
+    // Ajout d'un nouveau colis
+    existingPackages.push(pkg);
+  }
+  
+  localStorage.setItem('packages', JSON.stringify(existingPackages));
+};
+
+const getPackagesFromLocalStorage = (): Package[] => {
+  return JSON.parse(localStorage.getItem('packages') || '[]');
+};
+
+const removePackageFromLocalStorage = (trackingNumber: string) => {
+  const existingPackages = JSON.parse(localStorage.getItem('packages') || '[]');
+  const updatedPackages = existingPackages.filter((p: Package) => p.trackingNumber !== trackingNumber);
+  localStorage.setItem('packages', JSON.stringify(updatedPackages));
+};
+
 const packageSchema = z.object({
   trackingNumber: z.string().min(3, "Numéro de suivi requis"),
   recipientName: z.string().min(2, "Nom du destinataire requis"),
@@ -67,6 +95,11 @@ const Dashboard = () => {
   const [currentPackageIndex, setCurrentPackageIndex] = useState<number | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const { toast } = useToast();
+
+  // Charger les colis depuis localStorage au chargement du composant
+  useEffect(() => {
+    setPackages(getPackagesFromLocalStorage());
+  }, []);
 
   const form = useForm<z.infer<typeof packageSchema>>({
     resolver: zodResolver(packageSchema),
@@ -109,7 +142,30 @@ const Dashboard = () => {
       customerInfo: data.customerInfo || "",
     };
     
-    setPackages([...packages, newPackage]);
+    // Vérifier si le numéro de suivi existe déjà
+    const existingIndex = packages.findIndex(p => p.trackingNumber === newPackage.trackingNumber);
+    if (existingIndex >= 0 && currentPackageIndex === null) {
+      toast({
+        title: "Erreur",
+        description: "Ce numéro de suivi existe déjà",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    // Ajouter le colis au tableau local et au localStorage
+    savePackageToLocalStorage(newPackage);
+    
+    // Mettre à jour l'état local
+    const updatedPackages = [...packages];
+    if (existingIndex >= 0) {
+      updatedPackages[existingIndex] = newPackage;
+    } else {
+      updatedPackages.push(newPackage);
+    }
+    
+    setPackages(updatedPackages);
+    
     toast({
       title: "Colis ajouté",
       description: `Numéro de suivi: ${data.trackingNumber}`,
@@ -148,6 +204,27 @@ const Dashboard = () => {
       customerInfo: data.customerInfo || "",
     };
     
+    // Vérifier si le numéro de suivi a changé et s'il existe déjà
+    const originalPackage = packages[currentPackageIndex];
+    if (originalPackage.trackingNumber !== updatedPackage.trackingNumber) {
+      const existingIndex = packages.findIndex(p => p.trackingNumber === updatedPackage.trackingNumber);
+      if (existingIndex >= 0 && existingIndex !== currentPackageIndex) {
+        toast({
+          title: "Erreur",
+          description: "Ce numéro de suivi existe déjà",
+          variant: "destructive",
+        });
+        return;
+      }
+      
+      // Supprimer l'ancien numéro de suivi du localStorage
+      removePackageFromLocalStorage(originalPackage.trackingNumber);
+    }
+    
+    // Mettre à jour le colis dans le localStorage
+    savePackageToLocalStorage(updatedPackage);
+    
+    // Mettre à jour l'état local
     const updatedPackages = [...packages];
     updatedPackages[currentPackageIndex] = updatedPackage;
     setPackages(updatedPackages);
@@ -160,14 +237,19 @@ const Dashboard = () => {
   };
 
   const handleDelete = (index: number) => {
+    const packageToDelete = packages[index];
+    
+    // Supprimer du localStorage
+    removePackageFromLocalStorage(packageToDelete.trackingNumber);
+    
+    // Mettre à jour l'état local
     const updatedPackages = [...packages];
-    const deletedPackage = updatedPackages[index];
     updatedPackages.splice(index, 1);
     setPackages(updatedPackages);
     
     toast({
       title: "Colis supprimé",
-      description: `Numéro de suivi: ${deletedPackage.trackingNumber}`,
+      description: `Numéro de suivi: ${packageToDelete.trackingNumber}`,
     });
   };
 

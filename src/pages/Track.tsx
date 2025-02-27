@@ -34,7 +34,41 @@ import {
   Search, Package, CreditCard, Mailbox, Calendar, Globe, MapPin, Phone, User, TruckIcon, Clock, AlertCircle
 } from "lucide-react";
 
-// Exemple de données de colis pour la démonstration
+// Interface pour les colis
+interface Package {
+  trackingNumber: string;
+  recipientName: string;
+  phoneNumber: string;
+  receiptLocation: string;
+  receiptDate: string;
+  deliveryLocation: string;
+  status: string;
+  customerInfo: string;
+}
+
+// Créer un stockage local pour partager les données entre les pages
+const savePackageToLocalStorage = (pkg: Package) => {
+  const existingPackages = JSON.parse(localStorage.getItem('packages') || '[]');
+  
+  // Vérifier si ce numéro de suivi existe déjà
+  const index = existingPackages.findIndex((p: Package) => p.trackingNumber === pkg.trackingNumber);
+  
+  if (index >= 0) {
+    // Mise à jour d'un colis existant
+    existingPackages[index] = pkg;
+  } else {
+    // Ajout d'un nouveau colis
+    existingPackages.push(pkg);
+  }
+  
+  localStorage.setItem('packages', JSON.stringify(existingPackages));
+};
+
+const getPackagesFromLocalStorage = (): Package[] => {
+  return JSON.parse(localStorage.getItem('packages') || '[]');
+};
+
+// Exemple de données de colis pour la démonstration (utilisé seulement si localStorage est vide)
 const DEMO_PACKAGES = [
   {
     trackingNumber: "PKT-123456789",
@@ -43,8 +77,8 @@ const DEMO_PACKAGES = [
     receiptLocation: "Berlin",
     receiptDate: "2023-06-15",
     deliveryLocation: "München",
-    status: "In Zustellung",
-    customerInfo: "Sperrgut, bitte vorsichtig behandeln"
+    status: "En livraison",
+    customerInfo: "Colis volumineux, manipuler avec précaution"
   },
   {
     trackingNumber: "PKT-987654321",
@@ -53,8 +87,8 @@ const DEMO_PACKAGES = [
     receiptLocation: "Hamburg",
     receiptDate: "2023-06-14",
     deliveryLocation: "Frankfurt",
-    status: "Versandt",
-    customerInfo: "Express Lieferung"
+    status: "Expédié",
+    customerInfo: "Livraison express"
   },
   {
     trackingNumber: "PKT-456789123",
@@ -63,8 +97,8 @@ const DEMO_PACKAGES = [
     receiptLocation: "München",
     receiptDate: "2023-06-13",
     deliveryLocation: "Köln",
-    status: "Zugestellt",
-    customerInfo: "Bitte beim Nachbarn abgeben"
+    status: "Livré",
+    customerInfo: "Laisser chez le voisin si absent"
   }
 ];
 
@@ -209,14 +243,28 @@ const Track = () => {
   const [isHeaderScrolled, setIsHeaderScrolled] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [language, setLanguage] = useState("DE");
-  const [foundPackage, setFoundPackage] = useState<any>(null);
+  const [language, setLanguage] = useState("FR");
+  const [foundPackage, setFoundPackage] = useState<Package | null>(null);
   const [showResults, setShowResults] = useState(false);
+  const [packages, setPackages] = useState<Package[]>([]);
   const { toast } = useToast();
   const navigate = useNavigate();
   
   // Accès aux traductions selon la langue sélectionnée
   const t = translations[language as keyof typeof translations];
+
+  // Charger les colis depuis localStorage au chargement du composant
+  useEffect(() => {
+    const storedPackages = getPackagesFromLocalStorage();
+    
+    // Si localStorage est vide, ajouter les exemples de colis
+    if (storedPackages.length === 0) {
+      DEMO_PACKAGES.forEach(pkg => savePackageToLocalStorage(pkg));
+      setPackages(DEMO_PACKAGES);
+    } else {
+      setPackages(storedPackages);
+    }
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -255,9 +303,9 @@ const Track = () => {
       return;
     }
     
-    // Recherche du colis dans les données de démonstration
-    const pkg = DEMO_PACKAGES.find(p => p.trackingNumber === trackingNumber);
-    setFoundPackage(pkg);
+    // Recherche du colis dans les données stockées
+    const pkg = packages.find(p => p.trackingNumber === trackingNumber);
+    setFoundPackage(pkg || null);
     setShowResults(true);
     
     if (pkg) {
@@ -277,11 +325,11 @@ const Track = () => {
   // Traduire le statut du colis
   const getTranslatedStatus = (status: string) => {
     switch(status) {
-      case "In Bearbeitung": return t.inProcess;
-      case "Versandt": return t.shipped;
-      case "In Zustellung": return t.inDelivery;
-      case "Zugestellt": return t.delivered;
-      case "Problem": return t.problem;
+      case "En cours": return t.inProcess;
+      case "Expédié": return t.shipped;
+      case "En livraison": return t.inDelivery;
+      case "Livré": return t.delivered;
+      case "Problème": return t.problem;
       default: return status;
     }
   };
@@ -405,9 +453,9 @@ const Track = () => {
                   <CardTitle className="flex items-center justify-between">
                     <span>{t.packageDetails}</span>
                     <span className={`px-3 py-1 rounded-full text-sm ${
-                      foundPackage.status === "Zugestellt" 
+                      foundPackage.status === "Livré" 
                         ? "bg-green-100 text-green-600" 
-                        : foundPackage.status === "Problem"
+                        : foundPackage.status === "Problème"
                         ? "bg-red-100 text-red-600"
                         : "bg-[#E3F2FD] text-blue-600"
                     }`}>
