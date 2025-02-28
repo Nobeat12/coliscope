@@ -24,8 +24,26 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { 
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import {
   Search, Package, CreditCard, Mailbox, Calendar, Globe, MapPin, Phone, User, TruckIcon, Clock, AlertCircle
 } from "lucide-react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
 
 // Interface pour les colis
 interface Package {
@@ -44,6 +62,11 @@ const getPackagesFromLocalStorage = (): Package[] => {
   return JSON.parse(localStorage.getItem('packages') || '[]');
 };
 
+const loginSchema = z.object({
+  email: z.string().email("Email invalide"),
+  password: z.string().min(5, "Mot de passe requis"),
+});
+
 // Traductions
 const translations = {
   FR: {
@@ -55,9 +78,13 @@ const translations = {
     shippingCosts: "Frais d'expédition",
     virtualMailbox: "Boîte aux lettres virtuelle",
     deliveryPlanning: "Planification de livraison",
+    login: "Login",
+    email: "E-mail",
+    password: "Mot de passe",
     loginSuccess: "Connexion réussie",
     welcomeBack: "Bienvenue !",
     error: "Erreur",
+    invalidCredentials: "Identifiants invalides",
     enterTrackingNumber: "Veuillez entrer un numéro de suivi",
     searchingPackage: "Recherche de colis",
     trackingNumber: "Numéro de suivi",
@@ -84,8 +111,7 @@ const translations = {
     shipped: "Expédié",
     inDelivery: "En cours de livraison",
     delivered: "Livré",
-    problem: "Problème",
-    adminArea: "Espace administrateur"
+    problem: "Problème"
   }
 };
 
@@ -95,12 +121,21 @@ const Index = () => {
   const [foundPackage, setFoundPackage] = useState<Package | null>(null);
   const [showResults, setShowResults] = useState(false);
   const [packages, setPackages] = useState<Package[]>([]);
+  const [loginDialogOpen, setLoginDialogOpen] = useState(false);
   const { toast } = useToast();
   const navigate = useNavigate();
   
   // Langue par défaut
   const language = "FR";
   const t = translations[language as keyof typeof translations];
+
+  const loginForm = useForm<z.infer<typeof loginSchema>>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
 
   // Charger les colis depuis localStorage au chargement du composant
   useEffect(() => {
@@ -115,6 +150,24 @@ const Index = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const onLoginSubmit = (data: z.infer<typeof loginSchema>) => {
+    if (data.email === "codedesuivi@gmail.com" && data.password === "20250") {
+      localStorage.setItem('isAuthenticated', 'true');
+      setLoginDialogOpen(false);
+      toast({
+        title: t.loginSuccess,
+        description: t.welcomeBack,
+      });
+      navigate("/dashboard");
+    } else {
+      toast({
+        title: t.error,
+        description: t.invalidCredentials,
+        variant: "destructive",
+      });
+    }
+  };
 
   const handleTracking = (e: React.FormEvent) => {
     e.preventDefault();
@@ -158,10 +211,6 @@ const Index = () => {
     }
   };
 
-  const handleAdminAccess = () => {
-    navigate("/dashboard");
-  };
-
   return (
     <div className="min-h-screen flex flex-col">
       {/* Header */}
@@ -190,13 +239,56 @@ const Index = () => {
             </nav>
           </div>
           <div className="flex items-center space-x-4">
-            <Button 
-              variant="default"
-              className="bg-blue-600 hover:bg-blue-700 transition-colors"
-              onClick={handleAdminAccess}
-            >
-              {t.adminArea}
-            </Button>
+            <Dialog open={loginDialogOpen} onOpenChange={setLoginDialogOpen}>
+              <DialogTrigger asChild>
+                <Button 
+                  variant="default"
+                  className="bg-blue-600 hover:bg-blue-700 transition-colors"
+                >
+                  {t.login}
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                  <DialogTitle>Connexion</DialogTitle>
+                </DialogHeader>
+                <Form {...loginForm}>
+                  <form onSubmit={loginForm.handleSubmit(onLoginSubmit)} className="space-y-4 mt-4">
+                    <FormField
+                      control={loginForm.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Email</FormLabel>
+                          <FormControl>
+                            <Input type="email" placeholder="Entrez votre email" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={loginForm.control}
+                      name="password"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Mot de passe</FormLabel>
+                          <FormControl>
+                            <Input type="password" placeholder="Entrez votre mot de passe" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <div className="flex justify-end">
+                      <Button type="submit">
+                        Connexion
+                      </Button>
+                    </div>
+                  </form>
+                </Form>
+              </DialogContent>
+            </Dialog>
           </div>
         </div>
       </header>
