@@ -39,6 +39,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
   Search, Package, CreditCard, Mailbox, Calendar, Globe, MapPin, Phone, User, TruckIcon, Clock, AlertCircle
 } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -69,6 +76,54 @@ const loginSchema = z.object({
 
 // Traductions
 const translations = {
+  DE: {
+    trackPackage: "Verfolgen Sie Ihr Paket",
+    trackButton: "Verfolgen",
+    trackingPlaceholder: "Geben Sie die Sendungsnummer ein",
+    ourServices: "Unsere Dienstleistungen",
+    packageTracking: "Paketverfolgung",
+    shippingCosts: "Versandkosten",
+    virtualMailbox: "Virtuelle Mailbox",
+    deliveryPlanning: "Lieferplanung",
+    login: "Anmelden",
+    email: "E-Mail",
+    password: "Passwort",
+    loginSuccess: "Anmeldung erfolgreich",
+    welcomeBack: "Willkommen!",
+    error: "Fehler",
+    invalidCredentials: "Ungültige Anmeldedaten",
+    enterTrackingNumber: "Bitte geben Sie eine Sendungsnummer ein",
+    searchingPackage: "Paketsuche",
+    trackingNumber: "Sendungsnummer",
+    trackingDescription: "Verfolgen Sie den aktuellen Status und Standort Ihres Pakets in Echtzeit.",
+    costsDescription: "Transparente Preise für alle Versandoptionen und Ziele.",
+    mailboxDescription: "Verwalten Sie Ihre Sendungen digital und papierlos.",
+    planningDescription: "Planen Sie Ihre Lieferungen im Voraus und wählen Sie Ihren bevorzugten Zeitslot.",
+    menuTrack: "Pakete verfolgen",
+    menuServices: "Dienstleistungen",
+    menuHelp: "Hilfe",
+    menuFaq: "FAQ",
+    menuContact: "Kontakt",
+    packageDetails: "Paketdetails",
+    recipient: "Empfänger",
+    phone: "Telefon",
+    origin: "Abholort",
+    destination: "Lieferort",
+    date: "Datum",
+    status: "Status",
+    additionalInfo: "Zusätzliche Informationen",
+    packageNotFound: "Paket nicht gefunden",
+    tryAgain: "Bitte überprüfen Sie die Sendungsnummer und versuchen Sie es erneut.",
+    inProcess: "In Bearbeitung",
+    shipped: "Versendet",
+    inDelivery: "In Zustellung",
+    delivered: "Zugestellt",
+    problem: "Problem",
+    languageSelection: "Sprache",
+    german: "Deutsch",
+    french: "Französisch",
+    english: "Englisch"
+  },
   FR: {
     trackPackage: "Suivez votre colis",
     trackButton: "Suivre",
@@ -78,7 +133,7 @@ const translations = {
     shippingCosts: "Frais d'expédition",
     virtualMailbox: "Boîte aux lettres virtuelle",
     deliveryPlanning: "Planification de livraison",
-    login: "Login",
+    login: "Connexion",
     email: "E-mail",
     password: "Mot de passe",
     loginSuccess: "Connexion réussie",
@@ -111,7 +166,59 @@ const translations = {
     shipped: "Expédié",
     inDelivery: "En cours de livraison",
     delivered: "Livré",
-    problem: "Problème"
+    problem: "Problème",
+    languageSelection: "Langue",
+    german: "Allemand",
+    french: "Français",
+    english: "Anglais"
+  },
+  EN: {
+    trackPackage: "Track your package",
+    trackButton: "Track",
+    trackingPlaceholder: "Enter tracking number",
+    ourServices: "Our Services",
+    packageTracking: "Package Tracking",
+    shippingCosts: "Shipping Costs",
+    virtualMailbox: "Virtual Mailbox",
+    deliveryPlanning: "Delivery Planning",
+    login: "Login",
+    email: "Email",
+    password: "Password",
+    loginSuccess: "Login successful",
+    welcomeBack: "Welcome back!",
+    error: "Error",
+    invalidCredentials: "Invalid credentials",
+    enterTrackingNumber: "Please enter a tracking number",
+    searchingPackage: "Searching package",
+    trackingNumber: "Tracking number",
+    trackingDescription: "Track the current status and location of your package in real-time.",
+    costsDescription: "Transparent pricing for all shipping options and destinations.",
+    mailboxDescription: "Manage your shipments digitally and paperless.",
+    planningDescription: "Plan your deliveries in advance and choose your preferred time slot.",
+    menuTrack: "Track packages",
+    menuServices: "Our services",
+    menuHelp: "Help",
+    menuFaq: "FAQ",
+    menuContact: "Contact",
+    packageDetails: "Package details",
+    recipient: "Recipient",
+    phone: "Phone",
+    origin: "Collection location",
+    destination: "Delivery location",
+    date: "Date",
+    status: "Status",
+    additionalInfo: "Additional information",
+    packageNotFound: "Package not found",
+    tryAgain: "Please check the tracking number and try again.",
+    inProcess: "In process",
+    shipped: "Shipped",
+    inDelivery: "In delivery",
+    delivered: "Delivered",
+    problem: "Problem",
+    languageSelection: "Language",
+    german: "German",
+    french: "French",
+    english: "English"
   }
 };
 
@@ -122,11 +229,13 @@ const Index = () => {
   const [showResults, setShowResults] = useState(false);
   const [packages, setPackages] = useState<Package[]>([]);
   const [loginDialogOpen, setLoginDialogOpen] = useState(false);
+  const [language, setLanguage] = useState(() => {
+    return localStorage.getItem('language') || "DE";
+  });
   const { toast } = useToast();
   const navigate = useNavigate();
   
-  // Langue par défaut
-  const language = "FR";
+  // Langue sélectionnée
   const t = translations[language as keyof typeof translations];
 
   const loginForm = useForm<z.infer<typeof loginSchema>>({
@@ -136,6 +245,11 @@ const Index = () => {
       password: "",
     },
   });
+
+  // Sauvegarder la langue dans localStorage
+  useEffect(() => {
+    localStorage.setItem('language', language);
+  }, [language]);
 
   // Charger les colis depuis localStorage au chargement du composant
   useEffect(() => {
@@ -211,6 +325,10 @@ const Index = () => {
     }
   };
 
+  const handleLanguageChange = (value: string) => {
+    setLanguage(value);
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
       {/* Header */}
@@ -239,6 +357,18 @@ const Index = () => {
             </nav>
           </div>
           <div className="flex items-center space-x-4">
+            <Select value={language} onValueChange={handleLanguageChange}>
+              <SelectTrigger className="w-[140px]">
+                <Globe className="mr-2 h-4 w-4" />
+                <SelectValue placeholder={t.languageSelection} />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="DE">{t.german}</SelectItem>
+                <SelectItem value="FR">{t.french}</SelectItem>
+                <SelectItem value="EN">{t.english}</SelectItem>
+              </SelectContent>
+            </Select>
+
             <Dialog open={loginDialogOpen} onOpenChange={setLoginDialogOpen}>
               <DialogTrigger asChild>
                 <Button 
@@ -259,9 +389,9 @@ const Index = () => {
                       name="email"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Email</FormLabel>
+                          <FormLabel>{t.email}</FormLabel>
                           <FormControl>
-                            <Input type="email" placeholder="Entrez votre email" {...field} />
+                            <Input type="email" placeholder={`${t.email}...`} {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -272,9 +402,9 @@ const Index = () => {
                       name="password"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Mot de passe</FormLabel>
+                          <FormLabel>{t.password}</FormLabel>
                           <FormControl>
-                            <Input type="password" placeholder="Entrez votre mot de passe" {...field} />
+                            <Input type="password" placeholder={`${t.password}...`} {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -282,7 +412,7 @@ const Index = () => {
                     />
                     <div className="flex justify-end">
                       <Button type="submit">
-                        Connexion
+                        {t.login}
                       </Button>
                     </div>
                   </form>

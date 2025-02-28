@@ -34,7 +34,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { PackageSearch, Plus, X, Edit, Trash2, LogOut } from "lucide-react";
+import { PackageSearch, Plus, X, Edit, Trash2, LogOut, Globe } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -94,6 +94,154 @@ const loginSchema = z.object({
   password: z.string().min(5, "Mot de passe requis"),
 });
 
+// Traductions pour le tableau de bord
+const translations = {
+  DE: {
+    dashboard: "Dashboard",
+    packageManagement: "Paketverwaltungssystem",
+    newPackage: "Neues Paket",
+    cancel: "Abbrechen",
+    add: "Hinzufügen",
+    logout: "Abmelden",
+    edit: "Paket bearbeiten",
+    update: "Aktualisieren",
+    search: "Suchen...",
+    searchButton: "Suchen",
+    trackingNumber: "Sendungsnummer",
+    recipient: "Empfänger",
+    phone: "Telefon",
+    origin: "Abholort",
+    date: "Datum",
+    destination: "Lieferort",
+    status: "Status",
+    actions: "Aktionen",
+    noPackagesFound: "Keine Pakete gefunden",
+    addNewPackage: "Neues Paket hinzufügen",
+    additionalInfo: "Zusätzliche Informationen",
+    inProcess: "In Bearbeitung",
+    shipped: "Versendet",
+    inDelivery: "In Zustellung",
+    delivered: "Zugestellt",
+    problem: "Problem",
+    packageAdded: "Paket hinzugefügt",
+    packageUpdated: "Paket aktualisiert",
+    packageDeleted: "Paket gelöscht",
+    error: "Fehler",
+    trackingExists: "Diese Sendungsnummer existiert bereits",
+    selectStatus: "Status auswählen",
+    loginTitle: "Anmeldung",
+    email: "E-Mail",
+    password: "Passwort",
+    loginButton: "Anmelden",
+    loginSuccess: "Anmeldung erfolgreich",
+    welcomeAdmin: "Willkommen im Admin-Bereich",
+    loginError: "Anmeldefehler",
+    invalidCredentials: "Ungültige Anmeldedaten",
+    logoutSuccess: "Abmeldung erfolgreich",
+    loggedOut: "Sie wurden abgemeldet",
+    languageSelection: "Sprache",
+    german: "Deutsch",
+    french: "Französisch",
+    english: "Englisch"
+  },
+  FR: {
+    dashboard: "Tableau de bord",
+    packageManagement: "Système de gestion de colis",
+    newPackage: "Nouveau colis",
+    cancel: "Annuler",
+    add: "Ajouter",
+    logout: "Déconnexion",
+    edit: "Modifier le colis",
+    update: "Mettre à jour",
+    search: "Rechercher...",
+    searchButton: "Rechercher",
+    trackingNumber: "Numéro de suivi",
+    recipient: "Destinataire",
+    phone: "Téléphone",
+    origin: "Lieu de collecte",
+    date: "Date",
+    destination: "Lieu de livraison",
+    status: "Statut",
+    actions: "Actions",
+    noPackagesFound: "Aucun colis trouvé",
+    addNewPackage: "Ajouter un nouveau colis",
+    additionalInfo: "Informations supplémentaires",
+    inProcess: "En traitement",
+    shipped: "Expédié",
+    inDelivery: "En cours de livraison",
+    delivered: "Livré",
+    problem: "Problème",
+    packageAdded: "Colis ajouté",
+    packageUpdated: "Colis modifié",
+    packageDeleted: "Colis supprimé",
+    error: "Erreur",
+    trackingExists: "Ce numéro de suivi existe déjà",
+    selectStatus: "Sélectionner un statut",
+    loginTitle: "Connexion",
+    email: "Email",
+    password: "Mot de passe",
+    loginButton: "Connexion",
+    loginSuccess: "Connexion réussie",
+    welcomeAdmin: "Bienvenue dans l'espace administrateur",
+    loginError: "Erreur de connexion",
+    invalidCredentials: "Identifiants invalides",
+    logoutSuccess: "Déconnexion réussie",
+    loggedOut: "Vous avez été déconnecté",
+    languageSelection: "Langue",
+    german: "Allemand",
+    french: "Français",
+    english: "Anglais"
+  },
+  EN: {
+    dashboard: "Dashboard",
+    packageManagement: "Package Management System",
+    newPackage: "New Package",
+    cancel: "Cancel",
+    add: "Add",
+    logout: "Logout",
+    edit: "Edit Package",
+    update: "Update",
+    search: "Search...",
+    searchButton: "Search",
+    trackingNumber: "Tracking Number",
+    recipient: "Recipient",
+    phone: "Phone",
+    origin: "Collection Location",
+    date: "Date",
+    destination: "Delivery Location",
+    status: "Status",
+    actions: "Actions",
+    noPackagesFound: "No packages found",
+    addNewPackage: "Add a new package",
+    additionalInfo: "Additional Information",
+    inProcess: "In Process",
+    shipped: "Shipped",
+    inDelivery: "In Delivery",
+    delivered: "Delivered",
+    problem: "Problem",
+    packageAdded: "Package added",
+    packageUpdated: "Package updated",
+    packageDeleted: "Package deleted",
+    error: "Error",
+    trackingExists: "This tracking number already exists",
+    selectStatus: "Select status",
+    loginTitle: "Login",
+    email: "Email",
+    password: "Password",
+    loginButton: "Login",
+    loginSuccess: "Login successful",
+    welcomeAdmin: "Welcome to the admin area",
+    loginError: "Login error",
+    invalidCredentials: "Invalid credentials",
+    logoutSuccess: "Logout successful",
+    loggedOut: "You have been logged out",
+    languageSelection: "Language",
+    german: "German",
+    french: "French",
+    english: "English"
+  }
+};
+
 const Dashboard = () => {
   const [packages, setPackages] = useState<Package[]>([]);
   const [open, setOpen] = useState(false);
@@ -102,8 +250,14 @@ const Dashboard = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loginDialogOpen, setLoginDialogOpen] = useState(true);
+  const [language, setLanguage] = useState(() => {
+    return localStorage.getItem('language') || "DE";
+  });
   const { toast } = useToast();
   const navigate = useNavigate();
+
+  // Langue sélectionnée
+  const t = translations[language as keyof typeof translations];
 
   const loginForm = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -112,6 +266,11 @@ const Dashboard = () => {
       password: "",
     },
   });
+
+  // Sauvegarder la langue dans localStorage
+  useEffect(() => {
+    localStorage.setItem('language', language);
+  }, [language]);
 
   // Vérifier si l'utilisateur est déjà authentifié
   useEffect(() => {
@@ -127,19 +286,23 @@ const Dashboard = () => {
     setPackages(getPackagesFromLocalStorage());
   }, []);
 
+  const handleLanguageChange = (value: string) => {
+    setLanguage(value);
+  };
+
   const onLoginSubmit = (data: z.infer<typeof loginSchema>) => {
     if (data.email === "codedesuivi@gmail.com" && data.password === "20250") {
       setIsAuthenticated(true);
       localStorage.setItem('isAuthenticated', 'true');
       setLoginDialogOpen(false);
       toast({
-        title: "Connexion réussie",
-        description: "Bienvenue dans l'espace administrateur",
+        title: t.loginSuccess,
+        description: t.welcomeAdmin,
       });
     } else {
       toast({
-        title: "Erreur de connexion",
-        description: "Identifiants invalides",
+        title: t.loginError,
+        description: t.invalidCredentials,
         variant: "destructive",
       });
     }
@@ -150,8 +313,8 @@ const Dashboard = () => {
     localStorage.removeItem('isAuthenticated');
     navigate('/');
     toast({
-      title: "Déconnexion réussie",
-      description: "Vous avez été déconnecté",
+      title: t.logoutSuccess,
+      description: t.loggedOut,
     });
   };
 
@@ -200,8 +363,8 @@ const Dashboard = () => {
     const existingIndex = packages.findIndex(p => p.trackingNumber === newPackage.trackingNumber);
     if (existingIndex >= 0 && currentPackageIndex === null) {
       toast({
-        title: "Erreur",
-        description: "Ce numéro de suivi existe déjà",
+        title: t.error,
+        description: t.trackingExists,
         variant: "destructive",
       });
       return;
@@ -221,8 +384,8 @@ const Dashboard = () => {
     setPackages(updatedPackages);
     
     toast({
-      title: "Colis ajouté",
-      description: `Numéro de suivi: ${data.trackingNumber}`,
+      title: t.packageAdded,
+      description: `${t.trackingNumber}: ${data.trackingNumber}`,
     });
     setOpen(false);
     form.reset();
@@ -264,8 +427,8 @@ const Dashboard = () => {
       const existingIndex = packages.findIndex(p => p.trackingNumber === updatedPackage.trackingNumber);
       if (existingIndex >= 0 && existingIndex !== currentPackageIndex) {
         toast({
-          title: "Erreur",
-          description: "Ce numéro de suivi existe déjà",
+          title: t.error,
+          description: t.trackingExists,
           variant: "destructive",
         });
         return;
@@ -284,8 +447,8 @@ const Dashboard = () => {
     setPackages(updatedPackages);
     
     toast({
-      title: "Colis modifié",
-      description: `Numéro de suivi: ${data.trackingNumber}`,
+      title: t.packageUpdated,
+      description: `${t.trackingNumber}: ${data.trackingNumber}`,
     });
     setEditDialogOpen(false);
   };
@@ -302,8 +465,8 @@ const Dashboard = () => {
     setPackages(updatedPackages);
     
     toast({
-      title: "Colis supprimé",
-      description: `Numéro de suivi: ${packageToDelete.trackingNumber}`,
+      title: t.packageDeleted,
+      description: `${t.trackingNumber}: ${packageToDelete.trackingNumber}`,
     });
   };
 
@@ -318,7 +481,7 @@ const Dashboard = () => {
       <Dialog open={loginDialogOpen} onOpenChange={setLoginDialogOpen}>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Connexion</DialogTitle>
+            <DialogTitle>{t.loginTitle}</DialogTitle>
           </DialogHeader>
           <Form {...loginForm}>
             <form onSubmit={loginForm.handleSubmit(onLoginSubmit)} className="space-y-4 mt-4">
@@ -327,9 +490,9 @@ const Dashboard = () => {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email</FormLabel>
+                    <FormLabel>{t.email}</FormLabel>
                     <FormControl>
-                      <Input type="email" placeholder="Entrez votre email" {...field} />
+                      <Input type="email" placeholder={`${t.email}...`} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -340,9 +503,9 @@ const Dashboard = () => {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Mot de passe</FormLabel>
+                    <FormLabel>{t.password}</FormLabel>
                     <FormControl>
-                      <Input type="password" placeholder="Entrez votre mot de passe" {...field} />
+                      <Input type="password" placeholder={`${t.password}...`} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -350,7 +513,7 @@ const Dashboard = () => {
               />
               <div className="flex justify-end">
                 <Button type="submit">
-                  Connexion
+                  {t.loginButton}
                 </Button>
               </div>
             </form>
@@ -365,22 +528,34 @@ const Dashboard = () => {
       <div className="max-w-7xl mx-auto bg-white/70 backdrop-blur-md border border-[#E3F2FD]/20 rounded-xl shadow-lg p-8 transition-all duration-300 hover:shadow-xl animate-in">
         <div className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-3xl font-semibold mb-2 text-gray-800">Tableau de bord</h1>
-            <p className="text-gray-500">Système de gestion de colis</p>
+            <h1 className="text-3xl font-semibold mb-2 text-gray-800">{t.dashboard}</h1>
+            <p className="text-gray-500">{t.packageManagement}</p>
           </div>
           <div className="flex space-x-4">
+            <Select value={language} onValueChange={handleLanguageChange}>
+              <SelectTrigger className="w-[140px]">
+                <Globe className="mr-2 h-4 w-4" />
+                <SelectValue placeholder={t.languageSelection} />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="DE">{t.german}</SelectItem>
+                <SelectItem value="FR">{t.french}</SelectItem>
+                <SelectItem value="EN">{t.english}</SelectItem>
+              </SelectContent>
+            </Select>
+
             <Dialog open={open} onOpenChange={setOpen}>
               <DialogTrigger asChild>
                 <Button 
                   className="bg-[#E3F2FD] text-blue-600 hover:bg-blue-100 transition-colors duration-300"
                 >
                   <Plus className="mr-2 h-4 w-4" />
-                  Nouveau colis
+                  {t.newPackage}
                 </Button>
               </DialogTrigger>
               <DialogContent className="sm:max-w-[600px]">
                 <DialogHeader>
-                  <DialogTitle>Ajouter un nouveau colis</DialogTitle>
+                  <DialogTitle>{t.addNewPackage}</DialogTitle>
                 </DialogHeader>
                 <Form {...form}>
                   <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 mt-4">
@@ -390,7 +565,7 @@ const Dashboard = () => {
                         name="trackingNumber"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Numéro de suivi</FormLabel>
+                            <FormLabel>{t.trackingNumber}</FormLabel>
                             <FormControl>
                               <Input placeholder="PKT-123456789" {...field} />
                             </FormControl>
@@ -403,7 +578,7 @@ const Dashboard = () => {
                         name="recipientName"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Destinataire</FormLabel>
+                            <FormLabel>{t.recipient}</FormLabel>
                             <FormControl>
                               <Input placeholder="Jean Dupont" {...field} />
                             </FormControl>
@@ -416,7 +591,7 @@ const Dashboard = () => {
                         name="phoneNumber"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Téléphone</FormLabel>
+                            <FormLabel>{t.phone}</FormLabel>
                             <FormControl>
                               <Input placeholder="+33123456789" {...field} />
                             </FormControl>
@@ -429,7 +604,7 @@ const Dashboard = () => {
                         name="receiptLocation"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Lieu de collecte</FormLabel>
+                            <FormLabel>{t.origin}</FormLabel>
                             <FormControl>
                               <Input placeholder="Paris" {...field} />
                             </FormControl>
@@ -442,7 +617,7 @@ const Dashboard = () => {
                         name="receiptDate"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Date</FormLabel>
+                            <FormLabel>{t.date}</FormLabel>
                             <FormControl>
                               <Input type="date" {...field} />
                             </FormControl>
@@ -455,7 +630,7 @@ const Dashboard = () => {
                         name="deliveryLocation"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Lieu de livraison</FormLabel>
+                            <FormLabel>{t.destination}</FormLabel>
                             <FormControl>
                               <Input placeholder="Lyon" {...field} />
                             </FormControl>
@@ -468,22 +643,22 @@ const Dashboard = () => {
                         name="status"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Statut</FormLabel>
+                            <FormLabel>{t.status}</FormLabel>
                             <Select 
                               onValueChange={field.onChange} 
                               defaultValue={field.value}
                             >
                               <FormControl>
                                 <SelectTrigger>
-                                  <SelectValue placeholder="Sélectionner un statut" />
+                                  <SelectValue placeholder={t.selectStatus} />
                                 </SelectTrigger>
                               </FormControl>
                               <SelectContent>
-                                <SelectItem value="En cours">En cours</SelectItem>
-                                <SelectItem value="Expédié">Expédié</SelectItem>
-                                <SelectItem value="En livraison">En livraison</SelectItem>
-                                <SelectItem value="Livré">Livré</SelectItem>
-                                <SelectItem value="Problème">Problème</SelectItem>
+                                <SelectItem value="En cours">{t.inProcess}</SelectItem>
+                                <SelectItem value="Expédié">{t.shipped}</SelectItem>
+                                <SelectItem value="En livraison">{t.inDelivery}</SelectItem>
+                                <SelectItem value="Livré">{t.delivered}</SelectItem>
+                                <SelectItem value="Problème">{t.problem}</SelectItem>
                               </SelectContent>
                             </Select>
                             <FormMessage />
@@ -495,9 +670,9 @@ const Dashboard = () => {
                         name="customerInfo"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Informations supplémentaires</FormLabel>
+                            <FormLabel>{t.additionalInfo}</FormLabel>
                             <FormControl>
-                              <Input placeholder="Informations complémentaires" {...field} />
+                              <Input placeholder={t.additionalInfo} {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -511,11 +686,11 @@ const Dashboard = () => {
                         onClick={() => setOpen(false)}
                       >
                         <X className="mr-2 h-4 w-4" />
-                        Annuler
+                        {t.cancel}
                       </Button>
                       <Button type="submit">
                         <Plus className="mr-2 h-4 w-4" />
-                        Ajouter
+                        {t.add}
                       </Button>
                     </div>
                   </form>
@@ -529,7 +704,7 @@ const Dashboard = () => {
               onClick={handleLogout}
             >
               <LogOut className="mr-2 h-4 w-4" />
-              Déconnexion
+              {t.logout}
             </Button>
           </div>
         </div>
@@ -538,7 +713,7 @@ const Dashboard = () => {
         <Dialog open={editDialogOpen} onOpenChange={setEditDialogOpen}>
           <DialogContent className="sm:max-w-[600px]">
             <DialogHeader>
-              <DialogTitle>Modifier le colis</DialogTitle>
+              <DialogTitle>{t.edit}</DialogTitle>
             </DialogHeader>
             <Form {...editForm}>
               <form onSubmit={editForm.handleSubmit(onEditSubmit)} className="space-y-4 mt-4">
@@ -548,7 +723,7 @@ const Dashboard = () => {
                     name="trackingNumber"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Numéro de suivi</FormLabel>
+                        <FormLabel>{t.trackingNumber}</FormLabel>
                         <FormControl>
                           <Input placeholder="PKT-123456789" {...field} />
                         </FormControl>
@@ -561,7 +736,7 @@ const Dashboard = () => {
                     name="recipientName"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Destinataire</FormLabel>
+                        <FormLabel>{t.recipient}</FormLabel>
                         <FormControl>
                           <Input placeholder="Jean Dupont" {...field} />
                         </FormControl>
@@ -574,7 +749,7 @@ const Dashboard = () => {
                     name="phoneNumber"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Téléphone</FormLabel>
+                        <FormLabel>{t.phone}</FormLabel>
                         <FormControl>
                           <Input placeholder="+33123456789" {...field} />
                         </FormControl>
@@ -587,7 +762,7 @@ const Dashboard = () => {
                     name="receiptLocation"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Lieu de collecte</FormLabel>
+                        <FormLabel>{t.origin}</FormLabel>
                         <FormControl>
                           <Input placeholder="Paris" {...field} />
                         </FormControl>
@@ -600,7 +775,7 @@ const Dashboard = () => {
                     name="receiptDate"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Date</FormLabel>
+                        <FormLabel>{t.date}</FormLabel>
                         <FormControl>
                           <Input type="date" {...field} />
                         </FormControl>
@@ -613,7 +788,7 @@ const Dashboard = () => {
                     name="deliveryLocation"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Lieu de livraison</FormLabel>
+                        <FormLabel>{t.destination}</FormLabel>
                         <FormControl>
                           <Input placeholder="Lyon" {...field} />
                         </FormControl>
@@ -626,22 +801,22 @@ const Dashboard = () => {
                     name="status"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Statut</FormLabel>
+                        <FormLabel>{t.status}</FormLabel>
                         <Select 
                           onValueChange={field.onChange} 
                           defaultValue={field.value}
                         >
                           <FormControl>
                             <SelectTrigger>
-                              <SelectValue placeholder="Sélectionner un statut" />
+                              <SelectValue placeholder={t.selectStatus} />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value="En cours">En cours</SelectItem>
-                            <SelectItem value="Expédié">Expédié</SelectItem>
-                            <SelectItem value="En livraison">En livraison</SelectItem>
-                            <SelectItem value="Livré">Livré</SelectItem>
-                            <SelectItem value="Problème">Problème</SelectItem>
+                            <SelectItem value="En cours">{t.inProcess}</SelectItem>
+                            <SelectItem value="Expédié">{t.shipped}</SelectItem>
+                            <SelectItem value="En livraison">{t.inDelivery}</SelectItem>
+                            <SelectItem value="Livré">{t.delivered}</SelectItem>
+                            <SelectItem value="Problème">{t.problem}</SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage />
@@ -653,9 +828,9 @@ const Dashboard = () => {
                     name="customerInfo"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Informations supplémentaires</FormLabel>
+                        <FormLabel>{t.additionalInfo}</FormLabel>
                         <FormControl>
-                          <Input placeholder="Informations complémentaires" {...field} />
+                          <Input placeholder={t.additionalInfo} {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -669,11 +844,11 @@ const Dashboard = () => {
                     onClick={() => setEditDialogOpen(false)}
                   >
                     <X className="mr-2 h-4 w-4" />
-                    Annuler
+                    {t.cancel}
                   </Button>
                   <Button type="submit">
                     <Edit className="mr-2 h-4 w-4" />
-                    Mettre à jour
+                    {t.update}
                   </Button>
                 </div>
               </form>
@@ -684,7 +859,7 @@ const Dashboard = () => {
         <div className="space-y-6">
           <div className="flex space-x-4">
             <Input
-              placeholder="Rechercher..."
+              placeholder={t.search}
               className="max-w-sm border-[#F5F7FA] focus:border-[#E3F2FD] transition-colors duration-300"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -694,7 +869,7 @@ const Dashboard = () => {
               className="border-[#E3F2FD] text-blue-600 hover:bg-[#E3F2FD]/10 transition-colors duration-300"
             >
               <PackageSearch className="mr-2 h-4 w-4" />
-              Rechercher
+              {t.searchButton}
             </Button>
           </div>
 
@@ -702,14 +877,14 @@ const Dashboard = () => {
             <Table>
               <TableHeader>
                 <TableRow className="bg-[#F5F7FA]/50">
-                  <TableHead className="text-gray-600">Numéro de suivi</TableHead>
-                  <TableHead className="text-gray-600">Destinataire</TableHead>
-                  <TableHead className="text-gray-600">Téléphone</TableHead>
-                  <TableHead className="text-gray-600">Lieu de collecte</TableHead>
-                  <TableHead className="text-gray-600">Date</TableHead>
-                  <TableHead className="text-gray-600">Lieu de livraison</TableHead>
-                  <TableHead className="text-gray-600">Statut</TableHead>
-                  <TableHead className="text-gray-600">Actions</TableHead>
+                  <TableHead className="text-gray-600">{t.trackingNumber}</TableHead>
+                  <TableHead className="text-gray-600">{t.recipient}</TableHead>
+                  <TableHead className="text-gray-600">{t.phone}</TableHead>
+                  <TableHead className="text-gray-600">{t.origin}</TableHead>
+                  <TableHead className="text-gray-600">{t.date}</TableHead>
+                  <TableHead className="text-gray-600">{t.destination}</TableHead>
+                  <TableHead className="text-gray-600">{t.status}</TableHead>
+                  <TableHead className="text-gray-600">{t.actions}</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -733,7 +908,11 @@ const Dashboard = () => {
                             ? "bg-red-100 text-red-600"
                             : "bg-[#E3F2FD] text-blue-600"
                         }`}>
-                          {pkg.status}
+                          {pkg.status === "En cours" ? t.inProcess : 
+                           pkg.status === "Expédié" ? t.shipped :
+                           pkg.status === "En livraison" ? t.inDelivery : 
+                           pkg.status === "Livré" ? t.delivered : 
+                           pkg.status === "Problème" ? t.problem : pkg.status}
                         </span>
                       </TableCell>
                       <TableCell>
@@ -759,7 +938,7 @@ const Dashboard = () => {
                 ) : (
                   <TableRow>
                     <TableCell colSpan={8} className="text-center py-8 text-gray-500">
-                      Aucun colis trouvé
+                      {t.noPackagesFound}
                     </TableCell>
                   </TableRow>
                 )}
