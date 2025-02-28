@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import Track from "./pages/Track";
 import NotFound from "./pages/NotFound";
 import Dashboard from "./pages/Dashboard";
+import FAQ from "./pages/FAQ";
 
 const queryClient = new QueryClient();
 
@@ -21,6 +22,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/track" element={<Track />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/faq" element={<FAQ />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
