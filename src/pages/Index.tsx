@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -331,7 +330,7 @@ const Index = () => {
       <header 
         className={`fixed top-0 w-full z-50 transition-all duration-300 ${
           isHeaderScrolled 
-            ? "bg-[#FFC107] shadow-md" 
+            ? "bg-[#D3E4FD] shadow-md" 
             : "bg-[#FFC107]"
         }`}
       >
@@ -428,7 +427,7 @@ const Index = () => {
         </div>
         
         {mobileMenuOpen && (
-          <div className="md:hidden bg-[#FFC107] shadow-lg p-4 animate-in fade-in">
+          <div className={`md:hidden ${isHeaderScrolled ? "bg-[#D3E4FD]" : "bg-[#FFC107]"} shadow-lg p-4 animate-in fade-in`}>
             <nav className="flex flex-col space-y-4">
               <a href="/" className="hover:text-blue-600 transition-colors py-2 border-b border-yellow-600">{t.menuTrack}</a>
               <a href="#services" className="hover:text-blue-600 transition-colors py-2 border-b border-yellow-600" onClick={() => setMobileMenuOpen(false)}>{t.menuServices}</a>
