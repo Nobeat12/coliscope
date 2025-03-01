@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -220,6 +221,7 @@ const translations = {
 
 const Index = () => {
   const [trackingNumber, setTrackingNumber] = useState("");
+  const [isHeaderScrolled, setIsHeaderScrolled] = useState(false);
   const [foundPackage, setFoundPackage] = useState<Package | null>(null);
   const [showResults, setShowResults] = useState(false);
   const [packages, setPackages] = useState<Package[]>([]);
@@ -251,6 +253,7 @@ const Index = () => {
 
   useEffect(() => {
     const handleScroll = () => {
+      setIsHeaderScrolled(window.scrollY > 20);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -326,7 +329,11 @@ const Index = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <header 
-        className="fixed top-0 w-full z-50 bg-[#FFC107]"
+        className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+          isHeaderScrolled 
+            ? "bg-[#FFC107] shadow-md" 
+            : "bg-[#FFC107]"
+        }`}
       >
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-12">
