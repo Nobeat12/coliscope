@@ -220,7 +220,6 @@ const translations = {
 
 const Index = () => {
   const [trackingNumber, setTrackingNumber] = useState("");
-  const [isHeaderScrolled, setIsHeaderScrolled] = useState(false);
   const [foundPackage, setFoundPackage] = useState<Package | null>(null);
   const [showResults, setShowResults] = useState(false);
   const [packages, setPackages] = useState<Package[]>([]);
@@ -252,7 +251,6 @@ const Index = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsHeaderScrolled(window.scrollY > 20);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -328,11 +326,7 @@ const Index = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <header 
-        className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-          isHeaderScrolled 
-            ? "bg-white shadow-md" 
-            : "bg-[#FFC107]"
-        }`}
+        className="fixed top-0 w-full z-50 bg-[#FFC107]"
       >
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-12">
@@ -427,22 +421,23 @@ const Index = () => {
         </div>
         
         {mobileMenuOpen && (
-          <div className="md:hidden bg-white shadow-lg p-4 animate-in fade-in">
+          <div className="md:hidden bg-[#FFC107] shadow-lg p-4 animate-in fade-in">
             <nav className="flex flex-col space-y-4">
-              <a href="/" className="hover:text-blue-600 transition-colors py-2 border-b">{t.menuTrack}</a>
-              <a href="#services" className="hover:text-blue-600 transition-colors py-2 border-b" onClick={() => setMobileMenuOpen(false)}>{t.menuServices}</a>
-              <a href="/help" className="hover:text-blue-600 transition-colors py-2 border-b">{t.menuHelp}</a>
-              <a href="/faq" className="hover:text-blue-600 transition-colors py-2 border-b">{t.menuFaq}</a>
-              <a href="/contact" className="hover:text-blue-600 transition-colors py-2 border-b">{t.menuContact}</a>
-              <DialogTrigger asChild onClick={() => setLoginDialogOpen(true)}>
-                <Button 
-                  variant="default"
-                  className="bg-blue-600 hover:bg-blue-700 transition-colors w-full mt-2"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {t.login}
-                </Button>
-              </DialogTrigger>
+              <a href="/" className="hover:text-blue-600 transition-colors py-2 border-b border-yellow-600">{t.menuTrack}</a>
+              <a href="#services" className="hover:text-blue-600 transition-colors py-2 border-b border-yellow-600" onClick={() => setMobileMenuOpen(false)}>{t.menuServices}</a>
+              <a href="/help" className="hover:text-blue-600 transition-colors py-2 border-b border-yellow-600">{t.menuHelp}</a>
+              <a href="/faq" className="hover:text-blue-600 transition-colors py-2 border-b border-yellow-600">{t.menuFaq}</a>
+              <a href="/contact" className="hover:text-blue-600 transition-colors py-2 border-b border-yellow-600">{t.menuContact}</a>
+              <Button 
+                variant="default"
+                className="bg-blue-600 hover:bg-blue-700 transition-colors w-full mt-2"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  setLoginDialogOpen(true);
+                }}
+              >
+                {t.login}
+              </Button>
             </nav>
           </div>
         )}
