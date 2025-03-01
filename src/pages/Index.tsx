@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -46,13 +45,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {
-  Search, Package, CreditCard, Mailbox, Calendar, Globe, MapPin, Phone, User, TruckIcon, Clock, AlertCircle
+  Search, Package, CreditCard, Mailbox, Calendar, Globe, MapPin, Phone, User, TruckIcon, Clock, AlertCircle, Menu, X
 } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
-// Interface pour les colis
 interface Package {
   trackingNumber: string;
   recipientName: string;
@@ -64,7 +62,6 @@ interface Package {
   customerInfo: string;
 }
 
-// Fonction pour obtenir les colis depuis le localStorage
 const getPackagesFromLocalStorage = (): Package[] => {
   return JSON.parse(localStorage.getItem('packages') || '[]');
 };
@@ -74,7 +71,6 @@ const loginSchema = z.object({
   password: z.string().min(5, "Mot de passe requis"),
 });
 
-// Traductions
 const translations = {
   DE: {
     trackPackage: "Verfolgen Sie Ihr Paket",
@@ -232,10 +228,10 @@ const Index = () => {
   const [language, setLanguage] = useState(() => {
     return localStorage.getItem('language') || "DE";
   });
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { toast } = useToast();
   const navigate = useNavigate();
   
-  // Langue sélectionnée
   const t = translations[language as keyof typeof translations];
 
   const loginForm = useForm<z.infer<typeof loginSchema>>({
@@ -246,12 +242,10 @@ const Index = () => {
     },
   });
 
-  // Sauvegarder la langue dans localStorage
   useEffect(() => {
     localStorage.setItem('language', language);
   }, [language]);
 
-  // Charger les colis depuis localStorage au chargement du composant
   useEffect(() => {
     setPackages(getPackagesFromLocalStorage());
   }, []);
@@ -294,7 +288,6 @@ const Index = () => {
       return;
     }
     
-    // Recherche du colis dans les données stockées
     const pkg = packages.find(p => p.trackingNumber === trackingNumber);
     setFoundPackage(pkg || null);
     setShowResults(true);
@@ -313,7 +306,6 @@ const Index = () => {
     }
   };
 
-  // Traduire le statut du colis
   const getTranslatedStatus = (status: string) => {
     switch(status) {
       case "En cours": return t.inProcess;
@@ -329,9 +321,12 @@ const Index = () => {
     setLanguage(value);
   };
 
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Header */}
       <header 
         className={`fixed top-0 w-full z-50 transition-all duration-300 ${
           isHeaderScrolled 
@@ -362,7 +357,7 @@ const Index = () => {
                 <Globe className="mr-2 h-4 w-4" />
                 <SelectValue placeholder={t.languageSelection} />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="z-50 bg-white">
                 <SelectItem value="DE">{t.german}</SelectItem>
                 <SelectItem value="FR">{t.french}</SelectItem>
                 <SelectItem value="EN">{t.english}</SelectItem>
@@ -373,12 +368,12 @@ const Index = () => {
               <DialogTrigger asChild>
                 <Button 
                   variant="default"
-                  className="bg-blue-600 hover:bg-blue-700 transition-colors"
+                  className="bg-blue-600 hover:bg-blue-700 transition-colors hidden md:inline-flex"
                 >
                   {t.login}
                 </Button>
               </DialogTrigger>
-              <DialogContent className="sm:max-w-[425px]">
+              <DialogContent className="sm:max-w-[425px] z-50 bg-white">
                 <DialogHeader>
                   <DialogTitle>Connexion</DialogTitle>
                 </DialogHeader>
@@ -419,18 +414,46 @@ const Index = () => {
                 </Form>
               </DialogContent>
             </Dialog>
+            
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="md:hidden" 
+              onClick={toggleMobileMenu}
+            >
+              {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </Button>
           </div>
         </div>
+        
+        {mobileMenuOpen && (
+          <div className="md:hidden bg-white shadow-lg p-4 animate-in fade-in">
+            <nav className="flex flex-col space-y-4">
+              <a href="/" className="hover:text-blue-600 transition-colors py-2 border-b">{t.menuTrack}</a>
+              <a href="#services" className="hover:text-blue-600 transition-colors py-2 border-b" onClick={() => setMobileMenuOpen(false)}>{t.menuServices}</a>
+              <a href="/help" className="hover:text-blue-600 transition-colors py-2 border-b">{t.menuHelp}</a>
+              <a href="/faq" className="hover:text-blue-600 transition-colors py-2 border-b">{t.menuFaq}</a>
+              <a href="/contact" className="hover:text-blue-600 transition-colors py-2 border-b">{t.menuContact}</a>
+              <DialogTrigger asChild onClick={() => setLoginDialogOpen(true)}>
+                <Button 
+                  variant="default"
+                  className="bg-blue-600 hover:bg-blue-700 transition-colors w-full mt-2"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {t.login}
+                </Button>
+              </DialogTrigger>
+            </nav>
+          </div>
+        )}
       </header>
 
-      {/* Main Content */}
       <main className="flex-1 pt-24">
-        {/* Hero Section */}
-        <div className="bg-gradient-to-b from-[#FFC107] to-white py-20">
+        <div className="bg-gradient-to-b from-[#FFC107] to-white py-12 md:py-20">
           <div className="max-w-3xl mx-auto px-4 text-center">
-            <h1 className="text-4xl font-bold mb-8">{t.trackPackage}</h1>
+            <h1 className="text-3xl md:text-4xl font-bold mb-6 md:mb-8">{t.trackPackage}</h1>
             <form onSubmit={handleTracking} className="space-y-4">
-              <div className="flex space-x-4">
+              <div className="flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0">
                 <Input
                   value={trackingNumber}
                   onChange={(e) => setTrackingNumber(e.target.value)}
@@ -449,15 +472,14 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Package Results Section */}
         {showResults && (
-          <div className="max-w-3xl mx-auto px-4 py-10">
+          <div className="max-w-3xl mx-auto px-4 py-8 md:py-10">
             {foundPackage ? (
               <Card className="shadow-lg border border-[#E3F2FD] animate-in fade-in">
                 <CardHeader className="bg-[#F5F7FA]/50">
-                  <CardTitle className="flex items-center justify-between">
-                    <span>{t.packageDetails}</span>
-                    <span className={`px-3 py-1 rounded-full text-sm ${
+                  <CardTitle className="flex flex-col md:flex-row md:items-center md:justify-between">
+                    <span className="mb-2 md:mb-0">{t.packageDetails}</span>
+                    <span className={`px-3 py-1 rounded-full text-sm inline-block ${
                       foundPackage.status === "Livré" 
                         ? "bg-green-100 text-green-600" 
                         : foundPackage.status === "Problème"
@@ -537,51 +559,50 @@ const Index = () => {
           </div>
         )}
 
-        {/* Services Section */}
-        <div id="services" className="max-w-3xl mx-auto px-4 py-20">
-          <h2 className="text-2xl font-semibold mb-8 text-center">{t.ourServices}</h2>
-          <Accordion type="single" collapsible className="space-y-4">
-            <AccordionItem value="tracking">
-              <AccordionTrigger className="hover:no-underline">
+        <div id="services" className="max-w-3xl mx-auto px-4 py-12 md:py-20">
+          <h2 className="text-2xl font-semibold mb-6 md:mb-8 text-center">{t.ourServices}</h2>
+          <Accordion type="single" collapsible className="space-y-4 w-full">
+            <AccordionItem value="tracking" className="border rounded-lg overflow-hidden">
+              <AccordionTrigger className="hover:no-underline px-4 py-3">
                 <div className="flex items-center">
                   <Package className="h-6 w-6 mr-4 text-[#FFC107]" />
                   <span>{t.packageTracking}</span>
                 </div>
               </AccordionTrigger>
-              <AccordionContent>
+              <AccordionContent className="px-4 py-3">
                 {t.trackingDescription}
               </AccordionContent>
             </AccordionItem>
-            <AccordionItem value="costs">
-              <AccordionTrigger className="hover:no-underline">
+            <AccordionItem value="costs" className="border rounded-lg overflow-hidden">
+              <AccordionTrigger className="hover:no-underline px-4 py-3">
                 <div className="flex items-center">
                   <CreditCard className="h-6 w-6 mr-4 text-[#FFC107]" />
                   <span>{t.shippingCosts}</span>
                 </div>
               </AccordionTrigger>
-              <AccordionContent>
+              <AccordionContent className="px-4 py-3">
                 {t.costsDescription}
               </AccordionContent>
             </AccordionItem>
-            <AccordionItem value="mailbox">
-              <AccordionTrigger className="hover:no-underline">
+            <AccordionItem value="mailbox" className="border rounded-lg overflow-hidden">
+              <AccordionTrigger className="hover:no-underline px-4 py-3">
                 <div className="flex items-center">
                   <Mailbox className="h-6 w-6 mr-4 text-[#FFC107]" />
                   <span>{t.virtualMailbox}</span>
                 </div>
               </AccordionTrigger>
-              <AccordionContent>
+              <AccordionContent className="px-4 py-3">
                 {t.mailboxDescription}
               </AccordionContent>
             </AccordionItem>
-            <AccordionItem value="planning">
-              <AccordionTrigger className="hover:no-underline">
+            <AccordionItem value="planning" className="border rounded-lg overflow-hidden">
+              <AccordionTrigger className="hover:no-underline px-4 py-3">
                 <div className="flex items-center">
                   <Calendar className="h-6 w-6 mr-4 text-[#FFC107]" />
                   <span>{t.deliveryPlanning}</span>
                 </div>
               </AccordionTrigger>
-              <AccordionContent>
+              <AccordionContent className="px-4 py-3">
                 {t.planningDescription}
               </AccordionContent>
             </AccordionItem>
