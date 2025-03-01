@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
@@ -23,7 +22,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import {
-  Phone, Mail, Clock, MapPin, Globe, HelpCircle, Package, Info, Calendar
+  Phone, Mail, Clock, MapPin, Globe, HelpCircle, Package, Info, Calendar, Smartphone, Laptop
 } from "lucide-react";
 
 // Traductions
@@ -62,7 +61,21 @@ const translations = {
     q7: "Was ist im Versandpreis enthalten?",
     a7: "Der Standardversandpreis umfasst die Abholung, den Transport und die Lieferung Ihres Pakets. Versicherung und Zusatzleistungen wie Express- oder Wochenendlieferung können zusätzliche Kosten verursachen.",
     q8: "Wie kann ich den Kundenservice kontaktieren?",
-    a8: "Sie können unseren Kundenservice telefonisch unter +41 848 888 888 erreichen, montags bis freitags von 7:30 bis 18:00 Uhr und samstags von 8:00 bis 12:00 Uhr. Alternativ können Sie uns über das Kontaktformular auf unserer Website erreichen."
+    a8: "Sie können unseren Kundenservice telefonisch unter +41 848 888 888 erreichen, montags bis freitags von 7:30 bis 18:00 Uhr und samstags von 8:00 bis 12:00 Uhr. Alternativ können Sie uns über das Kontaktformular auf unserer Website erreichen.",
+    
+    // Added contact translations
+    contactUs: "Kontaktieren Sie uns",
+    emailUs: "E-Mail",
+    phoneCall: "Telefon",
+    visitUs: "Besuchen Sie uns",
+    mobileApp: "Mobile App",
+    webApp: "Web App",
+    downloadApp: "Laden Sie unsere App herunter, um Ihre Sendungen unterwegs zu verfolgen.",
+    useWebsite: "Nutzen Sie unsere Website für umfassende Sendungsverfolgung und Support.",
+    emailAddress: "support@packtrack.ch",
+    workingHours: "Öffnungszeiten",
+    followUs: "Folgen Sie uns",
+    feedback: "Feedback"
   },
   FR: {
     faqTitle: "Questions fréquemment posées",
@@ -98,7 +111,21 @@ const translations = {
     q7: "Qu'est-ce qui est inclus dans le prix d'expédition ?",
     a7: "Le prix d'expédition standard comprend la collecte, le transport et la livraison de votre colis. L'assurance et les services supplémentaires comme la livraison express ou le week-end peuvent entraîner des frais supplémentaires.",
     q8: "Comment puis-je contacter le service client ?",
-    a8: "Vous pouvez contacter notre service client par téléphone au +41 848 888 888, du lundi au vendredi de 7h30 à 18h00 et le samedi de 8h00 à 12h00. Vous pouvez également nous contacter via le formulaire de contact sur notre site web."
+    a8: "Vous pouvez contacter notre service client par téléphone au +41 848 888 888, du lundi au vendredi de 7h30 à 18h00 et le samedi de 8h00 à 12h00. Vous pouvez également nous contacter via le formulaire de contact sur notre site web.",
+    
+    // Added contact translations
+    contactUs: "Contactez-nous",
+    emailUs: "E-mail",
+    phoneCall: "Téléphone",
+    visitUs: "Visitez-nous",
+    mobileApp: "Application mobile",
+    webApp: "Application web",
+    downloadApp: "Téléchargez notre application pour suivre vos envois en déplacement.",
+    useWebsite: "Utilisez notre site web pour un suivi complet des envois et une assistance.",
+    emailAddress: "support@packtrack.ch",
+    workingHours: "Heures d'ouverture",
+    followUs: "Suivez-nous",
+    feedback: "Commentaires"
   },
   EN: {
     faqTitle: "Frequently Asked Questions",
@@ -134,7 +161,21 @@ const translations = {
     q7: "What's included in the shipping price?",
     a7: "The standard shipping price includes collection, transportation, and delivery of your package. Insurance and additional services like express or weekend delivery may incur additional costs.",
     q8: "How can I contact customer service?",
-    a8: "You can reach our customer service by phone at +41 848 888 888, Monday to Friday from 7:30 AM to 6:00 PM and Saturday from 8:00 AM to 12:00 PM. Alternatively, you can contact us through the contact form on our website."
+    a8: "You can reach our customer service by phone at +41 848 888 888, Monday to Friday from 7:30 AM to 6:00 PM and Saturday from 8:00 AM to 12:00 PM. Alternatively, you can contact us through the contact form on our website.",
+    
+    // Added contact translations
+    contactUs: "Contact Us",
+    emailUs: "Email",
+    phoneCall: "Phone",
+    visitUs: "Visit Us",
+    mobileApp: "Mobile App",
+    webApp: "Web App",
+    downloadApp: "Download our app to track your shipments on the go.",
+    useWebsite: "Use our website for comprehensive shipment tracking and support.",
+    emailAddress: "support@packtrack.ch",
+    workingHours: "Working Hours",
+    followUs: "Follow Us",
+    feedback: "Feedback"
   }
 };
 
@@ -311,18 +352,18 @@ const FAQ = () => {
               </Accordion>
             </div>
 
-            {/* Contact Information */}
+            {/* Contact Information - Enhanced Version */}
             <div>
               <h2 className="text-xl font-semibold mb-6 flex items-center">
                 <Phone className="mr-2 h-5 w-5 text-blue-600" />
-                {t.contactCenter}
+                {t.contactUs}
               </h2>
               
               <Card className="mb-6 border-[#E3F2FD]">
                 <CardHeader className="pb-2">
                   <CardTitle className="text-lg flex items-center">
                     <Phone className="mr-2 h-4 w-4 text-blue-600" />
-                    {t.contactCenter}
+                    {t.phoneCall}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -346,22 +387,65 @@ const FAQ = () => {
                 </CardContent>
               </Card>
               
-              <Card className="border-[#E3F2FD]">
+              <Card className="mb-6 border-[#E3F2FD]">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg flex items-center">
+                    <Mail className="mr-2 h-4 w-4 text-blue-600" />
+                    {t.emailUs}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="font-semibold text-xl mb-2">{t.emailAddress}</p>
+                  <p className="text-gray-600">{t.feedback}</p>
+                </CardContent>
+              </Card>
+              
+              <Card className="mb-6 border-[#E3F2FD]">
                 <CardHeader className="pb-2">
                   <CardTitle className="text-lg flex items-center">
                     <MapPin className="mr-2 h-4 w-4 text-blue-600" />
-                    {t.address}
+                    {t.visitUs}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <address className="not-italic">
-                    Post CH Netz AG<br />
-                    Contact Center Post<br />
-                    Wankdorfallee 4<br />
-                    3030 Bern
+                    <p className="font-medium">Post CH Netz AG</p>
+                    <p>Contact Center Post</p>
+                    <p>Wankdorfallee 4</p>
+                    <p>3030 Bern, Switzerland</p>
                   </address>
+                  <div className="mt-3">
+                    <p className="text-sm font-medium text-gray-500">{t.workingHours}:</p>
+                    <p className="text-gray-600">{t.mondayToFriday}: 8 h 00 – 17 h 00</p>
+                  </div>
                 </CardContent>
               </Card>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <Card className="border-[#E3F2FD]">
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-lg flex items-center">
+                      <Smartphone className="mr-2 h-4 w-4 text-blue-600" />
+                      {t.mobileApp}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-gray-600">{t.downloadApp}</p>
+                  </CardContent>
+                </Card>
+                
+                <Card className="border-[#E3F2FD]">
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-lg flex items-center">
+                      <Laptop className="mr-2 h-4 w-4 text-blue-600" />
+                      {t.webApp}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-gray-600">{t.useWebsite}</p>
+                  </CardContent>
+                </Card>
+              </div>
               
               <div className="mt-8 text-center">
                 <Button 
