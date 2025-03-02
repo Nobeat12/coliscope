@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -52,29 +53,60 @@ interface Package {
   customerInfo: string;
 }
 
-const savePackageToLocalStorage = (pkg: Package) => {
-  const existingPackages = JSON.parse(localStorage.getItem('packages') || '[]');
+// Creating a global namespace for package functions
+const PackageStorage = {
+  // Save package to localStorage with user identifier
+  savePackage: (pkg: Package) => {
+    const existingPackages = PackageStorage.getPackages();
+    const index = existingPackages.findIndex((p: Package) => p.trackingNumber === pkg.trackingNumber);
+    
+    if (index >= 0) {
+      existingPackages[index] = pkg;
+    } else {
+      existingPackages.push(pkg);
+    }
+    
+    localStorage.setItem('packages', JSON.stringify(existingPackages));
+    
+    // Also store package information individually by tracking number
+    // This allows non-logged in users to still access package info
+    localStorage.setItem(`package_${pkg.trackingNumber}`, JSON.stringify(pkg));
+  },
   
-  const index = existingPackages.findIndex((p: Package) => p.trackingNumber === pkg.trackingNumber);
+  // Get all packages from localStorage
+  getPackages: (): Package[] => {
+    return JSON.parse(localStorage.getItem('packages') || '[]');
+  },
   
-  if (index >= 0) {
-    existingPackages[index] = pkg;
-  } else {
-    existingPackages.push(pkg);
+  // Get a specific package by tracking number (works without login)
+  getPackageByTrackingNumber: (trackingNumber: string): Package | null => {
+    // First check in individual package storage
+    const individualPackage = localStorage.getItem(`package_${trackingNumber}`);
+    if (individualPackage) {
+      return JSON.parse(individualPackage);
+    }
+    
+    // If not found, check in the packages list
+    const allPackages = PackageStorage.getPackages();
+    return allPackages.find(p => p.trackingNumber === trackingNumber) || null;
+  },
+  
+  // Remove package from localStorage
+  removePackage: (trackingNumber: string) => {
+    // Remove from packages list
+    const existingPackages = PackageStorage.getPackages();
+    const updatedPackages = existingPackages.filter((p: Package) => p.trackingNumber !== trackingNumber);
+    localStorage.setItem('packages', JSON.stringify(updatedPackages));
+    
+    // Also remove individual package entry
+    localStorage.removeItem(`package_${trackingNumber}`);
   }
-  
-  localStorage.setItem('packages', JSON.stringify(existingPackages));
 };
 
-const getPackagesFromLocalStorage = (): Package[] => {
-  return JSON.parse(localStorage.getItem('packages') || '[]');
-};
-
-const removePackageFromLocalStorage = (trackingNumber: string) => {
-  const existingPackages = JSON.parse(localStorage.getItem('packages') || '[]');
-  const updatedPackages = existingPackages.filter((p: Package) => p.trackingNumber !== trackingNumber);
-  localStorage.setItem('packages', JSON.stringify(updatedPackages));
-};
+// Use these functions instead of direct localStorage access
+const savePackageToLocalStorage = PackageStorage.savePackage;
+const getPackagesFromLocalStorage = PackageStorage.getPackages;
+const removePackageFromLocalStorage = PackageStorage.removePackage;
 
 const generateTrackingNumber = (): string => {
   const prefix = "PKT-";
@@ -300,8 +332,16 @@ const Dashboard = () => {
     checkAuth();
   }, []);
 
+  // Load packages on component mount
   useEffect(() => {
     setPackages(getPackagesFromLocalStorage());
+
+    // Set up periodic refresh to check for new packages from other devices
+    const refreshInterval = setInterval(() => {
+      setPackages(getPackagesFromLocalStorage());
+    }, 30000); // Check every 30 seconds
+    
+    return () => clearInterval(refreshInterval);
   }, []);
 
   const handleLanguageChange = (value: string) => {
