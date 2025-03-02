@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -34,7 +33,6 @@ import {
   Search, Package, CreditCard, Mailbox, Calendar, Globe, MapPin, Phone, User, TruckIcon, Clock, AlertCircle
 } from "lucide-react";
 
-// Interface pour les colis
 interface Package {
   trackingNumber: string;
   recipientName: string;
@@ -46,18 +44,14 @@ interface Package {
   customerInfo: string;
 }
 
-// Créer un stockage local pour partager les données entre les pages
 const savePackageToLocalStorage = (pkg: Package) => {
   const existingPackages = JSON.parse(localStorage.getItem('packages') || '[]');
   
-  // Vérifier si ce numéro de suivi existe déjà
   const index = existingPackages.findIndex((p: Package) => p.trackingNumber === pkg.trackingNumber);
   
   if (index >= 0) {
-    // Mise à jour d'un colis existant
     existingPackages[index] = pkg;
   } else {
-    // Ajout d'un nouveau colis
     existingPackages.push(pkg);
   }
   
@@ -68,7 +62,6 @@ const getPackagesFromLocalStorage = (): Package[] => {
   return JSON.parse(localStorage.getItem('packages') || '[]');
 };
 
-// Exemple de données de colis pour la démonstration (utilisé seulement si localStorage est vide)
 const DEMO_PACKAGES = [
   {
     trackingNumber: "PKT-123456789",
@@ -102,7 +95,6 @@ const DEMO_PACKAGES = [
   }
 ];
 
-// Traductions
 const translations = {
   DE: {
     trackPackage: "Verfolgen Sie Ihr Paket",
@@ -250,14 +242,21 @@ const Track = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
   
-  // Accès aux traductions selon la langue sélectionnée
   const t = translations[language as keyof typeof translations];
 
-  // Charger les colis depuis localStorage au chargement du composant
+  useEffect(() => {
+    const url = new URL(window.location.href);
+    const trackParam = url.searchParams.get('track');
+    
+    if (trackParam) {
+      setTrackingNumber(trackParam);
+      handleTrackingWithNumber(trackParam);
+    }
+  }, []);
+
   useEffect(() => {
     const storedPackages = getPackagesFromLocalStorage();
     
-    // Si localStorage est vide, ajouter les exemples de colis
     if (storedPackages.length === 0) {
       DEMO_PACKAGES.forEach(pkg => savePackageToLocalStorage(pkg));
       setPackages(DEMO_PACKAGES);
@@ -292,9 +291,8 @@ const Track = () => {
     }
   };
 
-  const handleTracking = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!trackingNumber) {
+  const handleTrackingWithNumber = (number: string) => {
+    if (!number) {
       toast({
         title: t.error,
         description: t.enterTrackingNumber,
@@ -303,15 +301,18 @@ const Track = () => {
       return;
     }
     
-    // Recherche du colis dans les données stockées
-    const pkg = packages.find(p => p.trackingNumber === trackingNumber);
+    const url = new URL(window.location.href);
+    url.searchParams.set('track', number);
+    window.history.pushState({}, '', url);
+    
+    const pkg = packages.find(p => p.trackingNumber === number);
     setFoundPackage(pkg || null);
     setShowResults(true);
     
     if (pkg) {
       toast({
         title: t.packageDetails,
-        description: `${t.trackingNumber}: ${trackingNumber}`,
+        description: `${t.trackingNumber}: ${number}`,
       });
     } else {
       toast({
@@ -322,7 +323,11 @@ const Track = () => {
     }
   };
 
-  // Traduire le statut du colis
+  const handleTracking = (e: React.FormEvent) => {
+    e.preventDefault();
+    handleTrackingWithNumber(trackingNumber);
+  };
+
   const getTranslatedStatus = (status: string) => {
     switch(status) {
       case "En cours": return t.inProcess;
@@ -336,7 +341,6 @@ const Track = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Header */}
       <header 
         className={`fixed top-0 w-full z-50 transition-all duration-300 ${
           isHeaderScrolled 
@@ -418,9 +422,7 @@ const Track = () => {
         </div>
       </header>
 
-      {/* Main Content */}
       <main className="flex-1 pt-24">
-        {/* Hero Section */}
         <div className="bg-gradient-to-b from-[#FFC107] to-white py-20">
           <div className="max-w-3xl mx-auto px-4 text-center">
             <h1 className="text-4xl font-bold mb-8">{t.trackPackage}</h1>
@@ -444,7 +446,6 @@ const Track = () => {
           </div>
         </div>
 
-        {/* Package Results Section */}
         {showResults && (
           <div className="max-w-3xl mx-auto px-4 py-10">
             {foundPackage ? (
@@ -532,7 +533,6 @@ const Track = () => {
           </div>
         )}
 
-        {/* Services Section */}
         <div id="services" className="max-w-3xl mx-auto px-4 py-20">
           <h2 className="text-2xl font-semibold mb-8 text-center">{t.ourServices}</h2>
           <Accordion type="single" collapsible className="space-y-4">
