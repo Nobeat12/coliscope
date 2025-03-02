@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -18,6 +17,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DialogDescription,
 } from "@/components/ui/dialog";
 import { 
   Form,
@@ -41,7 +41,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
-// Interface pour les colis
 interface Package {
   trackingNumber: string;
   recipientName: string;
@@ -53,18 +52,14 @@ interface Package {
   customerInfo: string;
 }
 
-// Fonctions pour gérer le stockage local des colis
 const savePackageToLocalStorage = (pkg: Package) => {
   const existingPackages = JSON.parse(localStorage.getItem('packages') || '[]');
   
-  // Vérifier si ce numéro de suivi existe déjà
   const index = existingPackages.findIndex((p: Package) => p.trackingNumber === pkg.trackingNumber);
   
   if (index >= 0) {
-    // Mise à jour d'un colis existant
     existingPackages[index] = pkg;
   } else {
-    // Ajout d'un nouveau colis
     existingPackages.push(pkg);
   }
   
@@ -81,19 +76,16 @@ const removePackageFromLocalStorage = (trackingNumber: string) => {
   localStorage.setItem('packages', JSON.stringify(updatedPackages));
 };
 
-// Fonction pour générer un numéro de suivi unique
 const generateTrackingNumber = (): string => {
   const prefix = "PKT-";
   const randomNumbers = Math.floor(Math.random() * 1000000000).toString().padStart(9, '0');
   return `${prefix}${randomNumbers}`;
 };
 
-// Fonction pour vérifier si un numéro de suivi existe déjà
 const isTrackingNumberExists = (trackingNumber: string, packages: Package[]): boolean => {
   return packages.some(pkg => pkg.trackingNumber === trackingNumber);
 };
 
-// Génère un numéro de suivi unique qui n'existe pas déjà
 const generateUniqueTrackingNumber = (packages: Package[]): string => {
   let trackingNumber = generateTrackingNumber();
   while (isTrackingNumberExists(trackingNumber, packages)) {
@@ -118,7 +110,6 @@ const loginSchema = z.object({
   password: z.string().min(5, "Mot de passe requis"),
 });
 
-// Traductions pour le tableau de bord
 const translations = {
   DE: {
     dashboard: "Dashboard",
@@ -273,14 +264,14 @@ const Dashboard = () => {
   const [currentPackageIndex, setCurrentPackageIndex] = useState<number | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [loginDialogOpen, setLoginDialogOpen] = useState(true);
+  const [loginDialogOpen, setLoginDialogOpen] = useState(false);
+  const [isLoadingAuth, setIsLoadingAuth] = useState(true);
   const [language, setLanguage] = useState(() => {
     return localStorage.getItem('language') || "DE";
   });
   const { toast } = useToast();
   const navigate = useNavigate();
 
-  // Langue sélectionnée
   const t = translations[language as keyof typeof translations];
 
   const loginForm = useForm<z.infer<typeof loginSchema>>({
@@ -291,21 +282,24 @@ const Dashboard = () => {
     },
   });
 
-  // Sauvegarder la langue dans localStorage
   useEffect(() => {
     localStorage.setItem('language', language);
   }, [language]);
 
-  // Vérifier si l'utilisateur est déjà authentifié
   useEffect(() => {
-    const authStatus = localStorage.getItem('isAuthenticated');
-    if (authStatus === 'true') {
-      setIsAuthenticated(true);
-      setLoginDialogOpen(false);
-    }
+    const checkAuth = () => {
+      const authStatus = localStorage.getItem('isAuthenticated');
+      setIsAuthenticated(authStatus === 'true');
+      setIsLoadingAuth(false);
+      
+      if (authStatus !== 'true') {
+        setLoginDialogOpen(true);
+      }
+    };
+    
+    checkAuth();
   }, []);
 
-  // Charger les colis depuis localStorage au chargement du composant
   useEffect(() => {
     setPackages(getPackagesFromLocalStorage());
   }, []);
@@ -356,13 +350,11 @@ const Dashboard = () => {
     },
   });
 
-  // Fonction pour générer automatiquement un numéro de suivi et le mettre dans le formulaire
   const handleGenerateTrackingNumber = () => {
     const uniqueTrackingNumber = generateUniqueTrackingNumber(packages);
     form.setValue("trackingNumber", uniqueTrackingNumber);
   };
 
-  // Réinitialiser le formulaire et ouvrir le dialogue avec un numéro de suivi généré
   const handleOpenNewPackageDialog = () => {
     form.reset({
       trackingNumber: generateUniqueTrackingNumber(packages),
@@ -392,7 +384,6 @@ const Dashboard = () => {
   });
 
   const onSubmit = (data: z.infer<typeof packageSchema>) => {
-    // Ensure customerInfo is not undefined
     const newPackage: Package = {
       trackingNumber: data.trackingNumber,
       recipientName: data.recipientName,
@@ -404,7 +395,6 @@ const Dashboard = () => {
       customerInfo: data.customerInfo || "",
     };
     
-    // Vérifier si le numéro de suivi existe déjà
     const existingIndex = packages.findIndex(p => p.trackingNumber === newPackage.trackingNumber);
     if (existingIndex >= 0 && currentPackageIndex === null) {
       toast({
@@ -415,10 +405,8 @@ const Dashboard = () => {
       return;
     }
     
-    // Ajouter le colis au tableau local et au localStorage
     savePackageToLocalStorage(newPackage);
     
-    // Mettre à jour l'état local
     const updatedPackages = [...packages];
     if (existingIndex >= 0) {
       updatedPackages[existingIndex] = newPackage;
@@ -466,7 +454,6 @@ const Dashboard = () => {
       customerInfo: data.customerInfo || "",
     };
     
-    // Vérifier si le numéro de suivi a changé et s'il existe déjà
     const originalPackage = packages[currentPackageIndex];
     if (originalPackage.trackingNumber !== updatedPackage.trackingNumber) {
       const existingIndex = packages.findIndex(p => p.trackingNumber === updatedPackage.trackingNumber);
@@ -479,14 +466,11 @@ const Dashboard = () => {
         return;
       }
       
-      // Supprimer l'ancien numéro de suivi du localStorage
       removePackageFromLocalStorage(originalPackage.trackingNumber);
     }
     
-    // Mettre à jour le colis dans le localStorage
     savePackageToLocalStorage(updatedPackage);
     
-    // Mettre à jour l'état local
     const updatedPackages = [...packages];
     updatedPackages[currentPackageIndex] = updatedPackage;
     setPackages(updatedPackages);
@@ -501,10 +485,8 @@ const Dashboard = () => {
   const handleDelete = (index: number) => {
     const packageToDelete = packages[index];
     
-    // Supprimer du localStorage
     removePackageFromLocalStorage(packageToDelete.trackingNumber);
     
-    // Mettre à jour l'état local
     const updatedPackages = [...packages];
     updatedPackages.splice(index, 1);
     setPackages(updatedPackages);
@@ -521,12 +503,25 @@ const Dashboard = () => {
     pkg.deliveryLocation.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  if (isLoadingAuth) {
+    return (
+      <div className="min-h-screen bg-[#FFFFFF] flex items-center justify-center">
+        <div className="text-center p-8">
+          <p className="text-gray-500">Chargement...</p>
+        </div>
+      </div>
+    );
+  }
+
   if (!isAuthenticated) {
     return (
       <Dialog open={loginDialogOpen} onOpenChange={setLoginDialogOpen}>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
             <DialogTitle>{t.loginTitle}</DialogTitle>
+            <DialogDescription>
+              Connectez-vous pour accéder au tableau de bord
+            </DialogDescription>
           </DialogHeader>
           <Form {...loginForm}>
             <form onSubmit={loginForm.handleSubmit(onLoginSubmit)} className="space-y-4 mt-4">
@@ -768,7 +763,6 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* Modal de modification */}
         <Dialog open={editDialogOpen} onOpenChange={setEditDialogOpen}>
           <DialogContent className="sm:max-w-[600px]">
             <DialogHeader>
