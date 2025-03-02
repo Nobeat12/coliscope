@@ -34,11 +34,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { PackageSearch, Plus, X, Edit, Trash2, LogOut, Globe } from "lucide-react";
+import {
+  PackageSearch, Plus, X, Edit, Trash2, LogOut, Globe 
+} from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
+// Interface pour les colis
 interface Package {
   trackingNumber: string;
   recipientName: string;
@@ -76,6 +79,27 @@ const removePackageFromLocalStorage = (trackingNumber: string) => {
   const existingPackages = JSON.parse(localStorage.getItem('packages') || '[]');
   const updatedPackages = existingPackages.filter((p: Package) => p.trackingNumber !== trackingNumber);
   localStorage.setItem('packages', JSON.stringify(updatedPackages));
+};
+
+// Fonction pour générer un numéro de suivi unique
+const generateTrackingNumber = (): string => {
+  const prefix = "PKT-";
+  const randomNumbers = Math.floor(Math.random() * 1000000000).toString().padStart(9, '0');
+  return `${prefix}${randomNumbers}`;
+};
+
+// Fonction pour vérifier si un numéro de suivi existe déjà
+const isTrackingNumberExists = (trackingNumber: string, packages: Package[]): boolean => {
+  return packages.some(pkg => pkg.trackingNumber === trackingNumber);
+};
+
+// Génère un numéro de suivi unique qui n'existe pas déjà
+const generateUniqueTrackingNumber = (packages: Package[]): string => {
+  let trackingNumber = generateTrackingNumber();
+  while (isTrackingNumberExists(trackingNumber, packages)) {
+    trackingNumber = generateTrackingNumber();
+  }
+  return trackingNumber;
 };
 
 const packageSchema = z.object({
@@ -332,6 +356,27 @@ const Dashboard = () => {
     },
   });
 
+  // Fonction pour générer automatiquement un numéro de suivi et le mettre dans le formulaire
+  const handleGenerateTrackingNumber = () => {
+    const uniqueTrackingNumber = generateUniqueTrackingNumber(packages);
+    form.setValue("trackingNumber", uniqueTrackingNumber);
+  };
+
+  // Réinitialiser le formulaire et ouvrir le dialogue avec un numéro de suivi généré
+  const handleOpenNewPackageDialog = () => {
+    form.reset({
+      trackingNumber: generateUniqueTrackingNumber(packages),
+      recipientName: "",
+      phoneNumber: "",
+      receiptLocation: "",
+      receiptDate: new Date().toISOString().split('T')[0],
+      deliveryLocation: "",
+      status: "En cours",
+      customerInfo: "",
+    });
+    setOpen(true);
+  };
+
   const editForm = useForm<z.infer<typeof packageSchema>>({
     resolver: zodResolver(packageSchema),
     defaultValues: {
@@ -548,6 +593,10 @@ const Dashboard = () => {
               <DialogTrigger asChild>
                 <Button 
                   className="bg-[#E3F2FD] text-blue-600 hover:bg-blue-100 transition-colors duration-300"
+                  onClick={(e) => { 
+                    e.preventDefault(); 
+                    handleOpenNewPackageDialog();
+                  }}
                 >
                   <Plus className="mr-2 h-4 w-4" />
                   {t.newPackage}
@@ -566,9 +615,19 @@ const Dashboard = () => {
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel>{t.trackingNumber}</FormLabel>
-                            <FormControl>
-                              <Input placeholder="PKT-123456789" {...field} />
-                            </FormControl>
+                            <div className="flex items-center space-x-2">
+                              <FormControl>
+                                <Input placeholder="PKT-123456789" {...field} />
+                              </FormControl>
+                              <Button 
+                                type="button" 
+                                variant="outline" 
+                                onClick={handleGenerateTrackingNumber}
+                                className="flex-shrink-0"
+                              >
+                                <PackageSearch className="h-4 w-4" />
+                              </Button>
+                            </div>
                             <FormMessage />
                           </FormItem>
                         )}
