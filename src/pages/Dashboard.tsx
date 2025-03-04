@@ -241,6 +241,12 @@ const Dashboard = () => {
     setSearchQuery(value);
   };
 
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
+    console.log(`Searching for: ${query}`);
+    // Additional search handling can be added here if needed
+  };
+
   const filteredPackages = packages.filter(pkg => 
     pkg.trackingNumber.toLowerCase().includes(searchQuery.toLowerCase()) ||
     pkg.recipientName.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -317,6 +323,7 @@ const Dashboard = () => {
           <SearchBar 
             value={searchQuery} 
             onChange={handleSearchChange} 
+            onSearch={handleSearch}
             t={t} 
           />
 
