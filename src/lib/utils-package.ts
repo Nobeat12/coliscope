@@ -1,5 +1,5 @@
+
 import { Package } from "@/types/package";
-import { SupabasePackageStorage } from "./supabase";
 
 const DB_NAME = "PackageTrackerDB";
 const STORE_NAME = "packages";
@@ -212,12 +212,6 @@ export const PackageStorage = {
     return null;
   }
 };
-
-// Expose the Supabase storage for global access
-window.PackageStorage = PackageStorage;
-
-// Re-export the Supabase storage for easy migration
-export { SupabasePackageStorage };
 
 export const generateTrackingNumber = (): string => {
   const prefix = "PKT-";
