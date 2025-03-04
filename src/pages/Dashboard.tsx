@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
-import { Edit } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -36,6 +35,7 @@ const Dashboard = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loginDialogOpen, setLoginDialogOpen] = useState(false);
   const [isLoadingAuth, setIsLoadingAuth] = useState(true);
+  const [isLoadingPackages, setIsLoadingPackages] = useState(true);
   const [language, setLanguage] = useState(() => {
     return localStorage.getItem('language') || "DE";
   });
@@ -78,11 +78,33 @@ const Dashboard = () => {
 
   // Load packages on component mount
   useEffect(() => {
-    setPackages(PackageStorage.getPackages());
+    const loadPackages = async () => {
+      setIsLoadingPackages(true);
+      try {
+        const pkgs = await PackageStorage.getPackages();
+        setPackages(pkgs);
+        console.log("Packages loaded from storage:", pkgs.length);
+      } catch (error) {
+        console.error("Error loading packages:", error);
+        toast({
+          title: t.error,
+          description: "Erreur lors du chargement des colis",
+          variant: "destructive",
+        });
+      } finally {
+        setIsLoadingPackages(false);
+      }
+    };
+    
+    loadPackages();
 
     // Set up periodic refresh to check for new packages from other devices
-    const refreshInterval = setInterval(() => {
-      setPackages(PackageStorage.getPackages());
+    const refreshInterval = setInterval(async () => {
+      const pkgs = await PackageStorage.getPackages();
+      if (JSON.stringify(pkgs) !== JSON.stringify(packages)) {
+        setPackages(pkgs);
+        console.log("Packages refreshed from storage:", pkgs.length);
+      }
     }, 30000); // Check every 30 seconds
     
     return () => clearInterval(refreshInterval);
@@ -140,7 +162,7 @@ const Dashboard = () => {
     setEditDialogOpen(true);
   };
 
-  const onSubmit = (data: z.infer<typeof PackageSchema>) => {
+  const onSubmit = async (data: z.infer<typeof PackageSchema>) => {
     const newPackage: Package = {
       trackingNumber: data.trackingNumber,
       recipientName: data.recipientName,
@@ -162,25 +184,29 @@ const Dashboard = () => {
       return;
     }
     
-    PackageStorage.savePackage(newPackage);
-    
-    const updatedPackages = [...packages];
-    if (existingIndex >= 0) {
-      updatedPackages[existingIndex] = newPackage;
-    } else {
-      updatedPackages.push(newPackage);
+    try {
+      await PackageStorage.savePackage(newPackage);
+      
+      // Reload all packages to ensure consistency
+      const updatedPackages = await PackageStorage.getPackages();
+      setPackages(updatedPackages);
+      
+      toast({
+        title: t.packageAdded,
+        description: `${t.trackingNumber}: ${data.trackingNumber}`,
+      });
+      setOpen(false);
+    } catch (error) {
+      console.error("Error saving package:", error);
+      toast({
+        title: t.error,
+        description: "Erreur lors de l'enregistrement du colis",
+        variant: "destructive",
+      });
     }
-    
-    setPackages(updatedPackages);
-    
-    toast({
-      title: t.packageAdded,
-      description: `${t.trackingNumber}: ${data.trackingNumber}`,
-    });
-    setOpen(false);
   };
 
-  const onEditSubmit = (data: z.infer<typeof PackageSchema>) => {
+  const onEditSubmit = async (data: z.infer<typeof PackageSchema>) => {
     if (currentPackageIndex === null) return;
     
     const updatedPackage: Package = {
@@ -206,35 +232,58 @@ const Dashboard = () => {
         return;
       }
       
-      PackageStorage.removePackage(originalPackage.trackingNumber);
+      try {
+        await PackageStorage.removePackage(originalPackage.trackingNumber);
+      } catch (error) {
+        console.error("Error removing original package:", error);
+      }
     }
     
-    PackageStorage.savePackage(updatedPackage);
-    
-    const updatedPackages = [...packages];
-    updatedPackages[currentPackageIndex] = updatedPackage;
-    setPackages(updatedPackages);
-    
-    toast({
-      title: t.packageUpdated,
-      description: `${t.trackingNumber}: ${data.trackingNumber}`,
-    });
-    setEditDialogOpen(false);
+    try {
+      await PackageStorage.savePackage(updatedPackage);
+      
+      // Reload all packages to ensure consistency
+      const updatedPackages = await PackageStorage.getPackages();
+      setPackages(updatedPackages);
+      
+      toast({
+        title: t.packageUpdated,
+        description: `${t.trackingNumber}: ${data.trackingNumber}`,
+      });
+      setEditDialogOpen(false);
+    } catch (error) {
+      console.error("Error updating package:", error);
+      toast({
+        title: t.error,
+        description: "Erreur lors de la mise à jour du colis",
+        variant: "destructive",
+      });
+    }
   };
 
-  const handleDelete = (index: number) => {
+  const handleDelete = async (index: number) => {
     const packageToDelete = packages[index];
     
-    PackageStorage.removePackage(packageToDelete.trackingNumber);
-    
-    const updatedPackages = [...packages];
-    updatedPackages.splice(index, 1);
-    setPackages(updatedPackages);
-    
-    toast({
-      title: t.packageDeleted,
-      description: `${t.trackingNumber}: ${packageToDelete.trackingNumber}`,
-    });
+    try {
+      await PackageStorage.removePackage(packageToDelete.trackingNumber);
+      
+      // Remove from local state
+      const updatedPackages = [...packages];
+      updatedPackages.splice(index, 1);
+      setPackages(updatedPackages);
+      
+      toast({
+        title: t.packageDeleted,
+        description: `${t.trackingNumber}: ${packageToDelete.trackingNumber}`,
+      });
+    } catch (error) {
+      console.error("Error deleting package:", error);
+      toast({
+        title: t.error,
+        description: "Erreur lors de la suppression du colis",
+        variant: "destructive",
+      });
+    }
   };
 
   const handleSearchChange = (value: string) => {
@@ -328,12 +377,18 @@ const Dashboard = () => {
           />
 
           <div className="rounded-xl border border-[#F5F7FA] overflow-hidden bg-white">
-            <PackageTable 
-              packages={filteredPackages} 
-              onEdit={handleEdit} 
-              onDelete={handleDelete} 
-              t={t} 
-            />
+            {isLoadingPackages ? (
+              <div className="p-8 text-center">
+                <p className="text-gray-500">Chargement des colis...</p>
+              </div>
+            ) : (
+              <PackageTable 
+                packages={filteredPackages} 
+                onEdit={handleEdit} 
+                onDelete={handleDelete} 
+                t={t} 
+              />
+            )}
           </div>
         </div>
       </div>

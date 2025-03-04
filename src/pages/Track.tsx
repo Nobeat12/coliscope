@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -30,37 +31,11 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import {
-  Search, Package, CreditCard, Mailbox, Calendar, Globe, MapPin, Phone, User, TruckIcon, Clock, AlertCircle
+  Search, Package, CreditCard, Mailbox, Calendar, Globe, MapPin, Phone, User, TruckIcon, Clock, AlertCircle, Loader2
 } from "lucide-react";
 
-interface Package {
-  trackingNumber: string;
-  recipientName: string;
-  phoneNumber: string;
-  receiptLocation: string;
-  receiptDate: string;
-  deliveryLocation: string;
-  status: string;
-  customerInfo: string;
-}
-
-const savePackageToLocalStorage = (pkg: Package) => {
-  const existingPackages = JSON.parse(localStorage.getItem('packages') || '[]');
-  
-  const index = existingPackages.findIndex((p: Package) => p.trackingNumber === pkg.trackingNumber);
-  
-  if (index >= 0) {
-    existingPackages[index] = pkg;
-  } else {
-    existingPackages.push(pkg);
-  }
-  
-  localStorage.setItem('packages', JSON.stringify(existingPackages));
-};
-
-const getPackagesFromLocalStorage = (): Package[] => {
-  return JSON.parse(localStorage.getItem('packages') || '[]');
-};
+import { Package as PackageType } from "@/types/package";
+import { PackageStorage } from "@/lib/utils-package";
 
 const DEMO_PACKAGES = [
   {
@@ -236,33 +211,50 @@ const Track = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [language, setLanguage] = useState("FR");
-  const [foundPackage, setFoundPackage] = useState<Package | null>(null);
+  const [foundPackage, setFoundPackage] = useState<PackageType | null>(null);
   const [showResults, setShowResults] = useState(false);
-  const [packages, setPackages] = useState<Package[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [demoLoaded, setDemoLoaded] = useState(false);
   const { toast } = useToast();
   const navigate = useNavigate();
   
   const t = translations[language as keyof typeof translations];
 
+  // Load demo packages if needed and check URL parameters
   useEffect(() => {
-    const url = new URL(window.location.href);
-    const trackParam = url.searchParams.get('track');
+    const loadDemoPackages = async () => {
+      if (demoLoaded) return;
+      
+      try {
+        // Check if we already have packages in the database
+        const existingPackages = await PackageStorage.getPackages();
+        
+        if (existingPackages.length === 0) {
+          // If no packages exist, load the demo packages
+          for (const pkg of DEMO_PACKAGES) {
+            await PackageStorage.savePackage(pkg);
+          }
+          console.log("Demo packages loaded into IndexedDB");
+        }
+        
+        setDemoLoaded(true);
+      } catch (error) {
+        console.error("Error loading demo packages:", error);
+      }
+    };
     
-    if (trackParam) {
-      setTrackingNumber(trackParam);
-      handleTrackingWithNumber(trackParam);
-    }
-  }, []);
-
-  useEffect(() => {
-    const storedPackages = getPackagesFromLocalStorage();
+    const checkUrlParameters = async () => {
+      const url = new URL(window.location.href);
+      const trackParam = url.searchParams.get('track');
+      
+      if (trackParam) {
+        setTrackingNumber(trackParam);
+        handleTrackingWithNumber(trackParam);
+      }
+    };
     
-    if (storedPackages.length === 0) {
-      DEMO_PACKAGES.forEach(pkg => savePackageToLocalStorage(pkg));
-      setPackages(DEMO_PACKAGES);
-    } else {
-      setPackages(storedPackages);
-    }
+    loadDemoPackages();
+    checkUrlParameters();
   }, []);
 
   useEffect(() => {
@@ -291,7 +283,7 @@ const Track = () => {
     }
   };
 
-  const handleTrackingWithNumber = (number: string) => {
+  const handleTrackingWithNumber = async (number: string) => {
     if (!number) {
       toast({
         title: t.error,
@@ -301,25 +293,40 @@ const Track = () => {
       return;
     }
     
+    // Update URL for sharing
     const url = new URL(window.location.href);
     url.searchParams.set('track', number);
     window.history.pushState({}, '', url);
     
-    const pkg = packages.find(p => p.trackingNumber === number);
-    setFoundPackage(pkg || null);
-    setShowResults(true);
+    setIsLoading(true);
+    setShowResults(false);
     
-    if (pkg) {
+    try {
+      const pkg = await PackageStorage.getPackageByTrackingNumber(number);
+      setFoundPackage(pkg);
+      setShowResults(true);
+      
+      if (pkg) {
+        toast({
+          title: t.packageDetails,
+          description: `${t.trackingNumber}: ${number}`,
+        });
+      } else {
+        toast({
+          title: t.packageNotFound,
+          description: t.tryAgain,
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      console.error("Error retrieving package:", error);
       toast({
-        title: t.packageDetails,
-        description: `${t.trackingNumber}: ${number}`,
-      });
-    } else {
-      toast({
-        title: t.packageNotFound,
-        description: t.tryAgain,
+        title: t.error,
+        description: "Erreur lors de la recherche du colis",
         variant: "destructive",
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -433,20 +440,33 @@ const Track = () => {
                   onChange={(e) => setTrackingNumber(e.target.value)}
                   placeholder={t.trackingPlaceholder}
                   className="h-12 text-lg"
+                  disabled={isLoading}
                 />
                 <Button 
                   type="submit" 
                   className="h-12 px-8 bg-blue-600 hover:bg-blue-700 transition-colors"
+                  disabled={isLoading}
                 >
-                  <Search className="mr-2 h-5 w-5" />
-                  {t.trackButton}
+                  {isLoading ? (
+                    <Loader2 className="h-5 w-5 animate-spin mr-2" />
+                  ) : (
+                    <Search className="mr-2 h-5 w-5" />
+                  )}
+                  {isLoading ? t.searchingPackage : t.trackButton}
                 </Button>
               </div>
             </form>
           </div>
         </div>
 
-        {showResults && (
+        {isLoading && (
+          <div className="max-w-3xl mx-auto px-4 py-10 text-center">
+            <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4 text-blue-600" />
+            <p className="text-gray-600">{t.searchingPackage}...</p>
+          </div>
+        )}
+
+        {!isLoading && showResults && (
           <div className="max-w-3xl mx-auto px-4 py-10">
             {foundPackage ? (
               <Card className="shadow-lg border border-[#E3F2FD] animate-in fade-in">
