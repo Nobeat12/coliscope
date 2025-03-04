@@ -1,293 +1,31 @@
 
 import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { Edit } from "lucide-react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
   DialogDescription,
 } from "@/components/ui/dialog";
-import { 
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {
-  PackageSearch, Plus, X, Edit, Trash2, LogOut, Globe 
-} from "lucide-react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
 
-interface Package {
-  trackingNumber: string;
-  recipientName: string;
-  phoneNumber: string;
-  receiptLocation: string;
-  receiptDate: string;
-  deliveryLocation: string;
-  status: string;
-  customerInfo: string;
-}
+import { Package } from "@/types/package";
+import { PackageStorage } from "@/lib/utils-package";
+import { translations } from "@/lib/translations";
+import { PackageSchema, LoginSchema } from "@/lib/schemas";
 
-// Creating a global namespace for package functions
-const PackageStorage = {
-  // Save package to localStorage with user identifier
-  savePackage: (pkg: Package) => {
-    const existingPackages = PackageStorage.getPackages();
-    const index = existingPackages.findIndex((p: Package) => p.trackingNumber === pkg.trackingNumber);
-    
-    if (index >= 0) {
-      existingPackages[index] = pkg;
-    } else {
-      existingPackages.push(pkg);
-    }
-    
-    localStorage.setItem('packages', JSON.stringify(existingPackages));
-    
-    // Also store package information individually by tracking number
-    // This allows non-logged in users to still access package info
-    localStorage.setItem(`package_${pkg.trackingNumber}`, JSON.stringify(pkg));
-  },
-  
-  // Get all packages from localStorage
-  getPackages: (): Package[] => {
-    return JSON.parse(localStorage.getItem('packages') || '[]');
-  },
-  
-  // Get a specific package by tracking number (works without login)
-  getPackageByTrackingNumber: (trackingNumber: string): Package | null => {
-    // First check in individual package storage
-    const individualPackage = localStorage.getItem(`package_${trackingNumber}`);
-    if (individualPackage) {
-      return JSON.parse(individualPackage);
-    }
-    
-    // If not found, check in the packages list
-    const allPackages = PackageStorage.getPackages();
-    return allPackages.find(p => p.trackingNumber === trackingNumber) || null;
-  },
-  
-  // Remove package from localStorage
-  removePackage: (trackingNumber: string) => {
-    // Remove from packages list
-    const existingPackages = PackageStorage.getPackages();
-    const updatedPackages = existingPackages.filter((p: Package) => p.trackingNumber !== trackingNumber);
-    localStorage.setItem('packages', JSON.stringify(updatedPackages));
-    
-    // Also remove individual package entry
-    localStorage.removeItem(`package_${trackingNumber}`);
-  }
-};
-
-// Use these functions instead of direct localStorage access
-const savePackageToLocalStorage = PackageStorage.savePackage;
-const getPackagesFromLocalStorage = PackageStorage.getPackages;
-const removePackageFromLocalStorage = PackageStorage.removePackage;
-
-const generateTrackingNumber = (): string => {
-  const prefix = "PKT-";
-  const randomNumbers = Math.floor(Math.random() * 1000000000).toString().padStart(9, '0');
-  return `${prefix}${randomNumbers}`;
-};
-
-const isTrackingNumberExists = (trackingNumber: string, packages: Package[]): boolean => {
-  return packages.some(pkg => pkg.trackingNumber === trackingNumber);
-};
-
-const generateUniqueTrackingNumber = (packages: Package[]): string => {
-  let trackingNumber = generateTrackingNumber();
-  while (isTrackingNumberExists(trackingNumber, packages)) {
-    trackingNumber = generateTrackingNumber();
-  }
-  return trackingNumber;
-};
-
-const packageSchema = z.object({
-  trackingNumber: z.string().min(3, "Numéro de suivi requis"),
-  recipientName: z.string().min(2, "Nom du destinataire requis"),
-  phoneNumber: z.string().min(5, "Numéro de téléphone requis"),
-  receiptLocation: z.string().min(2, "Lieu de collecte requis"),
-  receiptDate: z.string().min(5, "Date requise"),
-  deliveryLocation: z.string().min(2, "Lieu de livraison requis"),
-  status: z.string().min(1, "Statut requis"),
-  customerInfo: z.string().optional(),
-});
-
-const loginSchema = z.object({
-  email: z.string().email("Email invalide"),
-  password: z.string().min(5, "Mot de passe requis"),
-});
-
-const translations = {
-  DE: {
-    dashboard: "Dashboard",
-    packageManagement: "Paketverwaltungssystem",
-    newPackage: "Neues Paket",
-    cancel: "Abbrechen",
-    add: "Hinzufügen",
-    logout: "Abmelden",
-    edit: "Paket bearbeiten",
-    update: "Aktualisieren",
-    search: "Suchen...",
-    searchButton: "Suchen",
-    trackingNumber: "Sendungsnummer",
-    recipient: "Empfänger",
-    phone: "Telefon",
-    origin: "Abholort",
-    date: "Datum",
-    destination: "Lieferort",
-    status: "Status",
-    actions: "Aktionen",
-    noPackagesFound: "Keine Pakete gefunden",
-    addNewPackage: "Neues Paket hinzufügen",
-    additionalInfo: "Zusätzliche Informationen",
-    inProcess: "In Bearbeitung",
-    shipped: "Versendet",
-    inDelivery: "In Zustellung",
-    delivered: "Zugestellt",
-    problem: "Problem",
-    packageAdded: "Paket hinzugefügt",
-    packageUpdated: "Paket aktualisiert",
-    packageDeleted: "Paket gelöscht",
-    error: "Fehler",
-    trackingExists: "Diese Sendungsnummer existiert bereits",
-    selectStatus: "Status auswählen",
-    loginTitle: "Anmeldung",
-    email: "E-Mail",
-    password: "Passwort",
-    loginButton: "Anmelden",
-    loginSuccess: "Anmeldung erfolgreich",
-    welcomeAdmin: "Willkommen im Admin-Bereich",
-    loginError: "Anmeldefehler",
-    invalidCredentials: "Ungültige Anmeldedaten",
-    logoutSuccess: "Abmeldung erfolgreich",
-    loggedOut: "Sie wurden abgemeldet",
-    languageSelection: "Sprache",
-    german: "Deutsch",
-    french: "Französisch",
-    english: "Englisch"
-  },
-  FR: {
-    dashboard: "Tableau de bord",
-    packageManagement: "Système de gestion de colis",
-    newPackage: "Nouveau colis",
-    cancel: "Annuler",
-    add: "Ajouter",
-    logout: "Déconnexion",
-    edit: "Modifier le colis",
-    update: "Mettre à jour",
-    search: "Rechercher...",
-    searchButton: "Rechercher",
-    trackingNumber: "Numéro de suivi",
-    recipient: "Destinataire",
-    phone: "Téléphone",
-    origin: "Lieu de collecte",
-    date: "Date",
-    destination: "Lieu de livraison",
-    status: "Statut",
-    actions: "Actions",
-    noPackagesFound: "Aucun colis trouvé",
-    addNewPackage: "Ajouter un nouveau colis",
-    additionalInfo: "Informations supplémentaires",
-    inProcess: "En traitement",
-    shipped: "Expédié",
-    inDelivery: "En cours de livraison",
-    delivered: "Livré",
-    problem: "Problème",
-    packageAdded: "Colis ajouté",
-    packageUpdated: "Colis modifié",
-    packageDeleted: "Colis supprimé",
-    error: "Erreur",
-    trackingExists: "Ce numéro de suivi existe déjà",
-    selectStatus: "Sélectionner un statut",
-    loginTitle: "Connexion",
-    email: "Email",
-    password: "Mot de passe",
-    loginButton: "Connexion",
-    loginSuccess: "Connexion réussie",
-    welcomeAdmin: "Bienvenue dans l'espace administrateur",
-    loginError: "Erreur de connexion",
-    invalidCredentials: "Identifiants invalides",
-    logoutSuccess: "Déconnexion réussie",
-    loggedOut: "Vous avez été déconnecté",
-    languageSelection: "Langue",
-    german: "Allemand",
-    french: "Français",
-    english: "Anglais"
-  },
-  EN: {
-    dashboard: "Dashboard",
-    packageManagement: "Package Management System",
-    newPackage: "New Package",
-    cancel: "Cancel",
-    add: "Add",
-    logout: "Logout",
-    edit: "Edit Package",
-    update: "Update",
-    search: "Search...",
-    searchButton: "Search",
-    trackingNumber: "Tracking Number",
-    recipient: "Recipient",
-    phone: "Phone",
-    origin: "Collection Location",
-    date: "Date",
-    destination: "Delivery Location",
-    status: "Status",
-    actions: "Actions",
-    noPackagesFound: "No packages found",
-    addNewPackage: "Add a new package",
-    additionalInfo: "Additional Information",
-    inProcess: "In Process",
-    shipped: "Shipped",
-    inDelivery: "In Delivery",
-    delivered: "Delivered",
-    problem: "Problem",
-    packageAdded: "Package added",
-    packageUpdated: "Package updated",
-    packageDeleted: "Package deleted",
-    error: "Error",
-    trackingExists: "This tracking number already exists",
-    selectStatus: "Select status",
-    loginTitle: "Login",
-    email: "Email",
-    password: "Password",
-    loginButton: "Login",
-    loginSuccess: "Login successful",
-    welcomeAdmin: "Welcome to the admin area",
-    loginError: "Login error",
-    invalidCredentials: "Invalid credentials",
-    logoutSuccess: "Logout successful",
-    loggedOut: "You have been logged out",
-    languageSelection: "Language",
-    german: "German",
-    french: "French",
-    english: "English"
-  }
-};
+// Dashboard components
+import PackageForm from "@/components/dashboard/PackageForm";
+import PackageTable from "@/components/dashboard/PackageTable";
+import LoginForm from "@/components/dashboard/LoginForm";
+import DashboardHeader from "@/components/dashboard/DashboardHeader";
+import SearchBar from "@/components/dashboard/SearchBar";
 
 const Dashboard = () => {
   const [packages, setPackages] = useState<Package[]>([]);
@@ -306,11 +44,17 @@ const Dashboard = () => {
 
   const t = translations[language as keyof typeof translations];
 
-  const loginForm = useForm<z.infer<typeof loginSchema>>({
-    resolver: zodResolver(loginSchema),
+  const editForm = useForm<z.infer<typeof PackageSchema>>({
+    resolver: zodResolver(PackageSchema),
     defaultValues: {
-      email: "",
-      password: "",
+      trackingNumber: "",
+      recipientName: "",
+      phoneNumber: "",
+      receiptLocation: "",
+      receiptDate: "",
+      deliveryLocation: "",
+      status: "",
+      customerInfo: "",
     },
   });
 
@@ -334,11 +78,11 @@ const Dashboard = () => {
 
   // Load packages on component mount
   useEffect(() => {
-    setPackages(getPackagesFromLocalStorage());
+    setPackages(PackageStorage.getPackages());
 
     // Set up periodic refresh to check for new packages from other devices
     const refreshInterval = setInterval(() => {
-      setPackages(getPackagesFromLocalStorage());
+      setPackages(PackageStorage.getPackages());
     }, 30000); // Check every 30 seconds
     
     return () => clearInterval(refreshInterval);
@@ -348,7 +92,7 @@ const Dashboard = () => {
     setLanguage(value);
   };
 
-  const onLoginSubmit = (data: z.infer<typeof loginSchema>) => {
+  const onLoginSubmit = (data: z.infer<typeof LoginSchema>) => {
     if (data.email === "codedesuivi@gmail.com" && data.password === "20250") {
       setIsAuthenticated(true);
       localStorage.setItem('isAuthenticated', 'true');
@@ -376,54 +120,27 @@ const Dashboard = () => {
     });
   };
 
-  const form = useForm<z.infer<typeof packageSchema>>({
-    resolver: zodResolver(packageSchema),
-    defaultValues: {
-      trackingNumber: "",
-      recipientName: "",
-      phoneNumber: "",
-      receiptLocation: "",
-      receiptDate: new Date().toISOString().split('T')[0],
-      deliveryLocation: "",
-      status: "En cours",
-      customerInfo: "",
-    },
-  });
-
-  const handleGenerateTrackingNumber = () => {
-    const uniqueTrackingNumber = generateUniqueTrackingNumber(packages);
-    form.setValue("trackingNumber", uniqueTrackingNumber);
-  };
-
   const handleOpenNewPackageDialog = () => {
-    form.reset({
-      trackingNumber: generateUniqueTrackingNumber(packages),
-      recipientName: "",
-      phoneNumber: "",
-      receiptLocation: "",
-      receiptDate: new Date().toISOString().split('T')[0],
-      deliveryLocation: "",
-      status: "En cours",
-      customerInfo: "",
-    });
     setOpen(true);
   };
 
-  const editForm = useForm<z.infer<typeof packageSchema>>({
-    resolver: zodResolver(packageSchema),
-    defaultValues: {
-      trackingNumber: "",
-      recipientName: "",
-      phoneNumber: "",
-      receiptLocation: "",
-      receiptDate: "",
-      deliveryLocation: "",
-      status: "",
-      customerInfo: "",
-    },
-  });
+  const handleEdit = (index: number) => {
+    setCurrentPackageIndex(index);
+    const pkg = packages[index];
+    editForm.reset({
+      trackingNumber: pkg.trackingNumber,
+      recipientName: pkg.recipientName,
+      phoneNumber: pkg.phoneNumber,
+      receiptLocation: pkg.receiptLocation,
+      receiptDate: pkg.receiptDate,
+      deliveryLocation: pkg.deliveryLocation,
+      status: pkg.status,
+      customerInfo: pkg.customerInfo,
+    });
+    setEditDialogOpen(true);
+  };
 
-  const onSubmit = (data: z.infer<typeof packageSchema>) => {
+  const onSubmit = (data: z.infer<typeof PackageSchema>) => {
     const newPackage: Package = {
       trackingNumber: data.trackingNumber,
       recipientName: data.recipientName,
@@ -445,7 +162,7 @@ const Dashboard = () => {
       return;
     }
     
-    savePackageToLocalStorage(newPackage);
+    PackageStorage.savePackage(newPackage);
     
     const updatedPackages = [...packages];
     if (existingIndex >= 0) {
@@ -461,26 +178,9 @@ const Dashboard = () => {
       description: `${t.trackingNumber}: ${data.trackingNumber}`,
     });
     setOpen(false);
-    form.reset();
   };
 
-  const handleEdit = (index: number) => {
-    setCurrentPackageIndex(index);
-    const pkg = packages[index];
-    editForm.reset({
-      trackingNumber: pkg.trackingNumber,
-      recipientName: pkg.recipientName,
-      phoneNumber: pkg.phoneNumber,
-      receiptLocation: pkg.receiptLocation,
-      receiptDate: pkg.receiptDate,
-      deliveryLocation: pkg.deliveryLocation,
-      status: pkg.status,
-      customerInfo: pkg.customerInfo,
-    });
-    setEditDialogOpen(true);
-  };
-
-  const onEditSubmit = (data: z.infer<typeof packageSchema>) => {
+  const onEditSubmit = (data: z.infer<typeof PackageSchema>) => {
     if (currentPackageIndex === null) return;
     
     const updatedPackage: Package = {
@@ -506,10 +206,10 @@ const Dashboard = () => {
         return;
       }
       
-      removePackageFromLocalStorage(originalPackage.trackingNumber);
+      PackageStorage.removePackage(originalPackage.trackingNumber);
     }
     
-    savePackageToLocalStorage(updatedPackage);
+    PackageStorage.savePackage(updatedPackage);
     
     const updatedPackages = [...packages];
     updatedPackages[currentPackageIndex] = updatedPackage;
@@ -525,7 +225,7 @@ const Dashboard = () => {
   const handleDelete = (index: number) => {
     const packageToDelete = packages[index];
     
-    removePackageFromLocalStorage(packageToDelete.trackingNumber);
+    PackageStorage.removePackage(packageToDelete.trackingNumber);
     
     const updatedPackages = [...packages];
     updatedPackages.splice(index, 1);
@@ -535,6 +235,10 @@ const Dashboard = () => {
       title: t.packageDeleted,
       description: `${t.trackingNumber}: ${packageToDelete.trackingNumber}`,
     });
+  };
+
+  const handleSearchChange = (value: string) => {
+    setSearchQuery(value);
   };
 
   const filteredPackages = packages.filter(pkg => 
@@ -563,41 +267,7 @@ const Dashboard = () => {
               Connectez-vous pour accéder au tableau de bord
             </DialogDescription>
           </DialogHeader>
-          <Form {...loginForm}>
-            <form onSubmit={loginForm.handleSubmit(onLoginSubmit)} className="space-y-4 mt-4">
-              <FormField
-                control={loginForm.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{t.email}</FormLabel>
-                    <FormControl>
-                      <Input type="email" placeholder={`${t.email}...`} {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={loginForm.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{t.password}</FormLabel>
-                    <FormControl>
-                      <Input type="password" placeholder={`${t.password}...`} {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <div className="flex justify-end">
-                <Button type="submit">
-                  {t.loginButton}
-                </Button>
-              </div>
-            </form>
-          </Form>
+          <LoginForm onSubmit={onLoginSubmit} t={t} />
         </DialogContent>
       </Dialog>
     );
@@ -606,437 +276,57 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen bg-[#FFFFFF] p-6">
       <div className="max-w-7xl mx-auto bg-white/70 backdrop-blur-md border border-[#E3F2FD]/20 rounded-xl shadow-lg p-8 transition-all duration-300 hover:shadow-xl animate-in">
-        <div className="flex justify-between items-center mb-8">
-          <div>
-            <h1 className="text-3xl font-semibold mb-2 text-gray-800">{t.dashboard}</h1>
-            <p className="text-gray-500">{t.packageManagement}</p>
-          </div>
-          <div className="flex space-x-4">
-            <Select value={language} onValueChange={handleLanguageChange}>
-              <SelectTrigger className="w-[140px]">
-                <Globe className="mr-2 h-4 w-4" />
-                <SelectValue placeholder={t.languageSelection} />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="DE">{t.german}</SelectItem>
-                <SelectItem value="FR">{t.french}</SelectItem>
-                <SelectItem value="EN">{t.english}</SelectItem>
-              </SelectContent>
-            </Select>
+        <DashboardHeader 
+          t={t} 
+          language={language} 
+          onLanguageChange={handleLanguageChange} 
+          onNewPackage={handleOpenNewPackageDialog} 
+          onLogout={handleLogout} 
+        />
 
-            <Dialog open={open} onOpenChange={setOpen}>
-              <DialogTrigger asChild>
-                <Button 
-                  className="bg-[#E3F2FD] text-blue-600 hover:bg-blue-100 transition-colors duration-300"
-                  onClick={(e) => { 
-                    e.preventDefault(); 
-                    handleOpenNewPackageDialog();
-                  }}
-                >
-                  <Plus className="mr-2 h-4 w-4" />
-                  {t.newPackage}
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="sm:max-w-[600px]">
-                <DialogHeader>
-                  <DialogTitle>{t.addNewPackage}</DialogTitle>
-                </DialogHeader>
-                <Form {...form}>
-                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 mt-4">
-                    <div className="grid grid-cols-2 gap-4">
-                      <FormField
-                        control={form.control}
-                        name="trackingNumber"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>{t.trackingNumber}</FormLabel>
-                            <div className="flex items-center space-x-2">
-                              <FormControl>
-                                <Input placeholder="PKT-123456789" {...field} />
-                              </FormControl>
-                              <Button 
-                                type="button" 
-                                variant="outline" 
-                                onClick={handleGenerateTrackingNumber}
-                                className="flex-shrink-0"
-                              >
-                                <PackageSearch className="h-4 w-4" />
-                              </Button>
-                            </div>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={form.control}
-                        name="recipientName"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>{t.recipient}</FormLabel>
-                            <FormControl>
-                              <Input placeholder="Jean Dupont" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={form.control}
-                        name="phoneNumber"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>{t.phone}</FormLabel>
-                            <FormControl>
-                              <Input placeholder="+33123456789" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={form.control}
-                        name="receiptLocation"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>{t.origin}</FormLabel>
-                            <FormControl>
-                              <Input placeholder="Paris" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={form.control}
-                        name="receiptDate"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>{t.date}</FormLabel>
-                            <FormControl>
-                              <Input type="date" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={form.control}
-                        name="deliveryLocation"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>{t.destination}</FormLabel>
-                            <FormControl>
-                              <Input placeholder="Lyon" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={form.control}
-                        name="status"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>{t.status}</FormLabel>
-                            <Select 
-                              onValueChange={field.onChange} 
-                              defaultValue={field.value}
-                            >
-                              <FormControl>
-                                <SelectTrigger>
-                                  <SelectValue placeholder={t.selectStatus} />
-                                </SelectTrigger>
-                              </FormControl>
-                              <SelectContent>
-                                <SelectItem value="En cours">{t.inProcess}</SelectItem>
-                                <SelectItem value="Expédié">{t.shipped}</SelectItem>
-                                <SelectItem value="En livraison">{t.inDelivery}</SelectItem>
-                                <SelectItem value="Livré">{t.delivered}</SelectItem>
-                                <SelectItem value="Problème">{t.problem}</SelectItem>
-                              </SelectContent>
-                            </Select>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={form.control}
-                        name="customerInfo"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>{t.additionalInfo}</FormLabel>
-                            <FormControl>
-                              <Input placeholder={t.additionalInfo} {...field} />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-                    <div className="flex justify-end space-x-2">
-                      <Button 
-                        type="button" 
-                        variant="outline" 
-                        onClick={() => setOpen(false)}
-                      >
-                        <X className="mr-2 h-4 w-4" />
-                        {t.cancel}
-                      </Button>
-                      <Button type="submit">
-                        <Plus className="mr-2 h-4 w-4" />
-                        {t.add}
-                      </Button>
-                    </div>
-                  </form>
-                </Form>
-              </DialogContent>
-            </Dialog>
-
-            <Button 
-              variant="outline"
-              className="border-red-200 text-red-600 hover:bg-red-50 transition-colors duration-300"
-              onClick={handleLogout}
-            >
-              <LogOut className="mr-2 h-4 w-4" />
-              {t.logout}
-            </Button>
-          </div>
-        </div>
+        <Dialog open={open} onOpenChange={setOpen}>
+          <DialogContent className="sm:max-w-[600px]">
+            <DialogHeader>
+              <DialogTitle>{t.addNewPackage}</DialogTitle>
+            </DialogHeader>
+            <PackageForm 
+              onSubmit={onSubmit} 
+              packages={packages} 
+              onCancel={() => setOpen(false)} 
+              t={t} 
+            />
+          </DialogContent>
+        </Dialog>
 
         <Dialog open={editDialogOpen} onOpenChange={setEditDialogOpen}>
           <DialogContent className="sm:max-w-[600px]">
             <DialogHeader>
               <DialogTitle>{t.edit}</DialogTitle>
             </DialogHeader>
-            <Form {...editForm}>
-              <form onSubmit={editForm.handleSubmit(onEditSubmit)} className="space-y-4 mt-4">
-                <div className="grid grid-cols-2 gap-4">
-                  <FormField
-                    control={editForm.control}
-                    name="trackingNumber"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>{t.trackingNumber}</FormLabel>
-                        <FormControl>
-                          <Input placeholder="PKT-123456789" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={editForm.control}
-                    name="recipientName"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>{t.recipient}</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Jean Dupont" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={editForm.control}
-                    name="phoneNumber"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>{t.phone}</FormLabel>
-                        <FormControl>
-                          <Input placeholder="+33123456789" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={editForm.control}
-                    name="receiptLocation"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>{t.origin}</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Paris" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={editForm.control}
-                    name="receiptDate"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>{t.date}</FormLabel>
-                        <FormControl>
-                          <Input type="date" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={editForm.control}
-                    name="deliveryLocation"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>{t.destination}</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Lyon" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={editForm.control}
-                    name="status"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>{t.status}</FormLabel>
-                        <Select 
-                          onValueChange={field.onChange} 
-                          defaultValue={field.value}
-                        >
-                          <FormControl>
-                            <SelectTrigger>
-                              <SelectValue placeholder={t.selectStatus} />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            <SelectItem value="En cours">{t.inProcess}</SelectItem>
-                            <SelectItem value="Expédié">{t.shipped}</SelectItem>
-                            <SelectItem value="En livraison">{t.inDelivery}</SelectItem>
-                            <SelectItem value="Livré">{t.delivered}</SelectItem>
-                            <SelectItem value="Problème">{t.problem}</SelectItem>
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={editForm.control}
-                    name="customerInfo"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>{t.additionalInfo}</FormLabel>
-                        <FormControl>
-                          <Input placeholder={t.additionalInfo} {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-                <div className="flex justify-end space-x-2">
-                  <Button 
-                    type="button" 
-                    variant="outline" 
-                    onClick={() => setEditDialogOpen(false)}
-                  >
-                    <X className="mr-2 h-4 w-4" />
-                    {t.cancel}
-                  </Button>
-                  <Button type="submit">
-                    <Edit className="mr-2 h-4 w-4" />
-                    {t.update}
-                  </Button>
-                </div>
-              </form>
-            </Form>
+            <PackageForm 
+              onSubmit={onEditSubmit} 
+              packages={packages} 
+              onCancel={() => setEditDialogOpen(false)} 
+              t={t} 
+              isEdit={true} 
+            />
           </DialogContent>
         </Dialog>
 
         <div className="space-y-6">
-          <div className="flex space-x-4">
-            <Input
-              placeholder={t.search}
-              className="max-w-sm border-[#F5F7FA] focus:border-[#E3F2FD] transition-colors duration-300"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            <Button 
-              variant="outline"
-              className="border-[#E3F2FD] text-blue-600 hover:bg-[#E3F2FD]/10 transition-colors duration-300"
-            >
-              <PackageSearch className="mr-2 h-4 w-4" />
-              {t.searchButton}
-            </Button>
-          </div>
+          <SearchBar 
+            value={searchQuery} 
+            onChange={handleSearchChange} 
+            t={t} 
+          />
 
           <div className="rounded-xl border border-[#F5F7FA] overflow-hidden bg-white">
-            <Table>
-              <TableHeader>
-                <TableRow className="bg-[#F5F7FA]/50">
-                  <TableHead className="text-gray-600">{t.trackingNumber}</TableHead>
-                  <TableHead className="text-gray-600">{t.recipient}</TableHead>
-                  <TableHead className="text-gray-600">{t.phone}</TableHead>
-                  <TableHead className="text-gray-600">{t.origin}</TableHead>
-                  <TableHead className="text-gray-600">{t.date}</TableHead>
-                  <TableHead className="text-gray-600">{t.destination}</TableHead>
-                  <TableHead className="text-gray-600">{t.status}</TableHead>
-                  <TableHead className="text-gray-600">{t.actions}</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {filteredPackages.length > 0 ? (
-                  filteredPackages.map((pkg, index) => (
-                    <TableRow 
-                      key={pkg.trackingNumber + index} 
-                      className="hover:bg-[#F5F7FA]/30 transition-colors duration-300"
-                    >
-                      <TableCell className="font-medium text-blue-600">{pkg.trackingNumber}</TableCell>
-                      <TableCell>{pkg.recipientName}</TableCell>
-                      <TableCell>{pkg.phoneNumber}</TableCell>
-                      <TableCell>{pkg.receiptLocation}</TableCell>
-                      <TableCell>{pkg.receiptDate}</TableCell>
-                      <TableCell>{pkg.deliveryLocation}</TableCell>
-                      <TableCell>
-                        <span className={`px-3 py-1 rounded-full text-sm ${
-                          pkg.status === "Livré" 
-                            ? "bg-green-100 text-green-600" 
-                            : pkg.status === "Problème"
-                            ? "bg-red-100 text-red-600"
-                            : "bg-[#E3F2FD] text-blue-600"
-                        }`}>
-                          {pkg.status === "En cours" ? t.inProcess : 
-                           pkg.status === "Expédié" ? t.shipped :
-                           pkg.status === "En livraison" ? t.inDelivery : 
-                           pkg.status === "Livré" ? t.delivered : 
-                           pkg.status === "Problème" ? t.problem : pkg.status}
-                        </span>
-                      </TableCell>
-                      <TableCell>
-                        <div className="flex space-x-2">
-                          <Button 
-                            variant="ghost" 
-                            size="sm"
-                            onClick={() => handleEdit(packages.indexOf(pkg))}
-                          >
-                            <Edit className="h-4 w-4 text-blue-600" />
-                          </Button>
-                          <Button 
-                            variant="ghost" 
-                            size="sm"
-                            onClick={() => handleDelete(packages.indexOf(pkg))}
-                          >
-                            <Trash2 className="h-4 w-4 text-red-600" />
-                          </Button>
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                  ))
-                ) : (
-                  <TableRow>
-                    <TableCell colSpan={8} className="text-center py-8 text-gray-500">
-                      {t.noPackagesFound}
-                    </TableCell>
-                  </TableRow>
-                )}
-              </TableBody>
-            </Table>
+            <PackageTable 
+              packages={filteredPackages} 
+              onEdit={handleEdit} 
+              onDelete={handleDelete} 
+              t={t} 
+            />
           </div>
         </div>
       </div>
