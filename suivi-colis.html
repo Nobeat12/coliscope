@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suivi de Colis</title>
+</head>
+<body>
+
+    <h2>Suivi d'un Colis</h2>
+    <label for="searchCode">Entrez le code de suivi :</label>
+    <input type="text" id="searchCode" required>
+    <button onclick="searchColis()">Rechercher</button>
+
+    <h3>Informations du Colis :</h3>
+    <div id="colisInfo">
+        <!-- Les informations du colis s'afficheront ici -->
+    </div>
+
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+
+        // Informations Supabase
+        const supabaseUrl = 'https://vklkasltjqiutvagwwfc.supabase.co';  // URL de ton projet Supabase
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZrbGthc2x0anFpdXR2YWd3d2ZjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDEwNzk4NDUsImV4cCI6MjA1NjY1NTg0NX0.7SQsTXjrmIDoDcD8qxynBCaFyBwlINuEVyzFaX1zLzI';      // Ta clé anonyme Supabase
+        const supabase = createClient(supabaseUrl, supabaseKey);
+
+        // Fonction pour rechercher un colis par code de suivi
+        async function searchColis() {
+            const code = document.getElementById('searchCode').value;
+            
+            if (!code) {
+                document.getElementById('colisInfo').innerText = "Veuillez entrer un code de suivi.";
+                return;
+            }
+
+            // Récupérer le colis depuis Supabase en fonction du code de suivi
+            const { data, error } = await supabase
+                .from('Package') // Nom de ta table
+                .select('*')
+                .eq('code_suivi', code); // Recherche par code de suivi
+
+            if (error) {
+                document.getElementById('colisInfo').innerText = 'Erreur lors de la récupération du colis.';
+                console.error(error);
+            } else if (data.length === 0) {
+                document.getElementById('colisInfo').innerText = 'Aucun colis trouvé avec ce code.';
+            } else {
+                const colis = data[0];  // Prendre le premier colis trouvé
+                document.getElementById('colisInfo').innerHTML = `
+                    <strong>Destinataire:</strong> ${colis.destinataire} <br>
+                    <strong>État:</strong> ${colis.etat} <br>
+                    <strong>Code de suivi:</strong> ${colis.code_suivi} <br>
+                `;
+            }
+        }
+    </script>
+
+</body>
+</html>
