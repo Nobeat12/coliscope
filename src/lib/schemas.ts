@@ -10,6 +10,7 @@ export const PackageSchema = z.object({
   deliveryLocation: z.string().min(2, "Lieu de livraison requis"),
   status: z.string().min(1, "Statut requis"),
   customerInfo: z.string().optional(),
+  lastUpdated: z.number().optional(), // Timestamp pour la synchronisation
 });
 
 export const LoginSchema = z.object({

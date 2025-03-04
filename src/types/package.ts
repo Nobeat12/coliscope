@@ -8,6 +8,7 @@ export interface Package {
   deliveryLocation: string;
   status: string;
   customerInfo: string;
+  lastUpdated?: number;
 }
 
 export interface TranslationType {

@@ -5,38 +5,60 @@ import { Package } from "@/types/package";
 export const PackageStorage = {
   // Save package to localStorage with user identifier
   savePackage: (pkg: Package) => {
+    // Add timestamp for tracking updates
+    const updatedPkg = {
+      ...pkg,
+      lastUpdated: Date.now()
+    };
+    
     const existingPackages = PackageStorage.getPackages();
     const index = existingPackages.findIndex((p: Package) => p.trackingNumber === pkg.trackingNumber);
     
     if (index >= 0) {
-      existingPackages[index] = pkg;
+      existingPackages[index] = updatedPkg;
     } else {
-      existingPackages.push(pkg);
+      existingPackages.push(updatedPkg);
     }
     
     localStorage.setItem('packages', JSON.stringify(existingPackages));
     
     // Also store package information individually by tracking number
     // This allows non-logged in users to still access package info
-    localStorage.setItem(`package_${pkg.trackingNumber}`, JSON.stringify(pkg));
+    localStorage.setItem(`package_${pkg.trackingNumber}`, JSON.stringify(updatedPkg));
+    
+    // Log storage success for debugging
+    console.log(`Package ${pkg.trackingNumber} saved successfully`);
+    
+    return updatedPkg;
   },
   
   // Get all packages from localStorage
   getPackages: (): Package[] => {
-    return JSON.parse(localStorage.getItem('packages') || '[]');
+    try {
+      const packagesData = localStorage.getItem('packages');
+      return packagesData ? JSON.parse(packagesData) : [];
+    } catch (error) {
+      console.error("Error retrieving packages:", error);
+      return [];
+    }
   },
   
   // Get a specific package by tracking number (works without login)
   getPackageByTrackingNumber: (trackingNumber: string): Package | null => {
-    // First check in individual package storage
-    const individualPackage = localStorage.getItem(`package_${trackingNumber}`);
-    if (individualPackage) {
-      return JSON.parse(individualPackage);
+    try {
+      // First check in individual package storage
+      const individualPackage = localStorage.getItem(`package_${trackingNumber}`);
+      if (individualPackage) {
+        return JSON.parse(individualPackage);
+      }
+      
+      // If not found, check in the packages list
+      const allPackages = PackageStorage.getPackages();
+      return allPackages.find(p => p.trackingNumber === trackingNumber) || null;
+    } catch (error) {
+      console.error(`Error retrieving package ${trackingNumber}:`, error);
+      return null;
     }
-    
-    // If not found, check in the packages list
-    const allPackages = PackageStorage.getPackages();
-    return allPackages.find(p => p.trackingNumber === trackingNumber) || null;
   },
   
   // Remove package from localStorage
@@ -48,6 +70,26 @@ export const PackageStorage = {
     
     // Also remove individual package entry
     localStorage.removeItem(`package_${trackingNumber}`);
+    
+    console.log(`Package ${trackingNumber} removed successfully`);
+  },
+  
+  // Synchronize packages from URL params (for sharing)
+  syncPackageFromUrl: () => {
+    const url = new URL(window.location.href);
+    const trackParam = url.searchParams.get('track');
+    
+    if (trackParam) {
+      const pkg = PackageStorage.getPackageByTrackingNumber(trackParam);
+      if (pkg) {
+        console.log(`Package ${trackParam} found in storage, ready for display`);
+        return pkg;
+      } else {
+        console.log(`Package ${trackParam} not found in storage`);
+        return null;
+      }
+    }
+    return null;
   }
 };
 
