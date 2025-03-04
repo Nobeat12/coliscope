@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -35,7 +34,7 @@ import {
 } from "lucide-react";
 
 import { Package as PackageType } from "@/types/package";
-import { PackageStorage } from "@/lib/utils-package";
+import { SupabasePackageStorage } from "@/lib/supabase";
 
 const DEMO_PACKAGES = [
   {
@@ -220,21 +219,18 @@ const Track = () => {
   
   const t = translations[language as keyof typeof translations];
 
-  // Load demo packages if needed and check URL parameters
   useEffect(() => {
     const loadDemoPackages = async () => {
       if (demoLoaded) return;
       
       try {
-        // Check if we already have packages in the database
-        const existingPackages = await PackageStorage.getPackages();
+        const existingPackages = await SupabasePackageStorage.getPackages();
         
         if (existingPackages.length === 0) {
-          // If no packages exist, load the demo packages
           for (const pkg of DEMO_PACKAGES) {
-            await PackageStorage.savePackage(pkg);
+            await SupabasePackageStorage.savePackage(pkg);
           }
-          console.log("Demo packages loaded into IndexedDB");
+          console.log("Demo packages loaded into Supabase");
         }
         
         setDemoLoaded(true);
@@ -293,7 +289,6 @@ const Track = () => {
       return;
     }
     
-    // Update URL for sharing
     const url = new URL(window.location.href);
     url.searchParams.set('track', number);
     window.history.pushState({}, '', url);
@@ -302,7 +297,7 @@ const Track = () => {
     setShowResults(false);
     
     try {
-      const pkg = await PackageStorage.getPackageByTrackingNumber(number);
+      const pkg = await SupabasePackageStorage.getPackageByTrackingNumber(number);
       setFoundPackage(pkg);
       setShowResults(true);
       
