@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html<html lang="fr">lang="fr">
+<head>
+ <meta charset="UTF-8"> <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Suivi de Colis</title> <title>Suivi de Colis</title>
+</head>
+<body>
+
+     <h2>Suivi d'un Colis</h2> <h2>Suivi d'un Colis</h2>
+     <label for="searchCode">Entrez le code de suivi :</label> <label for="searchCode">Entrez le code de suivi :</label>
+ <input type="text" id="searchCode" requis> <input type="text" id="searchCode" required>
+     <button onclick="searchColis()">Rechercher</button> <button onclick="searchColis()">Rechercher</button>
+
+     <h3>Informations du Colis :</h3> <h3>Informations du Colis :</h3>
+ <div id="colisInfo"> <div id="colisInfo">
+         <!-- Les informations du colis s'afficheront ici --> <!-- Les informations du colis s'afficheront ici -->
+ </div> </div>
+
+ <script type="module"> <Script. type="module">
+ importer { createClient } à partir de 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'; import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+
+ // Informations Supabase // Informations Supabase.
+         const supabaseUrl = 'https://vklkasltjqiutvagwwfc.supabase.co';  // URL de ton projet Supabase const supabaseUrl = 'https://vklkasltjqiutvagwwfc.supabase.co';  // URL de ton projet Supabase
+ const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZrbGthc2x0anFpdXR2YWd3d2ZjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDEwNzk4NDUsImV4cCI6MjA1NjY1NTg0NX0.7SQsTXjrmIDoDcD8qxynBCaFyBwlINuEVyzFaX1zLzI';  // Ta clé anonyme Supabase const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZrbGthc2x0anFpdXR2YWd3d2ZjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDEwNzk4NDUsImV4cCI6MjA1NjY1NTg0NX0.7SQsTXjrmIDoDcD8qxynBCaFyBwlINuEVyzFaX1zLzI'; // Ta clé anonyme Supabase
+ const supabase = createClient (supabaseUrl, supabaseKey) ; const supabase = createClient(supabaseUrl, supabaseKey);
+
+         // Fonction pour rechercher un colis par code de suivi // Fonction pour rechercher un colis par code de suivi
+ async fonction searchColis () { async function searchColis() {
+ const code = document.getElementById ("searchCode").value ; const code = document.getElementById('searchCode').value;
+            
+ if (!code) { if (!code) {
+                 document.getElementById('colisInfo').innerText = "Veuillez entrer un code de suivi."; document.getElementById('colisInfo').innerText = "Veuillez entrer un code de suivi.";
+ retour ; return;
+ } }
+
+             // Récupérer le colis depuis Supabase en fonction du code de suivi // Récupérer le colis depuis Supabase en fonction du code de suivi
+ Const...... { données, erreur } = attendre   supabase. const { data, error } = await supabase
+ . de("Paquet") // Nom de ta table from('Package') // Nom de ta table
+ . Sélectionnez. ('*') Sélectionnez.('*')
+ . EQ.....('code_suivi', Code...); // Recherche par code de suivi eq('code_suivi', code); // Recherche par code de suiviEQ....('code_suivi', Code..); // Recherche par code de suivi eq('code_suivi', code); // Recherche par code de suivi
+
+ I..... (erreur) { Si...... . . (Erreur.) {
+                 Document....obtenir Élément. ById('colisInfo').innerText = 'Erreur lors de la récupération du colis.'; Document.obtenir Element ById('colisInfo').innerText = 'Erreur lors de la récupération du colis.';
+ console.erreur (erreur) ; console.Erreur.(Erreur.);
+ } }    Autre     SI... (Données..Longueur. === 0) { } Autrement. if (Données.Longueur === 0) {
+                 Document....obtenir Élément. ById('colisInfo').innerText = 'Aucun colis trouvé avec ce code.'; Document.obtenir Element ById('colisInfo').innerText = 'Aucun colis trouvé avec ce code.';
+ }   Autre    { } Autrement. {
+                 Const... colis = Données.[0] ; // Prendre le premier colis trouvé const colis = data[0];  // Prendre le premier colis trouvé
+ Document....obtenir Élément. Parid ("Colis info").innerHTML = " document.getElementById ("colisInfo").innerHTML = 'colisInfo').innerHTML = '
+ < Forte..>Destinataire:</strong> ${colis <strong>Destinataire :</strong < ${colis.
+ < 
+ < Forte...>Code... . de  suivi < Forte. > ${colis < strong>Code de suivi:</strong> ${colis.code_suivi} <br> code_suivi} <br>
+                ' ';; 
+            }
+        }
+ < 
+
+<
+<
