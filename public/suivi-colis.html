@@ -1,60 +1,126 @@
+
 <!DOCTYPE html>
-<html<html lang="fr">lang="fr">
+<html lang="fr">
 <head>
- <meta charset="UTF-8"> <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Suivi de Colis</title> <title>Suivi de Colis</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suivi de Colis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .colis-info {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        .status-livré { background-color: #e7f7ed; color: #28a745; }
+        .status-problème { background-color: #ffeeee; color: #dc3545; }
+        .status-autre { background-color: #e3f2fd; color: #0d6efd; }
+        input, button {
+            padding: 10px;
+            margin: 5px 0;
+        }
+        button {
+            background-color: #0d6efd;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0b5ed7;
+        }
+    </style>
 </head>
 <body>
 
-     <h2>Suivi d'un Colis</h2> <h2>Suivi d'un Colis</h2>
-     <label for="searchCode">Entrez le code de suivi :</label> <label for="searchCode">Entrez le code de suivi :</label>
- <input type="text" id="searchCode" requis> <input type="text" id="searchCode" required>
-     <button onclick="searchColis()">Rechercher</button> <button onclick="searchColis()">Rechercher</button>
+    <h2>Suivi d'un Colis</h2>
+    <div>
+        <label for="searchCode">Entrez le code de suivi :</label>
+        <input type="text" id="searchCode" required>
+        <button onclick="searchColis()">Rechercher</button>
+    </div>
 
-     <h3>Informations du Colis :</h3> <h3>Informations du Colis :</h3>
- <div id="colisInfo"> <div id="colisInfo">
-         <!-- Les informations du colis s'afficheront ici --> <!-- Les informations du colis s'afficheront ici -->
- </div> </div>
+    <div id="colisInfo" class="colis-info" style="display: none;">
+        <!-- Les informations du colis s'afficheront ici -->
+    </div>
 
- <script type="module"> <Script. type="module">
- importer { createClient } à partir de 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'; import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 
- // Informations Supabase // Informations Supabase.
-         const supabaseUrl = 'https://vklkasltjqiutvagwwfc.supabase.co';  // URL de ton projet Supabase const supabaseUrl = 'https://vklkasltjqiutvagwwfc.supabase.co';  // URL de ton projet Supabase
- const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZrbGthc2x0anFpdXR2YWd3d2ZjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDEwNzk4NDUsImV4cCI6MjA1NjY1NTg0NX0.7SQsTXjrmIDoDcD8qxynBCaFyBwlINuEVyzFaX1zLzI';  // Ta clé anonyme Supabase const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZrbGthc2x0anFpdXR2YWd3d2ZjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDEwNzk4NDUsImV4cCI6MjA1NjY1NTg0NX0.7SQsTXjrmIDoDcD8qxynBCaFyBwlINuEVyzFaX1zLzI'; // Ta clé anonyme Supabase
- const supabase = createClient (supabaseUrl, supabaseKey) ; const supabase = createClient(supabaseUrl, supabaseKey);
+        // Informations Supabase
+        const supabaseUrl = 'https://vklkasltjqiutvagwwfc.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZrbGthc2x0anFpdXR2YWd3d2ZjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDEwNzk4NDUsImV4cCI6MjA1NjY1NTg0NX0.7SQsTXjrmIDoDcD8qxynBCaFyBwlINuEVyzFaX1zLzI';
+        const supabase = createClient(supabaseUrl, supabaseKey);
 
-         // Fonction pour rechercher un colis par code de suivi // Fonction pour rechercher un colis par code de suivi
- async fonction searchColis () { async function searchColis() {
- const code = document.getElementById ("searchCode").value ; const code = document.getElementById('searchCode').value;
-            
- if (!code) { if (!code) {
-                 document.getElementById('colisInfo').innerText = "Veuillez entrer un code de suivi."; document.getElementById('colisInfo').innerText = "Veuillez entrer un code de suivi.";
- retour ; return;
- } }
-
-             // Récupérer le colis depuis Supabase en fonction du code de suivi // Récupérer le colis depuis Supabase en fonction du code de suivi
- Const...... { données, erreur } = attendre   supabase. const { data, error } = await supabase
- . de("Paquet") // Nom de ta table from('Package') // Nom de ta table
- . Sélectionnez. ('*') Sélectionnez.('*')
- . EQ.....('code_suivi', Code...); // Recherche par code de suivi eq('code_suivi', code); // Recherche par code de suiviEQ....('code_suivi', Code..); // Recherche par code de suivi eq('code_suivi', code); // Recherche par code de suivi
-
- I..... (erreur) { Si...... . . (Erreur.) {
-                 Document....obtenir Élément. ById('colisInfo').innerText = 'Erreur lors de la récupération du colis.'; Document.obtenir Element ById('colisInfo').innerText = 'Erreur lors de la récupération du colis.';
- console.erreur (erreur) ; console.Erreur.(Erreur.);
- } }    Autre     SI... (Données..Longueur. === 0) { } Autrement. if (Données.Longueur === 0) {
-                 Document....obtenir Élément. ById('colisInfo').innerText = 'Aucun colis trouvé avec ce code.'; Document.obtenir Element ById('colisInfo').innerText = 'Aucun colis trouvé avec ce code.';
- }   Autre    { } Autrement. {
-                 Const... colis = Données.[0] ; // Prendre le premier colis trouvé const colis = data[0];  // Prendre le premier colis trouvé
- Document....obtenir Élément. Parid ("Colis info").innerHTML = " document.getElementById ("colisInfo").innerHTML = 'colisInfo').innerHTML = '
- < Forte..>Destinataire:</strong> ${colis <strong>Destinataire :</strong < ${colis.
- < 
- < Forte...>Code... . de  suivi < Forte. > ${colis < strong>Code de suivi:</strong> ${colis.code_suivi} <br> code_suivi} <br>
-                ' ';; 
-            }
+        // Fonction pour traduire le statut
+        function getStatusClass(status) {
+            if (status === "Livré") return "status-livré";
+            if (status === "Problème") return "status-problème";
+            return "status-autre";
         }
- < 
 
-<
-<
+        // Fonction pour rechercher un colis par code de suivi
+        window.searchColis = async function() {
+            const code = document.getElementById('searchCode').value;
+            const colisInfo = document.getElementById('colisInfo');
+            
+            if (!code) {
+                colisInfo.style.display = "block";
+                colisInfo.innerHTML = "<p>Veuillez entrer un code de suivi.</p>";
+                return;
+            }
+
+            try {
+                // Récupérer le colis depuis Supabase
+                const { data, error } = await supabase
+                    .from('packages')
+                    .select('*')
+                    .eq('tracking_number', code);
+
+                if (error) throw error;
+
+                if (data && data.length > 0) {
+                    const colis = data[0];
+                    const statusClass = getStatusClass(colis.status);
+                    
+                    colisInfo.style.display = "block";
+                    colisInfo.innerHTML = `
+                        <h3>Informations du Colis</h3>
+                        <p><strong>Numéro de suivi:</strong> ${colis.tracking_number}</p>
+                        <p><strong>Destinataire:</strong> ${colis.recipient_name}</p>
+                        <p><strong>Téléphone:</strong> ${colis.phone_number}</p>
+                        <p><strong>Lieu d'origine:</strong> ${colis.receipt_location}</p>
+                        <p><strong>Lieu de livraison:</strong> ${colis.delivery_location}</p>
+                        <p><strong>Date de réception:</strong> ${new Date(colis.receipt_date).toLocaleDateString()}</p>
+                        <p>
+                            <strong>Statut:</strong> 
+                            <span class="status ${statusClass}">${colis.status}</span>
+                        </p>
+                        ${colis.customer_info ? `<p><strong>Informations complémentaires:</strong> ${colis.customer_info}</p>` : ''}
+                    `;
+                } else {
+                    colisInfo.style.display = "block";
+                    colisInfo.innerHTML = "<p>Aucun colis trouvé avec ce code. Veuillez vérifier le numéro de suivi.</p>";
+                }
+            } catch (error) {
+                console.error("Erreur:", error);
+                colisInfo.style.display = "block";
+                colisInfo.innerHTML = "<p>Une erreur s'est produite lors de la recherche. Veuillez réessayer plus tard.</p>";
+            }
+        };
+    </script>
+
+</body>
+</html>
