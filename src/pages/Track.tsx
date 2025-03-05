@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,6 +9,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
+  CardFooter,
 } from "@/components/ui/card";
 import {
   Accordion,
@@ -26,12 +26,14 @@ import {
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import {
-  Search, Package, CreditCard, Mailbox, Calendar, Globe, MapPin, Phone, User, TruckIcon, Clock, AlertCircle, Loader2
+  Search, Package, CreditCard, Mailbox, Calendar, Globe, MapPin, Phone, User, TruckIcon, Clock, 
+  AlertCircle, Loader2, Check, XCircle, Info, ArrowRight, ExternalLink, RefreshCw, ShieldCheck
 } from "lucide-react";
 
 import { Package as PackageType } from "@/types/package";
@@ -205,6 +207,14 @@ const translations = {
   }
 };
 
+const trackingSteps = {
+  "En cours": 1,
+  "Expédié": 2,
+  "En livraison": 3,
+  "Livré": 4,
+  "Problème": 0
+};
+
 const Track = () => {
   const [trackingNumber, setTrackingNumber] = useState("");
   const [isHeaderScrolled, setIsHeaderScrolled] = useState(false);
@@ -215,22 +225,20 @@ const Track = () => {
   const [showResults, setShowResults] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [demoLoaded, setDemoLoaded] = useState(false);
+  const [searchAttempted, setSearchAttempted] = useState(false);
   const { toast } = useToast();
   const navigate = useNavigate();
   
   const t = translations[language as keyof typeof translations];
 
-  // Load demo packages if needed and check URL parameters
   useEffect(() => {
     const loadDemoPackages = async () => {
       if (demoLoaded) return;
       
       try {
-        // Check if we already have packages in the database
         const existingPackages = await PackageStorage.getPackages();
         
         if (existingPackages.length === 0) {
-          // If no packages exist, load the demo packages
           for (const pkg of DEMO_PACKAGES) {
             await PackageStorage.savePackage(pkg);
           }
@@ -293,31 +301,25 @@ const Track = () => {
       return;
     }
     
-    // Update URL for sharing
     const url = new URL(window.location.href);
     url.searchParams.set('track', number);
     window.history.pushState({}, '', url);
     
     setIsLoading(true);
     setShowResults(false);
+    setSearchAttempted(true);
     
     try {
-      const pkg = await PackageStorage.getPackageByTrackingNumber(number);
-      setFoundPackage(pkg);
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      setFoundPackage(null);
       setShowResults(true);
       
-      if (pkg) {
-        toast({
-          title: t.packageDetails,
-          description: `${t.trackingNumber}: ${number}`,
-        });
-      } else {
-        toast({
-          title: t.packageNotFound,
-          description: t.tryAgain,
-          variant: "destructive",
-        });
-      }
+      toast({
+        title: t.packageNotFound,
+        description: t.tryAgain,
+        variant: "destructive",
+      });
     } catch (error) {
       console.error("Error retrieving package:", error);
       toast({
@@ -346,13 +348,47 @@ const Track = () => {
     }
   };
 
+  const renderSteps = (status: string) => {
+    const currentStep = trackingSteps[status] || 0;
+    const steps = [
+      { text: t.inProcess, step: 1, icon: <Package className="h-4 w-4" /> },
+      { text: t.shipped, step: 2, icon: <TruckIcon className="h-4 w-4" /> },
+      { text: t.inDelivery, step: 3, icon: <ArrowRight className="h-4 w-4" /> },
+      { text: t.delivered, step: 4, icon: <Check className="h-4 w-4" /> }
+    ];
+
+    return (
+      <div className="relative mt-8 mb-10">
+        <div className="absolute top-1/2 left-0 right-0 h-1 bg-gray-200 -translate-y-1/2"></div>
+        <div className="relative flex justify-between">
+          {steps.map((step, index) => (
+            <div key={index} className="flex flex-col items-center">
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center z-10 ${
+                step.step < currentStep 
+                  ? 'bg-green-500 text-white' 
+                  : step.step === currentStep 
+                  ? 'bg-blue-600 text-white' 
+                  : 'bg-gray-200 text-gray-500'
+              }`}>
+                {step.step < currentStep ? <Check className="h-4 w-4" /> : step.icon}
+              </div>
+              <span className={`text-xs mt-2 ${
+                step.step === currentStep ? 'text-blue-600 font-medium' : 'text-gray-500'
+              }`}>{step.text}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
       <header 
         className={`fixed top-0 w-full z-50 transition-all duration-300 ${
           isHeaderScrolled 
             ? "bg-white shadow-md" 
-            : "bg-[#FFC107]"
+            : "bg-[#003366]"
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
@@ -365,17 +401,46 @@ const Track = () => {
               />
             </a>
             <nav className="hidden md:flex space-x-8">
-              <a href="/track" className="hover:text-blue-600 transition-colors">{t.menuTrack}</a>
-              <a href="#services" className="hover:text-blue-600 transition-colors">{t.menuServices}</a>
-              <a href="/help" className="hover:text-blue-600 transition-colors">{t.menuHelp}</a>
-              <a href="/faq" className="hover:text-blue-600 transition-colors">{t.menuFaq}</a>
-              <a href="/contact" className="hover:text-blue-600 transition-colors">{t.menuContact}</a>
+              <a 
+                href="/track" 
+                className={`transition-colors ${isHeaderScrolled ? 'text-gray-700 hover:text-blue-600' : 'text-white hover:text-blue-200'}`}
+              >
+                {t.menuTrack}
+              </a>
+              <a 
+                href="#services" 
+                className={`transition-colors ${isHeaderScrolled ? 'text-gray-700 hover:text-blue-600' : 'text-white hover:text-blue-200'}`}
+              >
+                {t.menuServices}
+              </a>
+              <a 
+                href="/help" 
+                className={`transition-colors ${isHeaderScrolled ? 'text-gray-700 hover:text-blue-600' : 'text-white hover:text-blue-200'}`}
+              >
+                {t.menuHelp}
+              </a>
+              <a 
+                href="/faq" 
+                className={`transition-colors ${isHeaderScrolled ? 'text-gray-700 hover:text-blue-600' : 'text-white hover:text-blue-200'}`}
+              >
+                {t.menuFaq}
+              </a>
+              <a 
+                href="/contact" 
+                className={`transition-colors ${isHeaderScrolled ? 'text-gray-700 hover:text-blue-600' : 'text-white hover:text-blue-200'}`}
+              >
+                {t.menuContact}
+              </a>
             </nav>
           </div>
           <div className="flex items-center space-x-4">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="sm" className="flex items-center">
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className={`flex items-center ${isHeaderScrolled ? 'text-gray-700' : 'text-white'}`}
+                >
                   <Globe className="h-4 w-4 mr-2" />
                   {language}
                 </Button>
@@ -399,6 +464,9 @@ const Track = () => {
               <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
                   <DialogTitle>{t.login}</DialogTitle>
+                  <DialogDescription>
+                    Connectez-vous pour accéder au tableau de bord
+                  </DialogDescription>
                 </DialogHeader>
                 <form onSubmit={handleLogin} className="space-y-4 mt-4">
                   <div className="space-y-2">
@@ -430,21 +498,24 @@ const Track = () => {
       </header>
 
       <main className="flex-1 pt-24">
-        <div className="bg-gradient-to-b from-[#FFC107] to-white py-20">
-          <div className="max-w-3xl mx-auto px-4 text-center">
-            <h1 className="text-4xl font-bold mb-8">{t.trackPackage}</h1>
+        <div className="bg-gradient-to-b from-[#003366] to-[#0056b3] py-20">
+          <div className="max-w-3xl mx-auto px-4 text-center text-white">
+            <h1 className="text-4xl font-bold mb-4">{t.trackPackage}</h1>
+            <p className="text-blue-100 mb-8 max-w-xl mx-auto">
+              Entrez le numéro de suivi de votre colis pour connaître son statut actuel et son emplacement.
+            </p>
             <form onSubmit={handleTracking} className="space-y-4">
               <div className="flex space-x-4">
                 <Input
                   value={trackingNumber}
                   onChange={(e) => setTrackingNumber(e.target.value)}
                   placeholder={t.trackingPlaceholder}
-                  className="h-12 text-lg"
+                  className="h-12 text-lg bg-white text-gray-800"
                   disabled={isLoading}
                 />
                 <Button 
                   type="submit" 
-                  className="h-12 px-8 bg-blue-600 hover:bg-blue-700 transition-colors"
+                  className="h-12 px-8 bg-[#FFC107] hover:bg-[#FFA000] text-gray-900 transition-colors"
                   disabled={isLoading}
                 >
                   {isLoading ? (
@@ -460,9 +531,12 @@ const Track = () => {
         </div>
 
         {isLoading && (
-          <div className="max-w-3xl mx-auto px-4 py-10 text-center">
-            <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4 text-blue-600" />
-            <p className="text-gray-600">{t.searchingPackage}...</p>
+          <div className="max-w-3xl mx-auto px-4 py-16 text-center">
+            <div className="bg-white rounded-lg shadow-lg p-8">
+              <Loader2 className="h-16 w-16 animate-spin mx-auto mb-6 text-blue-600" />
+              <h3 className="text-xl font-semibold text-gray-800 mb-2">{t.searchingPackage}...</h3>
+              <p className="text-gray-600">Veuillez patienter pendant que nous recherchons votre colis.</p>
+            </div>
           </div>
         )}
 
@@ -470,7 +544,7 @@ const Track = () => {
           <div className="max-w-3xl mx-auto px-4 py-10">
             {foundPackage ? (
               <Card className="shadow-lg border border-[#E3F2FD] animate-in fade-in">
-                <CardHeader className="bg-[#F5F7FA]/50">
+                <CardHeader className="bg-[#F5F7FA]">
                   <CardTitle className="flex items-center justify-between">
                     <span>{t.packageDetails}</span>
                     <span className={`px-3 py-1 rounded-full text-sm ${
@@ -488,6 +562,8 @@ const Track = () => {
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="pt-6">
+                  {renderSteps(foundPackage.status)}
+                  
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-4">
                       <div className="flex items-start">
@@ -539,15 +615,66 @@ const Track = () => {
                     </div>
                   </div>
                 </CardContent>
+                <CardFooter className="flex justify-between border-t pt-6 text-sm text-gray-500">
+                  <div className="flex items-center">
+                    <ShieldCheck className="h-4 w-4 mr-2 text-green-500" />
+                    Dernière mise à jour il y a 2 heures
+                  </div>
+                  <Button variant="ghost" size="sm" className="text-blue-600">
+                    <RefreshCw className="h-4 w-4 mr-2" />
+                    Actualiser
+                  </Button>
+                </CardFooter>
               </Card>
             ) : (
               <Card className="shadow-lg border border-red-100 animate-in fade-in">
                 <CardHeader className="bg-red-50">
-                  <CardTitle className="text-red-600">{t.packageNotFound}</CardTitle>
+                  <div className="flex items-center mb-2">
+                    <XCircle className="text-red-500 h-6 w-6 mr-2" />
+                    <CardTitle className="text-red-600">{t.packageNotFound}</CardTitle>
+                  </div>
                   <CardDescription className="text-red-500">
                     {t.tryAgain}
                   </CardDescription>
                 </CardHeader>
+                <CardContent className="pt-6">
+                  <div className="p-4 bg-red-50 rounded-lg border border-red-100 mb-6">
+                    <div className="flex">
+                      <Info className="h-5 w-5 text-red-500 mr-3 mt-0.5" />
+                      <div>
+                        <h4 className="font-medium text-red-800 mb-1">Numéro de suivi invalide</h4>
+                        <p className="text-red-700 text-sm">
+                          Le numéro de suivi "{trackingNumber}" n'a pas été trouvé dans notre système. 
+                          Veuillez vérifier que vous avez saisi le bon numéro.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <h4 className="font-medium text-gray-700 mb-3">Suggestions :</h4>
+                  <ul className="list-disc list-inside text-gray-600 space-y-2 mb-6">
+                    <li>Vérifiez que le numéro de suivi est correctement saisi</li>
+                    <li>Assurez-vous que le colis a bien été enregistré dans notre système</li>
+                    <li>Si le colis a été expédié récemment, veuillez réessayer plus tard</li>
+                    <li>Contactez notre service client pour obtenir de l'aide</li>
+                  </ul>
+                  
+                  <div className="flex flex-col sm:flex-row sm:justify-between gap-3">
+                    <Button 
+                      variant="outline" 
+                      className="border-blue-200"
+                      onClick={() => setTrackingNumber("")}
+                    >
+                      Essayer un autre numéro
+                    </Button>
+                    <Button asChild>
+                      <a href="/contact">
+                        Contacter le service client
+                        <ExternalLink className="ml-2 h-4 w-4" />
+                      </a>
+                    </Button>
+                  </div>
+                </CardContent>
               </Card>
             )}
           </div>
@@ -556,53 +683,95 @@ const Track = () => {
         <div id="services" className="max-w-3xl mx-auto px-4 py-20">
           <h2 className="text-2xl font-semibold mb-8 text-center">{t.ourServices}</h2>
           <Accordion type="single" collapsible className="space-y-4">
-            <AccordionItem value="tracking">
-              <AccordionTrigger className="hover:no-underline">
+            <AccordionItem value="tracking" className="border border-blue-100 rounded-lg overflow-hidden">
+              <AccordionTrigger className="hover:no-underline px-4 py-3">
                 <div className="flex items-center">
-                  <Package className="h-6 w-6 mr-4 text-[#FFC107]" />
+                  <Package className="h-6 w-6 mr-4 text-[#0056b3]" />
                   <span>{t.packageTracking}</span>
                 </div>
               </AccordionTrigger>
-              <AccordionContent>
-                {t.trackingDescription}
+              <AccordionContent className="px-4 pb-4 pt-2">
+                <div className="bg-blue-50 p-4 rounded-lg">
+                  {t.trackingDescription}
+                </div>
               </AccordionContent>
             </AccordionItem>
-            <AccordionItem value="costs">
-              <AccordionTrigger className="hover:no-underline">
+            <AccordionItem value="costs" className="border border-blue-100 rounded-lg overflow-hidden">
+              <AccordionTrigger className="hover:no-underline px-4 py-3">
                 <div className="flex items-center">
-                  <CreditCard className="h-6 w-6 mr-4 text-[#FFC107]" />
+                  <CreditCard className="h-6 w-6 mr-4 text-[#0056b3]" />
                   <span>{t.shippingCosts}</span>
                 </div>
               </AccordionTrigger>
-              <AccordionContent>
-                {t.costsDescription}
+              <AccordionContent className="px-4 pb-4 pt-2">
+                <div className="bg-blue-50 p-4 rounded-lg">
+                  {t.costsDescription}
+                </div>
               </AccordionContent>
             </AccordionItem>
-            <AccordionItem value="mailbox">
-              <AccordionTrigger className="hover:no-underline">
+            <AccordionItem value="mailbox" className="border border-blue-100 rounded-lg overflow-hidden">
+              <AccordionTrigger className="hover:no-underline px-4 py-3">
                 <div className="flex items-center">
-                  <Mailbox className="h-6 w-6 mr-4 text-[#FFC107]" />
+                  <Mailbox className="h-6 w-6 mr-4 text-[#0056b3]" />
                   <span>{t.virtualMailbox}</span>
                 </div>
               </AccordionTrigger>
-              <AccordionContent>
-                {t.mailboxDescription}
+              <AccordionContent className="px-4 pb-4 pt-2">
+                <div className="bg-blue-50 p-4 rounded-lg">
+                  {t.mailboxDescription}
+                </div>
               </AccordionContent>
             </AccordionItem>
-            <AccordionItem value="planning">
-              <AccordionTrigger className="hover:no-underline">
+            <AccordionItem value="planning" className="border border-blue-100 rounded-lg overflow-hidden">
+              <AccordionTrigger className="hover:no-underline px-4 py-3">
                 <div className="flex items-center">
-                  <Calendar className="h-6 w-6 mr-4 text-[#FFC107]" />
+                  <Calendar className="h-6 w-6 mr-4 text-[#0056b3]" />
                   <span>{t.deliveryPlanning}</span>
                 </div>
               </AccordionTrigger>
-              <AccordionContent>
-                {t.planningDescription}
+              <AccordionContent className="px-4 pb-4 pt-2">
+                <div className="bg-blue-50 p-4 rounded-lg">
+                  {t.planningDescription}
+                </div>
               </AccordionContent>
             </AccordionItem>
           </Accordion>
         </div>
       </main>
+      
+      <footer className="bg-[#003366] text-white py-10">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+              <h3 className="text-lg font-semibold mb-4">PackExpress</h3>
+              <p className="text-blue-200 text-sm">
+                Service de livraison professionnel et fiable pour tous vos besoins d'expédition.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Liens Rapides</h3>
+              <ul className="space-y-2 text-sm">
+                <li><a href="/track" className="text-blue-200 hover:text-white transition-colors">Suivi de colis</a></li>
+                <li><a href="/faq" className="text-blue-200 hover:text-white transition-colors">FAQ</a></li>
+                <li><a href="/contact" className="text-blue-200 hover:text-white transition-colors">Contact</a></li>
+                <li><a href="/terms" className="text-blue-200 hover:text-white transition-colors">Conditions générales</a></li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Contact</h3>
+              <address className="not-italic text-sm text-blue-200">
+                <p>123 Rue de la Livraison</p>
+                <p>75000 Paris, France</p>
+                <p className="mt-2">Email: contact@packexpress.com</p>
+                <p>Tél: +33 1 23 45 67 89</p>
+              </address>
+            </div>
+          </div>
+          <div className="mt-8 pt-8 border-t border-blue-800 text-center text-sm text-blue-300">
+            &copy; 2024 PackExpress. Tous droits réservés.
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
