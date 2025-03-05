@@ -1,4 +1,4 @@
-<lov-code>
+
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -340,7 +340,7 @@ const Index = () => {
   };
 
   const renderSteps = (status: string) => {
-    const currentStep = trackingSteps[status] || 0;
+    const currentStep = trackingSteps[status as keyof typeof trackingSteps] || 0;
     const steps = [
       { text: t.inProcess, step: 1, icon: <Package className="h-4 w-4" /> },
       { text: t.shipped, step: 2, icon: <TruckIcon className="h-4 w-4" /> },
@@ -762,4 +762,15 @@ const Index = () => {
             <div>
               <h3 className="text-lg font-semibold mb-4">Contact</h3>
               <address className="not-italic text-sm text-blue-200">
-                <p>1
+                <p>123 Rue de la Livraison<br />75000 Paris, France</p>
+                <p className="mt-2">Email: contact@packexpress.com<br />Tél: +33 (0)1 23 45 67 89</p>
+              </address>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+};
+
+export default Index;
