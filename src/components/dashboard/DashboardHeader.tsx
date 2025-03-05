@@ -45,7 +45,7 @@ const DashboardHeader = ({
         </Select>
 
         <Button 
-          className="bg-[#E3F2FD] text-blue-600 hover:bg-blue-100 transition-colors duration-300"
+          className="bg-[#003366] text-white hover:bg-[#00264d] transition-colors duration-300"
           onClick={onNewPackage}
         >
           <Plus className="mr-2 h-4 w-4" />

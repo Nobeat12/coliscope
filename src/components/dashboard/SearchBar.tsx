@@ -31,14 +31,14 @@ const SearchBar = ({ value, onChange, onSearch, t }: SearchBarProps) => {
     <div className="flex space-x-4">
       <Input
         placeholder={t.search}
-        className="max-w-sm border-[#F5F7FA] focus:border-[#E3F2FD] transition-colors duration-300"
+        className="max-w-sm border-[#F5F7FA] focus:border-[#003366] transition-colors duration-300"
         value={value}
         onChange={(e) => onChange(e.target.value)}
         onKeyDown={handleKeyDown}
       />
       <Button 
         variant="outline"
-        className="border-[#E3F2FD] text-blue-600 hover:bg-[#E3F2FD]/10 transition-colors duration-300"
+        className="border-[#003366] text-[#003366] hover:bg-[#003366]/10 transition-colors duration-300"
         onClick={handleSearch}
         disabled={isSearching}
       >

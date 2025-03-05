@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
@@ -19,12 +18,13 @@ import { PackageStorage } from "@/lib/utils-package";
 import { translations } from "@/lib/translations";
 import { PackageSchema, LoginSchema } from "@/lib/schemas";
 
-// Dashboard components
-import PackageForm from "@/components/dashboard/PackageForm";
-import PackageTable from "@/components/dashboard/PackageTable";
-import LoginForm from "@/components/dashboard/LoginForm";
-import DashboardHeader from "@/components/dashboard/DashboardHeader";
-import SearchBar from "@/components/dashboard/SearchBar";
+import {
+  PackageForm,
+  PackageTable,
+  LoginForm,
+  DashboardHeader,
+  SearchBar,
+} from "@/components/dashboard";
 
 const Dashboard = () => {
   const [packages, setPackages] = useState<Package[]>([]);
@@ -76,7 +76,6 @@ const Dashboard = () => {
     checkAuth();
   }, []);
 
-  // Load packages on component mount
   useEffect(() => {
     const loadPackages = async () => {
       setIsLoadingPackages(true);
@@ -98,14 +97,13 @@ const Dashboard = () => {
     
     loadPackages();
 
-    // Set up periodic refresh to check for new packages from other devices
     const refreshInterval = setInterval(async () => {
       const pkgs = await PackageStorage.getPackages();
       if (JSON.stringify(pkgs) !== JSON.stringify(packages)) {
         setPackages(pkgs);
         console.log("Packages refreshed from storage:", pkgs.length);
       }
-    }, 30000); // Check every 30 seconds
+    }, 30000);
     
     return () => clearInterval(refreshInterval);
   }, []);
@@ -187,7 +185,6 @@ const Dashboard = () => {
     try {
       await PackageStorage.savePackage(newPackage);
       
-      // Reload all packages to ensure consistency
       const updatedPackages = await PackageStorage.getPackages();
       setPackages(updatedPackages);
       
@@ -242,7 +239,6 @@ const Dashboard = () => {
     try {
       await PackageStorage.savePackage(updatedPackage);
       
-      // Reload all packages to ensure consistency
       const updatedPackages = await PackageStorage.getPackages();
       setPackages(updatedPackages);
       
@@ -267,7 +263,6 @@ const Dashboard = () => {
     try {
       await PackageStorage.removePackage(packageToDelete.trackingNumber);
       
-      // Remove from local state
       const updatedPackages = [...packages];
       updatedPackages.splice(index, 1);
       setPackages(updatedPackages);
@@ -293,7 +288,6 @@ const Dashboard = () => {
   const handleSearch = (query: string) => {
     setSearchQuery(query);
     console.log(`Searching for: ${query}`);
-    // Additional search handling can be added here if needed
   };
 
   const filteredPackages = packages.filter(pkg => 
@@ -330,7 +324,7 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-[#FFFFFF] p-6">
-      <div className="max-w-7xl mx-auto bg-white/70 backdrop-blur-md border border-[#E3F2FD]/20 rounded-xl shadow-lg p-8 transition-all duration-300 hover:shadow-xl animate-in">
+      <div className="max-w-7xl mx-auto bg-white/70 backdrop-blur-md border border-[#FFC107]/20 rounded-xl shadow-lg p-8 transition-all duration-300 hover:shadow-xl animate-in">
         <DashboardHeader 
           t={t} 
           language={language} 

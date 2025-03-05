@@ -1,3 +1,4 @@
+
 import { Package, TranslationType } from "@/types/package";
 import {
   Table,
@@ -39,7 +40,7 @@ const PackageTable = ({ packages, onEdit, onDelete, t }: PackageTableProps) => {
               key={pkg.trackingNumber + index} 
               className="hover:bg-[#F5F7FA]/30 transition-colors duration-300"
             >
-              <TableCell className="font-medium text-blue-600">{pkg.trackingNumber}</TableCell>
+              <TableCell className="font-medium text-[#003366]">{pkg.trackingNumber}</TableCell>
               <TableCell>{pkg.recipientName}</TableCell>
               <TableCell>{pkg.phoneNumber}</TableCell>
               <TableCell>{pkg.receiptLocation}</TableCell>
@@ -51,7 +52,7 @@ const PackageTable = ({ packages, onEdit, onDelete, t }: PackageTableProps) => {
                     ? "bg-green-100 text-green-600" 
                     : pkg.status === "Problème"
                     ? "bg-red-100 text-red-600"
-                    : "bg-[#E3F2FD] text-blue-600"
+                    : "bg-[#003366]/10 text-[#003366]"
                 }`}>
                   {pkg.status === "En cours" ? t.inProcess : 
                    pkg.status === "Expédié" ? t.shipped :
@@ -67,7 +68,7 @@ const PackageTable = ({ packages, onEdit, onDelete, t }: PackageTableProps) => {
                     size="sm"
                     onClick={() => onEdit(index)}
                   >
-                    <Edit className="h-4 w-4 text-blue-600" />
+                    <Edit className="h-4 w-4 text-[#003366]" />
                   </Button>
                   <Button 
                     variant="ghost" 
