@@ -855,3 +855,6 @@ const Index = () => {
       </footer>
     </div>
   );
+};
+
+export default Index;
