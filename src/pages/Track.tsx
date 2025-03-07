@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
+import { predefinedPackages, logTrackingNumbers } from "@/data/predefinedPackages";
 import {
   Card,
   CardContent,
@@ -226,6 +227,7 @@ const Track = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [demoLoaded, setDemoLoaded] = useState(false);
   const [searchAttempted, setSearchAttempted] = useState(false);
+  const [predefinedCodesLoaded, setPredefinedCodesLoaded] = useState(false);
   const { toast } = useToast();
   const navigate = useNavigate();
   
@@ -242,12 +244,34 @@ const Track = () => {
           for (const pkg of DEMO_PACKAGES) {
             await PackageStorage.savePackage(pkg);
           }
-          console.log("Demo packages loaded into IndexedDB");
+          console.log("Colis de démo chargés dans IndexedDB");
+        }
+        
+        if (!predefinedCodesLoaded) {
+          console.log("Chargement des colis prédéfinis...");
+          
+          const existingTrackingNumbers = existingPackages.map(pkg => pkg.trackingNumber);
+          let loadedCount = 0;
+          
+          for (const pkg of predefinedPackages) {
+            if (!existingTrackingNumbers.includes(pkg.trackingNumber)) {
+              await PackageStorage.savePackage(pkg);
+              loadedCount++;
+            }
+          }
+          
+          if (loadedCount > 0) {
+            console.log(`${loadedCount} nouveaux colis prédéfinis chargés dans IndexedDB`);
+          }
+          
+          logTrackingNumbers();
+          
+          setPredefinedCodesLoaded(true);
         }
         
         setDemoLoaded(true);
       } catch (error) {
-        console.error("Error loading demo packages:", error);
+        console.error("Erreur lors du chargement des colis:", error);
       }
     };
     
@@ -312,47 +336,61 @@ const Track = () => {
     try {
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      console.log("Searching for tracking number:", number);
+      console.log("Recherche du colis avec numéro:", number);
       
       let pkg;
       try {
+        console.log("Recherche dans IndexedDB...");
         pkg = await PackageStorage.getPackageByTrackingNumber(number);
-        console.log("Result from PackageStorage:", pkg);
+        console.log("Résultat de PackageStorage:", pkg);
       } catch (storageError) {
-        console.error("Error accessing PackageStorage:", storageError);
+        console.error("Erreur d'accès à PackageStorage:", storageError);
         pkg = null;
       }
       
-      setShowResults(true);
-      
       if (pkg) {
+        console.log("Colis trouvé dans IndexedDB:", pkg);
         setFoundPackage(pkg);
         toast({
           title: "Colis trouvé",
           description: `Colis trouvé: ${pkg.trackingNumber}`,
         });
       } else {
-        console.log("Checking demo packages for:", number);
-        const demoPkg = DEMO_PACKAGES.find(p => p.trackingNumber === number);
+        console.log("Recherche dans les colis prédéfinis...");
+        const predefinedPkg = predefinedPackages.find(p => p.trackingNumber === number);
         
-        if (demoPkg) {
-          setFoundPackage(demoPkg);
+        if (predefinedPkg) {
+          console.log("Colis trouvé dans les colis prédéfinis:", predefinedPkg);
+          await PackageStorage.savePackage(predefinedPkg);
+          setFoundPackage(predefinedPkg);
           toast({
             title: "Colis trouvé",
-            description: `Colis trouvé: ${demoPkg.trackingNumber}`,
+            description: `Colis trouvé: ${predefinedPkg.trackingNumber}`,
           });
         } else {
-          setFoundPackage(null);
-          console.log("No package found with tracking number:", number);
-          toast({
-            title: t.packageNotFound,
-            description: t.tryAgain,
-            variant: "destructive",
-          });
+          console.log("Recherche dans les colis de démo pour:", number);
+          const demoPkg = DEMO_PACKAGES.find(p => p.trackingNumber === number);
+          
+          if (demoPkg) {
+            console.log("Colis trouvé dans les colis de démo:", demoPkg);
+            setFoundPackage(demoPkg);
+            toast({
+              title: "Colis trouvé",
+              description: `Colis trouvé: ${demoPkg.trackingNumber}`,
+            });
+          } else {
+            setFoundPackage(null);
+            console.log("Aucun colis trouvé avec le numéro:", number);
+            toast({
+              title: t.packageNotFound,
+              description: t.tryAgain,
+              variant: "destructive",
+            });
+          }
         }
       }
     } catch (error) {
-      console.error("Error retrieving package:", error);
+      console.error("Erreur lors de la récupération du colis:", error);
       toast({
         title: t.error,
         description: "Erreur lors de la recherche du colis",
@@ -360,6 +398,7 @@ const Track = () => {
       });
     } finally {
       setIsLoading(false);
+      setShowResults(true);
     }
   };
 
@@ -543,7 +582,13 @@ const Track = () => {
                   placeholder={t.trackingPlaceholder}
                   className="h-12 text-lg bg-white text-gray-800"
                   disabled={isLoading}
+                  list="tracking-numbers"
                 />
+                <datalist id="tracking-numbers">
+                  {predefinedPackages.map(pkg => (
+                    <option key={pkg.trackingNumber} value={pkg.trackingNumber} />
+                  ))}
+                </datalist>
                 <Button 
                   type="submit" 
                   className="h-12 px-8 bg-[#FFC107] hover:bg-[#FFA000] text-gray-900 transition-colors"

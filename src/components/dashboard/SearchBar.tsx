@@ -3,7 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { PackageSearch } from "lucide-react";
 import { TranslationType } from "@/types/package";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { predefinedPackages } from "@/data/predefinedPackages";
 
 interface SearchBarProps {
   value: string;
@@ -14,6 +15,13 @@ interface SearchBarProps {
 
 const SearchBar = ({ value, onChange, onSearch, t }: SearchBarProps) => {
   const [isSearching, setIsSearching] = useState(false);
+  const [suggestions, setSuggestions] = useState<string[]>([]);
+  
+  useEffect(() => {
+    // Récupérer les numéros de suivi prédéfinis pour les suggestions
+    const trackingNumbers = predefinedPackages.map(pkg => pkg.trackingNumber);
+    setSuggestions(trackingNumbers);
+  }, []);
   
   const handleSearch = () => {
     setIsSearching(true);
@@ -35,7 +43,13 @@ const SearchBar = ({ value, onChange, onSearch, t }: SearchBarProps) => {
         value={value}
         onChange={(e) => onChange(e.target.value)}
         onKeyDown={handleKeyDown}
+        list="dashboard-tracking-numbers"
       />
+      <datalist id="dashboard-tracking-numbers">
+        {suggestions.map(number => (
+          <option key={number} value={number} />
+        ))}
+      </datalist>
       <Button 
         variant="outline"
         className="border-[#003366] text-[#003366] hover:bg-[#003366]/10 transition-colors duration-300"
