@@ -1,7 +1,8 @@
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0;
   text-align: center;
 }
 
@@ -40,3 +41,17 @@
 .read-the-docs {
   color: #888;
 }
+
+/* Custom colors */
+.bg-header-yellow {
+  background-color: #FFC107;
+}
+
+.bg-button-blue {
+  background-color: #003366;
+}
+
+.hover-button-blue:hover {
+  background-color: #002244;
+}
+

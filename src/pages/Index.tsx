@@ -458,7 +458,7 @@ const Index = () => {
         className={`fixed top-0 w-full z-50 transition-all duration-300 ${
           isHeaderScrolled 
             ? "bg-white shadow-md" 
-            : "bg-[#003366]"
+            : "bg-[#FFC107]"
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
@@ -473,31 +473,31 @@ const Index = () => {
             <nav className="hidden md:flex space-x-8">
               <a 
                 href="/" 
-                className={`transition-colors ${isHeaderScrolled ? 'text-gray-700 hover:text-blue-600' : 'text-white hover:text-blue-200'}`}
+                className={`transition-colors ${isHeaderScrolled ? 'text-gray-700 hover:text-blue-600' : 'text-gray-800 hover:text-gray-900'}`}
               >
                 {t.menuTrack}
               </a>
               <a 
                 href="#services" 
-                className={`transition-colors ${isHeaderScrolled ? 'text-gray-700 hover:text-blue-600' : 'text-white hover:text-blue-200'}`}
+                className={`transition-colors ${isHeaderScrolled ? 'text-gray-700 hover:text-blue-600' : 'text-gray-800 hover:text-gray-900'}`}
               >
                 {t.menuServices}
               </a>
               <a 
                 href="/help" 
-                className={`transition-colors ${isHeaderScrolled ? 'text-gray-700 hover:text-blue-600' : 'text-white hover:text-blue-200'}`}
+                className={`transition-colors ${isHeaderScrolled ? 'text-gray-700 hover:text-blue-600' : 'text-gray-800 hover:text-gray-900'}`}
               >
                 {t.menuHelp}
               </a>
               <a 
                 href="/faq" 
-                className={`transition-colors ${isHeaderScrolled ? 'text-gray-700 hover:text-blue-600' : 'text-white hover:text-blue-200'}`}
+                className={`transition-colors ${isHeaderScrolled ? 'text-gray-700 hover:text-blue-600' : 'text-gray-800 hover:text-gray-900'}`}
               >
                 {t.menuFaq}
               </a>
               <a 
                 href="/contact" 
-                className={`transition-colors ${isHeaderScrolled ? 'text-gray-700 hover:text-blue-600' : 'text-white hover:text-blue-200'}`}
+                className={`transition-colors ${isHeaderScrolled ? 'text-gray-700 hover:text-blue-600' : 'text-gray-800 hover:text-gray-900'}`}
               >
                 {t.menuContact}
               </a>
@@ -505,7 +505,7 @@ const Index = () => {
           </div>
           <div className="flex items-center space-x-4">
             <Select value={language} onValueChange={handleLanguageChange}>
-              <SelectTrigger className={`w-[140px] ${isHeaderScrolled ? 'bg-white text-gray-700' : 'bg-[#003366] text-white border-blue-500'}`}>
+              <SelectTrigger className={`w-[140px] ${isHeaderScrolled ? 'bg-white text-gray-700' : 'bg-[#FFC107] text-gray-800 border-yellow-500'}`}>
                 <Globe className="mr-2 h-4 w-4" />
                 <SelectValue placeholder={t.languageSelection} />
               </SelectTrigger>
@@ -520,7 +520,7 @@ const Index = () => {
               <DialogTrigger asChild>
                 <Button 
                   variant="default"
-                  className="bg-[#FFC107] hover:bg-[#FFA000] text-gray-900 transition-colors hidden md:inline-flex"
+                  className="bg-[#003366] hover:bg-[#002244] text-white transition-colors hidden md:inline-flex"
                 >
                   {t.login}
                 </Button>
@@ -561,7 +561,7 @@ const Index = () => {
                       )}
                     />
                     <div className="flex justify-end">
-                      <Button type="submit">
+                      <Button type="submit" className="bg-[#003366] hover:bg-[#002244]">
                         {t.login}
                       </Button>
                     </div>
@@ -573,7 +573,7 @@ const Index = () => {
             <Button 
               variant="ghost" 
               size="icon" 
-              className={`md:hidden ${isHeaderScrolled ? 'text-gray-700' : 'text-white'}`}
+              className={`md:hidden ${isHeaderScrolled ? 'text-gray-700' : 'text-gray-800'}`}
               onClick={toggleMobileMenu}
             >
               {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -582,42 +582,42 @@ const Index = () => {
         </div>
         
         {mobileMenuOpen && (
-          <div className={`md:hidden ${isHeaderScrolled ? "bg-white" : "bg-[#003366]"} shadow-lg p-4 animate-in fade-in`}>
+          <div className={`md:hidden ${isHeaderScrolled ? "bg-white" : "bg-[#FFC107]"} shadow-lg p-4 animate-in fade-in`}>
             <nav className="flex flex-col space-y-4">
               <a 
                 href="/" 
-                className={`py-2 border-b ${isHeaderScrolled ? 'border-gray-200 text-gray-700 hover:text-blue-600' : 'border-blue-800 text-white hover:text-blue-200'} transition-colors`}
+                className={`py-2 border-b ${isHeaderScrolled ? 'border-gray-200 text-gray-700 hover:text-blue-600' : 'border-yellow-500 text-gray-800 hover:text-gray-900'} transition-colors`}
               >
                 {t.menuTrack}
               </a>
               <a 
                 href="#services" 
-                className={`py-2 border-b ${isHeaderScrolled ? 'border-gray-200 text-gray-700 hover:text-blue-600' : 'border-blue-800 text-white hover:text-blue-200'} transition-colors`}
+                className={`py-2 border-b ${isHeaderScrolled ? 'border-gray-200 text-gray-700 hover:text-blue-600' : 'border-yellow-500 text-gray-800 hover:text-gray-900'} transition-colors`}
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {t.menuServices}
               </a>
               <a 
                 href="/help" 
-                className={`py-2 border-b ${isHeaderScrolled ? 'border-gray-200 text-gray-700 hover:text-blue-600' : 'border-blue-800 text-white hover:text-blue-200'} transition-colors`}
+                className={`py-2 border-b ${isHeaderScrolled ? 'border-gray-200 text-gray-700 hover:text-blue-600' : 'border-yellow-500 text-gray-800 hover:text-gray-900'} transition-colors`}
               >
                 {t.menuHelp}
               </a>
               <a 
                 href="/faq" 
-                className={`py-2 border-b ${isHeaderScrolled ? 'border-gray-200 text-gray-700 hover:text-blue-600' : 'border-blue-800 text-white hover:text-blue-200'} transition-colors`}
+                className={`py-2 border-b ${isHeaderScrolled ? 'border-gray-200 text-gray-700 hover:text-blue-600' : 'border-yellow-500 text-gray-800 hover:text-gray-900'} transition-colors`}
               >
                 {t.menuFaq}
               </a>
               <a 
                 href="/contact" 
-                className={`py-2 border-b ${isHeaderScrolled ? 'border-gray-200 text-gray-700 hover:text-blue-600' : 'border-blue-800 text-white hover:text-blue-200'} transition-colors`}
+                className={`py-2 border-b ${isHeaderScrolled ? 'border-gray-200 text-gray-700 hover:text-blue-600' : 'border-yellow-500 text-gray-800 hover:text-gray-900'} transition-colors`}
               >
                 {t.menuContact}
               </a>
               <Button 
                 variant="default"
-                className="bg-[#FFC107] hover:bg-[#FFA000] text-gray-900 w-full mt-2"
+                className="bg-[#003366] hover:bg-[#002244] text-white w-full mt-2"
                 onClick={() => {
                   setMobileMenuOpen(false);
                   setLoginDialogOpen(true);
@@ -631,10 +631,10 @@ const Index = () => {
       </header>
 
       <main className="flex-1 pt-24">
-        <div className="bg-gradient-to-b from-[#003366] to-[#0056b3] py-12 md:py-20">
-          <div className="max-w-3xl mx-auto px-4 text-center text-white">
+        <div className="bg-gradient-to-b from-[#FFC107] to-[#FFD54F] py-12 md:py-20">
+          <div className="max-w-3xl mx-auto px-4 text-center text-gray-800">
             <h1 className="text-3xl md:text-4xl font-bold mb-4">{t.trackPackage}</h1>
-            <p className="text-blue-100 mb-8 max-w-xl mx-auto">
+            <p className="text-gray-700 mb-8 max-w-xl mx-auto">
               Entrez le numéro de suivi de votre colis pour connaître son statut actuel et son emplacement.
             </p>
             <form onSubmit={handleTracking} className="space-y-4">
@@ -648,7 +648,7 @@ const Index = () => {
                 />
                 <Button 
                   type="submit" 
-                  className="h-12 px-8 bg-[#FFC107] hover:bg-[#FFA000] text-gray-900 transition-colors"
+                  className="h-12 px-8 bg-[#003366] hover:bg-[#002244] text-white transition-colors"
                   disabled={isLoading}
                 >
                   {isLoading ? (
@@ -814,8 +814,44 @@ const Index = () => {
           </div>
         )}
       </main>
+
+      <footer className="bg-[#FFC107] py-8 mt-12">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+              <h3 className="text-lg font-semibold mb-4 text-gray-800">À propos</h3>
+              <p className="text-gray-700">
+                Notre service de suivi de colis vous permet de suivre vos envois en temps réel.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-4 text-gray-800">Liens rapides</h3>
+              <ul className="space-y-2">
+                <li><a href="/" className="text-gray-700 hover:text-gray-900">Accueil</a></li>
+                <li><a href="/faq" className="text-gray-700 hover:text-gray-900">FAQ</a></li>
+                <li><a href="/contact" className="text-gray-700 hover:text-gray-900">Contact</a></li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-4 text-gray-800">Services</h3>
+              <ul className="space-y-2">
+                <li><a href="#" className="text-gray-700 hover:text-gray-900">Suivi de colis</a></li>
+                <li><a href="#" className="text-gray-700 hover:text-gray-900">Expédition</a></li>
+                <li><a href="#" className="text-gray-700 hover:text-gray-900">Livraison internationale</a></li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-4 text-gray-800">Contact</h3>
+              <address className="not-italic text-gray-700">
+                <p>Email: contact@example.com</p>
+                <p>Téléphone: +33 1 23 45 67 89</p>
+              </address>
+            </div>
+          </div>
+          <div className="border-t border-yellow-500 mt-8 pt-6 text-center text-gray-700">
+            <p>&copy; {new Date().getFullYear()} Suivi de Colis. Tous droits réservés.</p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
-};
-
-export default Index;
