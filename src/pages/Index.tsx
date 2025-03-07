@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -57,7 +56,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
-// Define our package interface (renamed from Package to avoid conflict)
 interface PackageData {
   trackingNumber: string;
   recipientName: string;
@@ -233,7 +231,6 @@ const trackingSteps = {
   "Problème": 0
 };
 
-// Demo packages for testing
 const DEMO_PACKAGES: PackageData[] = [
   {
     trackingNumber: "PKT-123456789",
@@ -345,10 +342,8 @@ const Index = () => {
     
     setTimeout(async () => {
       try {
-        // Try to find from IndexedDB first
         const pkg = await PackageStorage.getPackageByTrackingNumber(trackingNumber);
         
-        // Then check localStorage
         if (!pkg) {
           const allPackages = getPackagesFromLocalStorage();
           const foundPkg = allPackages.find(pkg => pkg.trackingNumber === trackingNumber);
@@ -360,7 +355,6 @@ const Index = () => {
               description: `Colis trouvé: ${foundPkg.trackingNumber}`,
             });
           } else {
-            // Check demo packages directly as fallback
             const demoPkg = DEMO_PACKAGES.find(p => p.trackingNumber === trackingNumber);
             if (demoPkg) {
               setFoundPackage(demoPkg);
@@ -421,7 +415,7 @@ const Index = () => {
   const renderSteps = (status: string) => {
     const currentStep = trackingSteps[status as keyof typeof trackingSteps] || 0;
     const steps = [
-      { text: t.inProcess, step: 1, icon: <Package className="h-4 w-4" /> },
+      { text: t.inProcess, step: 1, icon: <TruckIcon className="h-4 w-4" /> },
       { text: t.shipped, step: 2, icon: <TruckIcon className="h-4 w-4" /> },
       { text: t.inDelivery, step: 3, icon: <ArrowRight className="h-4 w-4" /> },
       { text: t.delivered, step: 4, icon: <Check className="h-4 w-4" /> }
