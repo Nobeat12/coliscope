@@ -340,13 +340,24 @@ const Index = () => {
     setShowResults(false);
     setSearchAttempted(true);
     
+    console.log("Searching for tracking number:", trackingNumber);
+    
     setTimeout(async () => {
       try {
+        console.log("Attempting to retrieve package from storage");
         const pkg = await PackageStorage.getPackageByTrackingNumber(trackingNumber);
+        console.log("Package retrieved from storage:", pkg);
         
-        if (!pkg) {
+        if (pkg) {
+          setFoundPackage(pkg as PackageData);
+          toast({
+            title: "Colis trouvé",
+            description: `Colis trouvé: ${pkg.trackingNumber}`,
+          });
+        } else {
           const allPackages = getPackagesFromLocalStorage();
-          const foundPkg = allPackages.find(pkg => pkg.trackingNumber === trackingNumber);
+          console.log("Checking localStorage packages:", allPackages);
+          const foundPkg = allPackages.find(p => p.trackingNumber === trackingNumber);
           
           if (foundPkg) {
             setFoundPackage(foundPkg);
@@ -364,6 +375,7 @@ const Index = () => {
               });
             } else {
               setFoundPackage(null);
+              console.log("No package found with tracking number:", trackingNumber);
               toast({
                 title: t.packageNotFound,
                 description: t.tryAgain,
@@ -371,12 +383,6 @@ const Index = () => {
               });
             }
           }
-        } else {
-          setFoundPackage(pkg as PackageData);
-          toast({
-            title: "Colis trouvé",
-            description: `Colis trouvé: ${pkg.trackingNumber}`,
-          });
         }
       } catch (error) {
         console.error("Error retrieving package:", error);
@@ -809,7 +815,7 @@ const Index = () => {
         )}
       </main>
 
-      <footer className="bg-[#FFC107] py-8 mt-12">
+      <footer className="bg-white py-8 mt-12">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
@@ -842,7 +848,7 @@ const Index = () => {
               </address>
             </div>
           </div>
-          <div className="border-t border-yellow-500 mt-8 pt-6 text-center text-gray-700">
+          <div className="border-t border-gray-200 mt-8 pt-6 text-center text-gray-700">
             <p>&copy; {new Date().getFullYear()} Suivi de Colis. Tous droits réservés.</p>
           </div>
         </div>
@@ -852,3 +858,4 @@ const Index = () => {
 };
 
 export default Index;
+
