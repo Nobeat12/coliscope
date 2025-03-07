@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
 import { PackageStorage } from "@/lib/utils-package";
-import { Package } from "@/types/package";
+import { Package as PackageType } from "@/types/package";
 import {
   Card,
   CardContent,
@@ -57,7 +57,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
-interface Package {
+// Define our package interface (renamed from Package to avoid conflict)
+interface PackageData {
   trackingNumber: string;
   recipientName: string;
   phoneNumber: string;
@@ -68,7 +69,7 @@ interface Package {
   customerInfo: string;
 }
 
-const getPackagesFromLocalStorage = (): Package[] => {
+const getPackagesFromLocalStorage = (): PackageData[] => {
   return JSON.parse(localStorage.getItem('packages') || '[]');
 };
 
@@ -233,7 +234,7 @@ const trackingSteps = {
 };
 
 // Demo packages for testing
-const DEMO_PACKAGES: Package[] = [
+const DEMO_PACKAGES: PackageData[] = [
   {
     trackingNumber: "PKT-123456789",
     recipientName: "Max Mustermann",
@@ -269,9 +270,9 @@ const DEMO_PACKAGES: Package[] = [
 const Index = () => {
   const [trackingNumber, setTrackingNumber] = useState("");
   const [isHeaderScrolled, setIsHeaderScrolled] = useState(false);
-  const [foundPackage, setFoundPackage] = useState<Package | null>(null);
+  const [foundPackage, setFoundPackage] = useState<PackageData | null>(null);
   const [showResults, setShowResults] = useState(false);
-  const [packages, setPackages] = useState<Package[]>([]);
+  const [packages, setPackages] = useState<PackageData[]>([]);
   const [loginDialogOpen, setLoginDialogOpen] = useState(false);
   const [language, setLanguage] = useState(() => {
     return localStorage.getItem('language') || "FR";
@@ -377,7 +378,7 @@ const Index = () => {
             }
           }
         } else {
-          setFoundPackage(pkg);
+          setFoundPackage(pkg as PackageData);
           toast({
             title: "Colis trouvé",
             description: `Colis trouvé: ${pkg.trackingNumber}`,
