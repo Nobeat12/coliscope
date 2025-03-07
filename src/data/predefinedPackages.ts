@@ -2,7 +2,7 @@
 import { Package } from "@/types/package";
 import { generateTrackingNumber } from "@/lib/utils-package";
 
-// Génère 20 numéros de suivi uniques
+// Génère 20 numéros de suivi uniques avec un format professionnel
 const generateUniqueTrackingNumbers = (count: number): string[] => {
   const trackingNumbers: string[] = [];
   for (let i = 0; i < count; i++) {

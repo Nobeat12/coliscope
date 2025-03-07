@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Edit, Trash2 } from "lucide-react";
+import { predefinedPackages } from "@/data/predefinedPackages";
 
 interface PackageTableProps {
   packages: Package[];
@@ -19,6 +20,9 @@ interface PackageTableProps {
 }
 
 const PackageTable = ({ packages, onEdit, onDelete, t }: PackageTableProps) => {
+  // Liste des numéros de suivi prédéfinis pour les mettre en évidence
+  const predefinedTrackingNumbers = predefinedPackages.map(pkg => pkg.trackingNumber);
+
   return (
     <Table>
       <TableHeader>
@@ -38,7 +42,9 @@ const PackageTable = ({ packages, onEdit, onDelete, t }: PackageTableProps) => {
           packages.map((pkg, index) => (
             <TableRow 
               key={pkg.trackingNumber + index} 
-              className="hover:bg-[#F5F7FA]/30 transition-colors duration-300"
+              className={`hover:bg-[#F5F7FA]/30 transition-colors duration-300 ${
+                predefinedTrackingNumbers.includes(pkg.trackingNumber) ? 'bg-blue-50' : ''
+              }`}
             >
               <TableCell className="font-medium text-[#003366]">{pkg.trackingNumber}</TableCell>
               <TableCell>{pkg.recipientName}</TableCell>
