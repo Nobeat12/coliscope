@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
+import { PackageStorage } from "@/lib/utils-package";
+import { Package } from "@/types/package";
 import {
   Card,
   CardContent,
@@ -47,7 +49,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {
-  Search, Package, CreditCard, Mailbox, Calendar, Globe, MapPin, Phone, User, TruckIcon, 
+  Search, CreditCard, Mailbox, Calendar, Globe, MapPin, Phone, User, TruckIcon, 
   Clock, AlertCircle, Menu, X, XCircle, Info, ExternalLink, ShieldCheck, Check, ArrowRight
 } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -228,6 +230,40 @@ const trackingSteps = {
   "Livré": 4,
   "Problème": 0
 };
+
+// Demo packages for testing
+const DEMO_PACKAGES: Package[] = [
+  {
+    trackingNumber: "PKT-123456789",
+    recipientName: "Max Mustermann",
+    phoneNumber: "+49123456789",
+    receiptLocation: "Berlin",
+    receiptDate: "2023-06-15",
+    deliveryLocation: "München",
+    status: "En livraison",
+    customerInfo: "Colis volumineux, manipuler avec précaution"
+  },
+  {
+    trackingNumber: "PKT-987654321",
+    recipientName: "Anna Schmidt",
+    phoneNumber: "+49987654321",
+    receiptLocation: "Hamburg",
+    receiptDate: "2023-06-14",
+    deliveryLocation: "Frankfurt",
+    status: "Expédié",
+    customerInfo: "Livraison express"
+  },
+  {
+    trackingNumber: "PKT-456789123",
+    recipientName: "Thomas Weber",
+    phoneNumber: "+49456789123",
+    receiptLocation: "München",
+    receiptDate: "2023-06-13",
+    deliveryLocation: "Köln",
+    status: "Livré",
+    customerInfo: "Laisser chez le voisin si absent"
+  }
+];
 
 const Index = () => {
   const [trackingNumber, setTrackingNumber] = useState("");
@@ -759,139 +795,4 @@ const Index = () => {
                       className="border-blue-200"
                       onClick={() => setTrackingNumber("")}
                     >
-                      Essayer un autre numéro
-                    </Button>
-                    <Button 
-                      className="bg-blue-600 hover:bg-blue-700"
-                    >
-                      Contacter le service client
-                      <ExternalLink className="ml-2 h-4 w-4" />
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            )}
-          </div>
-        )}
-
-        <div id="services" className="max-w-3xl mx-auto px-4 py-12 md:py-20">
-          <h2 className="text-2xl font-semibold mb-6 md:mb-8 text-center">{t.ourServices}</h2>
-          <Accordion type="single" collapsible className="space-y-4 w-full">
-            <AccordionItem value="tracking" className="border border-blue-100 rounded-lg overflow-hidden">
-              <AccordionTrigger className="hover:no-underline px-4 py-3">
-                <div className="flex items-center">
-                  <Package className="h-6 w-6 mr-4 text-[#0056b3]" />
-                  <span>{t.packageTracking}</span>
-                </div>
-              </AccordionTrigger>
-              <AccordionContent className="px-4 pb-4 pt-2">
-                <div className="bg-blue-50 p-4 rounded-lg">
-                  {t.trackingDescription}
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="costs" className="border border-blue-100 rounded-lg overflow-hidden">
-              <AccordionTrigger className="hover:no-underline px-4 py-3">
-                <div className="flex items-center">
-                  <CreditCard className="h-6 w-6 mr-4 text-[#0056b3]" />
-                  <span>{t.shippingCosts}</span>
-                </div>
-              </AccordionTrigger>
-              <AccordionContent className="px-4 pb-4 pt-2">
-                <div className="bg-blue-50 p-4 rounded-lg">
-                  {t.costsDescription}
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="mailbox" className="border border-blue-100 rounded-lg overflow-hidden">
-              <AccordionTrigger className="hover:no-underline px-4 py-3">
-                <div className="flex items-center">
-                  <Mailbox className="h-6 w-6 mr-4 text-[#0056b3]" />
-                  <span>{t.virtualMailbox}</span>
-                </div>
-              </AccordionTrigger>
-              <AccordionContent className="px-4 pb-4 pt-2">
-                <div className="bg-blue-50 p-4 rounded-lg">
-                  {t.mailboxDescription}
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="planning" className="border border-blue-100 rounded-lg overflow-hidden">
-              <AccordionTrigger className="hover:no-underline px-4 py-3">
-                <div className="flex items-center">
-                  <Calendar className="h-6 w-6 mr-4 text-[#0056b3]" />
-                  <span>{t.deliveryPlanning}</span>
-                </div>
-              </AccordionTrigger>
-              <AccordionContent className="px-4 pb-4 pt-2">
-                <div className="bg-blue-50 p-4 rounded-lg">
-                  {t.planningDescription}
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
-        </div>
-        
-        <div className="bg-gray-50 py-16">
-          <div className="max-w-3xl mx-auto px-4 text-center">
-            <h2 className="text-2xl font-semibold mb-8">Pourquoi choisir PackExpress?</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="bg-white p-6 rounded-lg shadow-md">
-                <div className="bg-blue-100 w-12 h-12 mx-auto rounded-full flex items-center justify-center mb-4">
-                  <Clock className="h-6 w-6 text-blue-600" />
-                </div>
-                <h3 className="font-semibold text-lg mb-2">Rapide</h3>
-                <p className="text-gray-600">Livraison express dans les meilleurs délais pour tous vos envois.</p>
-              </div>
-              <div className="bg-white p-6 rounded-lg shadow-md">
-                <div className="bg-blue-100 w-12 h-12 mx-auto rounded-full flex items-center justify-center mb-4">
-                  <ShieldCheck className="h-6 w-6 text-blue-600" />
-                </div>
-                <h3 className="font-semibold text-lg mb-2">Sécurisé</h3>
-                <p className="text-gray-600">Protection et assurance pour tous vos colis, quelle que soit leur valeur.</p>
-              </div>
-              <div className="bg-white p-6 rounded-lg shadow-md">
-                <div className="bg-blue-100 w-12 h-12 mx-auto rounded-full flex items-center justify-center mb-4">
-                  <MapPin className="h-6 w-6 text-blue-600" />
-                </div>
-                <h3 className="font-semibold text-lg mb-2">International</h3>
-                <p className="text-gray-600">Service de livraison mondial avec suivi en temps réel dans plus de 200 pays.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </main>
-      
-      <footer className="bg-[#003366] text-white py-10">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div>
-              <h3 className="text-lg font-semibold mb-4">PackExpress</h3>
-              <p className="text-blue-200 text-sm">
-                Service de livraison professionnel et fiable pour tous vos besoins d'expédition.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Liens Rapides</h3>
-              <ul className="space-y-2 text-sm">
-                <li><a href="/track" className="text-blue-200 hover:text-white transition-colors">Suivi de colis</a></li>
-                <li><a href="/faq" className="text-blue-200 hover:text-white transition-colors">FAQ</a></li>
-                <li><a href="/contact" className="text-blue-200 hover:text-white transition-colors">Contact</a></li>
-                <li><a href="/terms" className="text-blue-200 hover:text-white transition-colors">Conditions générales</a></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Contact</h3>
-              <address className="not-italic text-sm text-blue-200">
-                <p>123 Rue de la Livraison<br />75000 Paris, France</p>
-                <p className="mt-2">Email: contact@packexpress.com<br />Tél: +33 (0)1 23 45 67 89</p>
-              </address>
-            </div>
-          </div>
-        </div>
-      </footer>
-    </div>
-  );
-};
-
-export default Index;
+                      Essayer
