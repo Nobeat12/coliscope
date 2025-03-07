@@ -252,6 +252,40 @@
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZrbGthc2x0anFpdXR2YWd3d2ZjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDEwNzk4NDUsImV4cCI6MjA1NjY1NTg0NX0.7SQsTXjrmIDoDcD8qxynBCaFyBwlINuEVyzFaX1zLzI';
         const supabase = createClient(supabaseUrl, supabaseKey);
 
+        // Démonstration des colis pour tester sans base de données
+        const DEMO_PACKAGES = [
+            {
+                tracking_number: "PKT-123456789",
+                recipient_name: "Jean Dubois",
+                phone_number: "+33123456789",
+                receipt_location: "Paris",
+                receipt_date: "2024-02-15",
+                delivery_location: "Lyon",
+                status: "En livraison",
+                customer_info: "Colis fragile, manipuler avec précaution"
+            },
+            {
+                tracking_number: "PKT-987654321",
+                recipient_name: "Marie Durand",
+                phone_number: "+33987654321",
+                receipt_location: "Marseille",
+                receipt_date: "2024-02-14",
+                delivery_location: "Nice",
+                status: "Expédié",
+                customer_info: "Livraison prioritaire"
+            },
+            {
+                tracking_number: "PKT-456789123",
+                recipient_name: "Pierre Martin",
+                phone_number: "+33456789123",
+                receipt_location: "Bordeaux",
+                receipt_date: "2024-02-13",
+                delivery_location: "Toulouse",
+                status: "Livré",
+                customer_info: "Laisser chez le voisin si absent"
+            }
+        ];
+
         // Fonction pour traduire le statut
         function getStatusClass(status) {
             if (status === "Livré") return "status-livré";
@@ -324,78 +358,41 @@
             loadingMessage.style.display = "block";
             
             try {
-                // Récupérer le colis depuis Supabase
+                // Première tentative: chercher dans la base de données Supabase
                 const { data, error } = await supabase
                     .from('packages')
                     .select('*')
                     .eq('tracking_number', code)
                     .maybeSingle();
 
-                // Cacher le message de chargement
-                loadingMessage.style.display = "none";
-
-                if (error) {
-                    console.error("Erreur Supabase:", error);
-                    errorTitle.textContent = "Erreur de serveur";
-                    errorText.textContent = "Une erreur s'est produite lors de la communication avec le serveur. Veuillez réessayer plus tard.";
-                    errorMessage.style.display = "block";
+                // Si une erreur Supabase se produit, chercher dans les packages de démo
+                if (error || !data) {
+                    console.log("Cherchons dans les packages de démo:", code);
+                    const demoColis = DEMO_PACKAGES.find(pkg => pkg.tracking_number === code);
+                    
+                    // Cacher le message de chargement
+                    loadingMessage.style.display = "none";
+                    
+                    if (demoColis) {
+                        // Afficher les informations du colis de démo
+                        displayPackageInfo(demoColis);
+                        return;
+                    }
+                } else if (data) {
+                    // Cacher le message de chargement
+                    loadingMessage.style.display = "none";
+                    
+                    // Afficher les informations du colis de Supabase
+                    displayPackageInfo(data);
                     return;
                 }
 
-                if (data) {
-                    const colis = data;
-                    const statusClass = getStatusClass(colis.status);
-                    const trackingSteps = generateTrackingSteps(colis.status);
-                    
-                    colisInfo.style.display = "block";
-                    colisInfo.innerHTML = `
-                        <h2>Informations du Colis</h2>
-                        <p>
-                            <strong>Statut:</strong> 
-                            <span class="status ${statusClass}">${colis.status}</span>
-                        </p>
-                        
-                        ${trackingSteps}
-                        
-                        <div class="info-group">
-                            <div class="info-item">
-                                <div class="info-label">Numéro de suivi</div>
-                                <div class="info-value">${colis.tracking_number}</div>
-                            </div>
-                            <div class="info-item">
-                                <div class="info-label">Destinataire</div>
-                                <div class="info-value">${colis.recipient_name}</div>
-                            </div>
-                            <div class="info-item">
-                                <div class="info-label">Téléphone</div>
-                                <div class="info-value">${colis.phone_number}</div>
-                            </div>
-                            <div class="info-item">
-                                <div class="info-label">Lieu d'origine</div>
-                                <div class="info-value">${colis.receipt_location}</div>
-                            </div>
-                            <div class="info-item">
-                                <div class="info-label">Lieu de livraison</div>
-                                <div class="info-value">${colis.delivery_location}</div>
-                            </div>
-                            <div class="info-item">
-                                <div class="info-label">Date de réception</div>
-                                <div class="info-value">${formatDate(colis.receipt_date)}</div>
-                            </div>
-                        </div>
-                        
-                        ${colis.customer_info ? `
-                            <div class="info-item" style="margin-top: 20px;">
-                                <div class="info-label">Informations complémentaires</div>
-                                <div class="info-value">${colis.customer_info}</div>
-                            </div>
-                        ` : ''}
-                    `;
-                } else {
-                    errorTitle.textContent = "Colis introuvable";
-                    errorText.textContent = "Aucun colis trouvé avec ce code. Veuillez vérifier le numéro de suivi et réessayer.";
-                    errorMessage.style.display = "block";
-                }
+                // Si aucun colis n'est trouvé, afficher un message d'erreur
+                loadingMessage.style.display = "none";
+                errorTitle.textContent = "Colis introuvable";
+                errorText.textContent = "Aucun colis trouvé avec ce code. Veuillez vérifier le numéro de suivi et réessayer.";
+                errorMessage.style.display = "block";
+                
             } catch (error) {
                 console.error("Erreur:", error);
                 loadingMessage.style.display = "none";
@@ -405,6 +402,58 @@
             }
         };
 
+        // Fonction pour afficher les informations du colis
+        function displayPackageInfo(colis) {
+            const colisInfo = document.getElementById('colisInfo');
+            const statusClass = getStatusClass(colis.status);
+            const trackingSteps = generateTrackingSteps(colis.status);
+            
+            colisInfo.style.display = "block";
+            colisInfo.innerHTML = `
+                <h2>Informations du Colis</h2>
+                <p>
+                    <strong>Statut:</strong> 
+                    <span class="status ${statusClass}">${colis.status}</span>
+                </p>
+                
+                ${trackingSteps}
+                
+                <div class="info-group">
+                    <div class="info-item">
+                        <div class="info-label">Numéro de suivi</div>
+                        <div class="info-value">${colis.tracking_number}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Destinataire</div>
+                        <div class="info-value">${colis.recipient_name}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Téléphone</div>
+                        <div class="info-value">${colis.phone_number}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Lieu d'origine</div>
+                        <div class="info-value">${colis.receipt_location}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Lieu de livraison</div>
+                        <div class="info-value">${colis.delivery_location}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Date de réception</div>
+                        <div class="info-value">${formatDate(colis.receipt_date)}</div>
+                    </div>
+                </div>
+                
+                ${colis.customer_info ? `
+                    <div class="info-item" style="margin-top: 20px;">
+                        <div class="info-label">Informations complémentaires</div>
+                        <div class="info-value">${colis.customer_info}</div>
+                    </div>
+                ` : ''}
+            `;
+        }
+
         // Vérifier si un code de suivi a été fourni dans l'URL
         const urlParams = new URLSearchParams(window.location.search);
         const trackingCode = urlParams.get('code');
@@ -413,7 +462,5 @@
             searchColis();
         }
     </script>
-
 </body>
 </html>
-

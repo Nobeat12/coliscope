@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -222,7 +221,6 @@ const translations = {
   }
 };
 
-// Étapes du suivi de colis
 const trackingSteps = {
   "En cours": 1,
   "Expédié": 2,
@@ -307,16 +305,27 @@ const Index = () => {
     setShowResults(false);
     setSearchAttempted(true);
     
-    // Simuler un temps de chargement pour une meilleure UX
     setTimeout(() => {
+      const allPackages = getPackagesFromLocalStorage();
+      const foundPkg = allPackages.find(pkg => pkg.trackingNumber === trackingNumber);
+      
       setIsLoading(false);
-      setFoundPackage(null);
       setShowResults(true);
       
-      toast({
-        title: t.packageNotFound,
-        description: t.tryAgain,
-      });
+      if (foundPkg) {
+        setFoundPackage(foundPkg);
+        toast({
+          title: "Colis trouvé",
+          description: `Colis trouvé: ${foundPkg.trackingNumber}`,
+        });
+      } else {
+        setFoundPackage(null);
+        toast({
+          title: t.packageNotFound,
+          description: t.tryAgain,
+          variant: "destructive",
+        });
+      }
     }, 1500);
   };
 
@@ -601,55 +610,135 @@ const Index = () => {
 
         {!isLoading && showResults && (
           <div className="max-w-3xl mx-auto px-4 py-8 md:py-10">
-            <Card className="shadow-lg border border-red-100 animate-in fade-in">
-              <CardHeader className="bg-red-50">
-                <div className="flex items-center mb-2">
-                  <XCircle className="text-red-500 h-6 w-6 mr-2" />
-                  <CardTitle className="text-red-600">{t.packageNotFound}</CardTitle>
-                </div>
-                <CardDescription className="text-red-500">
-                  {t.tryAgain}
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="pt-6">
-                <div className="p-4 bg-red-50 rounded-lg border border-red-100 mb-6">
-                  <div className="flex">
-                    <Info className="h-5 w-5 text-red-500 mr-3 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <h4 className="font-medium text-red-800 mb-1">Numéro de suivi invalide</h4>
-                      <p className="text-red-700 text-sm">
-                        Le numéro de suivi "{trackingNumber}" n'a pas été trouvé dans notre système. 
-                        Veuillez vérifier que vous avez saisi le bon numéro.
-                      </p>
+            {foundPackage ? (
+              <Card className="shadow-lg border border-blue-100 animate-in fade-in">
+                <CardHeader className="bg-blue-50">
+                  <CardTitle className="flex items-center justify-between">
+                    <span>{t.packageDetails}</span>
+                    <span className={`px-3 py-1 rounded-full text-sm ${
+                      foundPackage.status === "Livré" 
+                        ? "bg-green-100 text-green-600" 
+                        : foundPackage.status === "Problème"
+                        ? "bg-red-100 text-red-600"
+                        : "bg-[#003366]/10 text-[#003366]"
+                    }`}>
+                      {foundPackage.status === "En cours" ? t.inProcess : 
+                       foundPackage.status === "Expédié" ? t.shipped :
+                       foundPackage.status === "En livraison" ? t.inDelivery : 
+                       foundPackage.status === "Livré" ? t.delivered : 
+                       foundPackage.status === "Problème" ? t.problem : foundPackage.status}
+                    </span>
+                  </CardTitle>
+                  <CardDescription>
+                    {t.trackingNumber}: <span className="font-semibold">{foundPackage.trackingNumber}</span>
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="pt-6">
+                  {renderSteps(foundPackage.status)}
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-4">
+                      <div className="flex items-start">
+                        <User className="h-5 w-5 mr-3 text-gray-500 mt-0.5" />
+                        <div>
+                          <p className="text-sm text-gray-500">{t.recipient}</p>
+                          <p className="font-medium">{foundPackage.recipientName}</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start">
+                        <Phone className="h-5 w-5 mr-3 text-gray-500 mt-0.5" />
+                        <div>
+                          <p className="text-sm text-gray-500">{t.phone}</p>
+                          <p className="font-medium">{foundPackage.phoneNumber}</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start">
+                        <MapPin className="h-5 w-5 mr-3 text-gray-500 mt-0.5" />
+                        <div>
+                          <p className="text-sm text-gray-500">{t.origin}</p>
+                          <p className="font-medium">{foundPackage.receiptLocation}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="space-y-4">
+                      <div className="flex items-start">
+                        <TruckIcon className="h-5 w-5 mr-3 text-gray-500 mt-0.5" />
+                        <div>
+                          <p className="text-sm text-gray-500">{t.destination}</p>
+                          <p className="font-medium">{foundPackage.deliveryLocation}</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start">
+                        <Clock className="h-5 w-5 mr-3 text-gray-500 mt-0.5" />
+                        <div>
+                          <p className="text-sm text-gray-500">{t.date}</p>
+                          <p className="font-medium">{foundPackage.receiptDate}</p>
+                        </div>
+                      </div>
+                      {foundPackage.customerInfo && (
+                        <div className="flex items-start">
+                          <AlertCircle className="h-5 w-5 mr-3 text-gray-500 mt-0.5" />
+                          <div>
+                            <p className="text-sm text-gray-500">{t.additionalInfo}</p>
+                            <p className="font-medium">{foundPackage.customerInfo}</p>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
-                </div>
-                
-                <h4 className="font-medium text-gray-700 mb-3">Suggestions :</h4>
-                <ul className="list-disc list-inside text-gray-600 space-y-2 mb-6">
-                  <li>Vérifiez que le numéro de suivi est correctement saisi</li>
-                  <li>Assurez-vous que le colis a bien été enregistré dans notre système</li>
-                  <li>Si le colis a été expédié récemment, veuillez réessayer plus tard</li>
-                  <li>Contactez notre service client pour obtenir de l'aide</li>
-                </ul>
-                
-                <div className="flex flex-col sm:flex-row sm:justify-between gap-3">
-                  <Button 
-                    variant="outline" 
-                    className="border-blue-200"
-                    onClick={() => setTrackingNumber("")}
-                  >
-                    Essayer un autre numéro
-                  </Button>
-                  <Button 
-                    className="bg-blue-600 hover:bg-blue-700"
-                  >
-                    Contacter le service client
-                    <ExternalLink className="ml-2 h-4 w-4" />
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            ) : (
+              <Card className="shadow-lg border border-red-100 animate-in fade-in">
+                <CardHeader className="bg-red-50">
+                  <div className="flex items-center mb-2">
+                    <XCircle className="text-red-500 h-6 w-6 mr-2" />
+                    <CardTitle className="text-red-600">{t.packageNotFound}</CardTitle>
+                  </div>
+                  <CardDescription className="text-red-500">
+                    {t.tryAgain}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="pt-6">
+                  <div className="p-4 bg-red-50 rounded-lg border border-red-100 mb-6">
+                    <div className="flex">
+                      <Info className="h-5 w-5 text-red-500 mr-3 mt-0.5 flex-shrink-0" />
+                      <div>
+                        <h4 className="font-medium text-red-800 mb-1">Numéro de suivi invalide</h4>
+                        <p className="text-red-700 text-sm">
+                          Le numéro de suivi "{trackingNumber}" n'a pas été trouvé dans notre système. 
+                          Veuillez vérifier que vous avez saisi le bon numéro.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <h4 className="font-medium text-gray-700 mb-3">Suggestions :</h4>
+                  <ul className="list-disc list-inside text-gray-600 space-y-2 mb-6">
+                    <li>Vérifiez que le numéro de suivi est correctement saisi</li>
+                    <li>Assurez-vous que le colis a bien été enregistré dans notre système</li>
+                    <li>Si le colis a été expédié récemment, veuillez réessayer plus tard</li>
+                    <li>Contactez notre service client pour obtenir de l'aide</li>
+                  </ul>
+                  
+                  <div className="flex flex-col sm:flex-row sm:justify-between gap-3">
+                    <Button 
+                      variant="outline" 
+                      className="border-blue-200"
+                      onClick={() => setTrackingNumber("")}
+                    >
+                      Essayer un autre numéro
+                    </Button>
+                    <Button 
+                      className="bg-blue-600 hover:bg-blue-700"
+                    >
+                      Contacter le service client
+                      <ExternalLink className="ml-2 h-4 w-4" />
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
           </div>
         )}
 
