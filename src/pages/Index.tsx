@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -795,4 +796,25 @@ const Index = () => {
                       className="border-blue-200"
                       onClick={() => setTrackingNumber("")}
                     >
-                      Essayer
+                      Essayer un autre numéro
+                    </Button>
+                    
+                    <Button
+                      variant="default"
+                      className="bg-[#003366] hover:bg-[#00264d]"
+                      onClick={() => window.location.href = "/contact"}
+                    >
+                      Contacter le support
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+          </div>
+        )}
+      </main>
+    </div>
+  );
+};
+
+export default Index;
