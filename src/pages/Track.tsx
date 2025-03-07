@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -312,14 +313,36 @@ const Track = () => {
     try {
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      setFoundPackage(null);
+      // Search for package in IndexedDB
+      const pkg = await PackageStorage.getPackageByTrackingNumber(number);
+      
       setShowResults(true);
       
-      toast({
-        title: t.packageNotFound,
-        description: t.tryAgain,
-        variant: "destructive",
-      });
+      if (pkg) {
+        setFoundPackage(pkg);
+        toast({
+          title: "Colis trouvé",
+          description: `Colis trouvé: ${pkg.trackingNumber}`,
+        });
+      } else {
+        // Check if the package is in our demo packages
+        const demoPkg = DEMO_PACKAGES.find(p => p.trackingNumber === number);
+        
+        if (demoPkg) {
+          setFoundPackage(demoPkg);
+          toast({
+            title: "Colis trouvé",
+            description: `Colis trouvé: ${demoPkg.trackingNumber}`,
+          });
+        } else {
+          setFoundPackage(null);
+          toast({
+            title: t.packageNotFound,
+            description: t.tryAgain,
+            variant: "destructive",
+          });
+        }
+      }
     } catch (error) {
       console.error("Error retrieving package:", error);
       toast({

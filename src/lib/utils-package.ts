@@ -1,4 +1,3 @@
-
 import { Package } from "@/types/package";
 
 const DB_NAME = "PackageTrackerDB";
@@ -118,7 +117,15 @@ export const PackageStorage = {
   
   // Get a specific package by tracking number
   getPackageByTrackingNumber: async (trackingNumber: string): Promise<Package | null> => {
+    console.log("Searching for package with tracking number:", trackingNumber);
+    
     try {
+      // First check if IndexedDB is available
+      if (!window.indexedDB) {
+        console.log("IndexedDB not available, falling back to localStorage");
+        throw new Error("IndexedDB not available");
+      }
+      
       const db = await openDatabase();
       return new Promise((resolve, reject) => {
         const transaction = db.transaction([STORE_NAME], "readonly");
@@ -126,7 +133,13 @@ export const PackageStorage = {
         const request = store.get(trackingNumber);
         
         request.onsuccess = () => {
-          resolve(request.result || null);
+          if (request.result) {
+            console.log(`Package ${trackingNumber} found in IndexedDB:`, request.result);
+            resolve(request.result);
+          } else {
+            console.log(`Package ${trackingNumber} not found in IndexedDB`);
+            resolve(null);
+          }
         };
         
         request.onerror = () => {
@@ -135,18 +148,70 @@ export const PackageStorage = {
         };
       });
     } catch (error) {
-      console.error(`Error in getPackageByTrackingNumber for ${trackingNumber}:`, error);
+      console.log(`Error in getPackageByTrackingNumber for ${trackingNumber}:`, error);
+      
       // Fallback to localStorage if IndexedDB fails
       try {
         // First check in individual package storage
         const individualPackage = localStorage.getItem(`package_${trackingNumber}`);
         if (individualPackage) {
+          console.log(`Package ${trackingNumber} found in localStorage (individual):`, individualPackage);
           return JSON.parse(individualPackage);
         }
         
         // If not found, check in the packages list
-        const allPackages = JSON.parse(localStorage.getItem('packages') || '[]');
-        return allPackages.find((p: Package) => p.trackingNumber === trackingNumber) || null;
+        const packagesData = localStorage.getItem('packages');
+        if (packagesData) {
+          const allPackages = JSON.parse(packagesData);
+          const pkg = allPackages.find((p: Package) => p.trackingNumber === trackingNumber);
+          if (pkg) {
+            console.log(`Package ${trackingNumber} found in localStorage (list):`, pkg);
+            return pkg;
+          }
+        }
+        
+        // Also check our demo packages
+        const demoPackages = [
+          {
+            trackingNumber: "PKT-123456789",
+            recipientName: "Max Mustermann",
+            phoneNumber: "+49123456789",
+            receiptLocation: "Berlin",
+            receiptDate: "2023-06-15",
+            deliveryLocation: "München",
+            status: "En livraison",
+            customerInfo: "Colis volumineux, manipuler avec précaution"
+          },
+          {
+            trackingNumber: "PKT-987654321",
+            recipientName: "Anna Schmidt",
+            phoneNumber: "+49987654321",
+            receiptLocation: "Hamburg",
+            receiptDate: "2023-06-14",
+            deliveryLocation: "Frankfurt",
+            status: "Expédié",
+            customerInfo: "Livraison express"
+          },
+          {
+            trackingNumber: "PKT-456789123",
+            recipientName: "Thomas Weber",
+            phoneNumber: "+49456789123",
+            receiptLocation: "München",
+            receiptDate: "2023-06-13",
+            deliveryLocation: "Köln",
+            status: "Livré",
+            customerInfo: "Laisser chez le voisin si absent"
+          }
+        ];
+        
+        const demoPkg = demoPackages.find(p => p.trackingNumber === trackingNumber);
+        if (demoPkg) {
+          console.log(`Package ${trackingNumber} found in demo packages:`, demoPkg);
+          return demoPkg;
+        }
+        
+        console.log(`Package ${trackingNumber} not found in localStorage or demo packages`);
+        return null;
       } catch (fallbackError) {
         console.error(`Error retrieving package ${trackingNumber} from localStorage:`, fallbackError);
         return null;

@@ -305,26 +305,58 @@ const Index = () => {
     setShowResults(false);
     setSearchAttempted(true);
     
-    setTimeout(() => {
-      const allPackages = getPackagesFromLocalStorage();
-      const foundPkg = allPackages.find(pkg => pkg.trackingNumber === trackingNumber);
-      
-      setIsLoading(false);
-      setShowResults(true);
-      
-      if (foundPkg) {
-        setFoundPackage(foundPkg);
-        toast({
-          title: "Colis trouvé",
-          description: `Colis trouvé: ${foundPkg.trackingNumber}`,
-        });
-      } else {
+    setTimeout(async () => {
+      try {
+        // Try to find from IndexedDB first
+        const pkg = await PackageStorage.getPackageByTrackingNumber(trackingNumber);
+        
+        // Then check localStorage
+        if (!pkg) {
+          const allPackages = getPackagesFromLocalStorage();
+          const foundPkg = allPackages.find(pkg => pkg.trackingNumber === trackingNumber);
+          
+          if (foundPkg) {
+            setFoundPackage(foundPkg);
+            toast({
+              title: "Colis trouvé",
+              description: `Colis trouvé: ${foundPkg.trackingNumber}`,
+            });
+          } else {
+            // Check demo packages directly as fallback
+            const demoPkg = DEMO_PACKAGES.find(p => p.trackingNumber === trackingNumber);
+            if (demoPkg) {
+              setFoundPackage(demoPkg);
+              toast({
+                title: "Colis trouvé",
+                description: `Colis trouvé: ${demoPkg.trackingNumber}`,
+              });
+            } else {
+              setFoundPackage(null);
+              toast({
+                title: t.packageNotFound,
+                description: t.tryAgain,
+                variant: "destructive",
+              });
+            }
+          }
+        } else {
+          setFoundPackage(pkg);
+          toast({
+            title: "Colis trouvé",
+            description: `Colis trouvé: ${pkg.trackingNumber}`,
+          });
+        }
+      } catch (error) {
+        console.error("Error retrieving package:", error);
         setFoundPackage(null);
         toast({
-          title: t.packageNotFound,
-          description: t.tryAgain,
+          title: t.error,
+          description: "Erreur lors de la recherche du colis",
           variant: "destructive",
         });
+      } finally {
+        setIsLoading(false);
+        setShowResults(true);
       }
     }, 1500);
   };
