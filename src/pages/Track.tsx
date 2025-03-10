@@ -221,7 +221,7 @@ const Track = () => {
   const [isHeaderScrolled, setIsHeaderScrolled] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [language, setLanguage] = useState("FR");
+  const [language, setLanguage] = useState("DE");
   const [foundPackage, setFoundPackage] = useState<PackageType | null>(null);
   const [showResults, setShowResults] = useState(false);
   const [isLoading, setIsLoading] = useState(false);

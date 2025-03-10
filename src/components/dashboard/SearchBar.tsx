@@ -16,6 +16,7 @@ interface SearchBarProps {
 const SearchBar = ({ value, onChange, onSearch, t }: SearchBarProps) => {
   const [isSearching, setIsSearching] = useState(false);
   const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
   
   useEffect(() => {
     // Récupérer les numéros de suivi prédéfinis pour les suggestions
@@ -43,13 +44,16 @@ const SearchBar = ({ value, onChange, onSearch, t }: SearchBarProps) => {
         value={value}
         onChange={(e) => onChange(e.target.value)}
         onKeyDown={handleKeyDown}
-        list="dashboard-tracking-numbers"
+        onFocus={() => setShowSuggestions(true)}
+        list={showSuggestions ? "dashboard-tracking-numbers" : undefined}
       />
-      <datalist id="dashboard-tracking-numbers">
-        {suggestions.map(number => (
-          <option key={number} value={number} />
-        ))}
-      </datalist>
+      {showSuggestions && (
+        <datalist id="dashboard-tracking-numbers">
+          {suggestions.map(number => (
+            <option key={number} value={number} />
+          ))}
+        </datalist>
+      )}
       <Button 
         variant="outline"
         className="border-[#003366] text-[#003366] hover:bg-[#003366]/10 transition-colors duration-300"
