@@ -13,6 +13,17 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+
 import { Package } from "@/types/package";
 import { PackageStorage } from "@/lib/utils-package";
 import { translations } from "@/lib/translations";
@@ -39,6 +50,7 @@ const Dashboard = () => {
   const [language, setLanguage] = useState(() => {
     return localStorage.getItem('language') || "DE";
   });
+  const [alertDialogOpen, setAlertDialogOpen] = useState(false);
   const { toast } = useToast();
   const navigate = useNavigate();
 
@@ -296,6 +308,36 @@ const Dashboard = () => {
     pkg.deliveryLocation.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const handleClearAll = () => {
+    setAlertDialogOpen(true);
+  };
+
+  const confirmClearAll = async () => {
+    setIsLoadingPackages(true);
+    try {
+      for (const pkg of packages) {
+        await PackageStorage.removePackage(pkg.trackingNumber);
+      }
+      
+      setPackages([]);
+      
+      toast({
+        title: t.success || "Succès",
+        description: "Tous les colis ont été effacés",
+      });
+    } catch (error) {
+      console.error("Error clearing packages:", error);
+      toast({
+        title: t.error,
+        description: "Erreur lors de la suppression des colis",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoadingPackages(false);
+      setAlertDialogOpen(false);
+    }
+  };
+
   if (isLoadingAuth) {
     return (
       <div className="min-h-screen bg-[#FFFFFF] flex items-center justify-center">
@@ -362,6 +404,23 @@ const Dashboard = () => {
           </DialogContent>
         </Dialog>
 
+        <AlertDialog open={alertDialogOpen} onOpenChange={setAlertDialogOpen}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>{t.warning || "Attention"}</AlertDialogTitle>
+              <AlertDialogDescription>
+                Cette action va supprimer tous les colis enregistrés. Cette action est irréversible.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>{t.cancel}</AlertDialogCancel>
+              <AlertDialogAction onClick={confirmClearAll} className="bg-red-600 hover:bg-red-700">
+                {t.confirm || "Confirmer"}
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+
         <div className="space-y-6">
           <SearchBar 
             value={searchQuery} 
@@ -379,7 +438,8 @@ const Dashboard = () => {
               <PackageTable 
                 packages={filteredPackages} 
                 onEdit={handleEdit} 
-                onDelete={handleDelete} 
+                onDelete={handleDelete}
+                onClearAll={handleClearAll}
                 t={t} 
               />
             )}

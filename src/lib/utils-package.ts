@@ -1,4 +1,5 @@
 import { Package } from "@/types/package";
+import { predefinedPackages, addPredefinedPackage } from "@/data/predefinedPackages";
 
 const DB_NAME = "PackageTrackerDB";
 const STORE_NAME = "packages";
@@ -294,4 +295,62 @@ export const generateUniqueTrackingNumber = (packages: Package[]): string => {
     trackingNumber = generateTrackingNumber();
   }
   return trackingNumber;
+};
+
+// Add a function to clear all packages from storage
+export const clearAllPackages = async (): Promise<void> => {
+  try {
+    const db = await openDatabase();
+    return new Promise((resolve, reject) => {
+      const transaction = db.transaction([STORE_NAME], "readwrite");
+      const store = transaction.objectStore(STORE_NAME);
+      const request = store.clear();
+      
+      request.onsuccess = () => {
+        console.log("All packages removed from IndexedDB");
+        
+        // Also clear localStorage
+        const keys = Object.keys(localStorage);
+        for (const key of keys) {
+          if (key.startsWith('package_') || key === 'packages') {
+            localStorage.removeItem(key);
+          }
+        }
+        
+        resolve();
+      };
+      
+      request.onerror = () => {
+        console.error("Error removing all packages:", request.error);
+        reject(request.error);
+      };
+    });
+  } catch (error) {
+    console.error("Error in clearAllPackages:", error);
+    // Fallback to localStorage if IndexedDB fails
+    try {
+      const keys = Object.keys(localStorage);
+      for (const key of keys) {
+        if (key.startsWith('package_') || key === 'packages') {
+          localStorage.removeItem(key);
+        }
+      }
+    } catch (fallbackError) {
+      console.error("Error clearing localStorage:", fallbackError);
+    }
+  }
+};
+
+// Add a function to import a predefined package into storage
+export const importPredefinedPackage = async (pkg: Package): Promise<Package> => {
+  try {
+    // Add to predefined packages list
+    addPredefinedPackage(pkg);
+    
+    // Save to storage
+    return await PackageStorage.savePackage(pkg);
+  } catch (error) {
+    console.error("Error importing predefined package:", error);
+    throw error;
+  }
 };
