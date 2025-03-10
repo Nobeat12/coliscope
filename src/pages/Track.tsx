@@ -17,14 +17,14 @@ import {
 
 const DEMO_PACKAGES = [
   {
-    trackingNumber: "PKT-123456789",
-    recipientName: "Max Mustermann",
-    phoneNumber: "+49123456789",
-    receiptLocation: "Berlin",
-    receiptDate: "2023-06-15",
-    deliveryLocation: "München",
+    trackingNumber: "CH-79087623",
+    recipientName: "Fatlum Beluli",
+    phoneNumber: "",
+    receiptLocation: "Bellinzona",
+    receiptDate: "2025-03-10",
+    deliveryLocation: "Brunnenmöslistrasse 10,6280 Hochdorf",
     status: "En livraison",
-    customerInfo: "Colis volumineux, manipuler avec précaution"
+    customerInfo: "Airpods Max"
   },
   {
     trackingNumber: "PKT-987654321",
