@@ -1,44 +1,19 @@
+
 import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
 import { predefinedPackages, logTrackingNumbers } from "@/data/predefinedPackages";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-  CardFooter,
-} from "@/components/ui/card";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import {
-  Search, Package, CreditCard, Mailbox, Calendar, Globe, MapPin, Phone, User, TruckIcon, Clock, 
-  AlertCircle, Loader2, Check, XCircle, Info, ArrowRight, ExternalLink, RefreshCw, ShieldCheck
-} from "lucide-react";
-
+import { Loader2 } from "lucide-react";
 import { Package as PackageType } from "@/types/package";
 import { PackageStorage } from "@/lib/utils-package";
+import { 
+  Header, 
+  TrackingForm, 
+  PackageDetails, 
+  PackageNotFound, 
+  ServicesSection, 
+  Footer 
+} from "@/components/track";
 
 const DEMO_PACKAGES = [
   {
@@ -206,14 +181,6 @@ const translations = {
     delivered: "Delivered",
     problem: "Problem"
   }
-};
-
-const trackingSteps = {
-  "En cours": 1,
-  "Expédié": 2,
-  "En livraison": 3,
-  "Livré": 4,
-  "Problème": 0
 };
 
 const Track = () => {
@@ -407,203 +374,33 @@ const Track = () => {
     handleTrackingWithNumber(trackingNumber);
   };
 
-  const getTranslatedStatus = (status: string) => {
-    switch(status) {
-      case "En cours": return t.inProcess;
-      case "Expédié": return t.shipped;
-      case "En livraison": return t.inDelivery;
-      case "Livré": return t.delivered;
-      case "Problème": return t.problem;
-      default: return status;
-    }
-  };
-
-  const renderSteps = (status: string) => {
-    const currentStep = trackingSteps[status] || 0;
-    const steps = [
-      { text: t.inProcess, step: 1, icon: <Package className="h-4 w-4" /> },
-      { text: t.shipped, step: 2, icon: <TruckIcon className="h-4 w-4" /> },
-      { text: t.inDelivery, step: 3, icon: <ArrowRight className="h-4 w-4" /> },
-      { text: t.delivered, step: 4, icon: <Check className="h-4 w-4" /> }
-    ];
-
-    return (
-      <div className="relative mt-8 mb-10">
-        <div className="absolute top-1/2 left-0 right-0 h-1 bg-gray-200 -translate-y-1/2"></div>
-        <div className="relative flex justify-between">
-          {steps.map((step, index) => (
-            <div key={index} className="flex flex-col items-center">
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center z-10 ${
-                step.step < currentStep 
-                  ? 'bg-green-500 text-white' 
-                  : step.step === currentStep 
-                  ? 'bg-blue-600 text-white' 
-                  : 'bg-gray-200 text-gray-500'
-              }`}>
-                {step.step < currentStep ? <Check className="h-4 w-4" /> : step.icon}
-              </div>
-              <span className={`text-xs mt-2 ${
-                step.step === currentStep ? 'text-blue-600 font-medium' : 'text-gray-500'
-              }`}>{step.text}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
+  const resetTrackingNumber = () => {
+    setTrackingNumber("");
   };
 
   return (
     <div className="min-h-screen flex flex-col">
-      <header 
-        className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-          isHeaderScrolled 
-            ? "bg-white shadow-md" 
-            : "bg-[#003366]"
-        }`}
-      >
-        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center space-x-12">
-            <a href="/" className="w-12 h-12">
-              <img 
-                src="/lovable-uploads/9dd54a53-50ad-417d-a0a2-3b4110ef83fb.png" 
-                alt="Logo" 
-                className="w-full h-full object-contain"
-              />
-            </a>
-            <nav className="hidden md:flex space-x-8">
-              <a 
-                href="/track" 
-                className={`transition-colors ${isHeaderScrolled ? 'text-gray-700 hover:text-blue-600' : 'text-white hover:text-blue-200'}`}
-              >
-                {t.menuTrack}
-              </a>
-              <a 
-                href="#services" 
-                className={`transition-colors ${isHeaderScrolled ? 'text-gray-700 hover:text-blue-600' : 'text-white hover:text-blue-200'}`}
-              >
-                {t.menuServices}
-              </a>
-              <a 
-                href="/help" 
-                className={`transition-colors ${isHeaderScrolled ? 'text-gray-700 hover:text-blue-600' : 'text-white hover:text-blue-200'}`}
-              >
-                {t.menuHelp}
-              </a>
-              <a 
-                href="/faq" 
-                className={`transition-colors ${isHeaderScrolled ? 'text-gray-700 hover:text-blue-600' : 'text-white hover:text-blue-200'}`}
-              >
-                {t.menuFaq}
-              </a>
-              <a 
-                href="/contact" 
-                className={`transition-colors ${isHeaderScrolled ? 'text-gray-700 hover:text-blue-600' : 'text-white hover:text-blue-200'}`}
-              >
-                {t.menuContact}
-              </a>
-            </nav>
-          </div>
-          <div className="flex items-center space-x-4">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button 
-                  variant="ghost" 
-                  size="sm" 
-                  className={`flex items-center ${isHeaderScrolled ? 'text-gray-700' : 'text-white'}`}
-                >
-                  <Globe className="h-4 w-4 mr-2" />
-                  {language}
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem onClick={() => setLanguage("DE")}>Deutsch</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setLanguage("FR")}>Français</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setLanguage("EN")}>English</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button 
-                  variant="default"
-                  className="bg-blue-600 hover:bg-blue-700 transition-colors"
-                >
-                  {t.login}
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="sm:max-w-[425px]">
-                <DialogHeader>
-                  <DialogTitle>{t.login}</DialogTitle>
-                  <DialogDescription>
-                    Connectez-vous pour accéder au tableau de bord
-                  </DialogDescription>
-                </DialogHeader>
-                <form onSubmit={handleLogin} className="space-y-4 mt-4">
-                  <div className="space-y-2">
-                    <Input
-                      type="email"
-                      placeholder={t.email}
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Input
-                      type="password"
-                      placeholder={t.password}
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <Button type="submit" className="w-full">
-                    {t.login}
-                  </Button>
-                </form>
-              </DialogContent>
-            </Dialog>
-          </div>
-        </div>
-      </header>
+      <Header 
+        isHeaderScrolled={isHeaderScrolled}
+        language={language}
+        setLanguage={setLanguage}
+        email={email}
+        setEmail={setEmail}
+        password={password}
+        setPassword={setPassword}
+        handleLogin={handleLogin}
+        t={t}
+      />
 
       <main className="flex-1 pt-24">
         <div className="bg-gradient-to-b from-[#003366] to-[#0056b3] py-20">
-          <div className="max-w-3xl mx-auto px-4 text-center text-white">
-            <h1 className="text-4xl font-bold mb-4">{t.trackPackage}</h1>
-            <p className="text-blue-100 mb-8 max-w-xl mx-auto">
-              Entrez le numéro de suivi de votre colis pour connaître son statut actuel et son emplacement.
-            </p>
-            <form onSubmit={handleTracking} className="space-y-4">
-              <div className="flex space-x-4">
-                <Input
-                  value={trackingNumber}
-                  onChange={(e) => setTrackingNumber(e.target.value)}
-                  placeholder={t.trackingPlaceholder}
-                  className="h-12 text-lg bg-white text-gray-800"
-                  disabled={isLoading}
-                  list="tracking-numbers"
-                />
-                <datalist id="tracking-numbers">
-                  {predefinedPackages.map(pkg => (
-                    <option key={pkg.trackingNumber} value={pkg.trackingNumber} />
-                  ))}
-                </datalist>
-                <Button 
-                  type="submit" 
-                  className="h-12 px-8 bg-[#FFC107] hover:bg-[#FFA000] text-gray-900 transition-colors"
-                  disabled={isLoading}
-                >
-                  {isLoading ? (
-                    <Loader2 className="h-5 w-5 animate-spin mr-2" />
-                  ) : (
-                    <Search className="mr-2 h-5 w-5" />
-                  )}
-                  {isLoading ? t.searchingPackage : t.trackButton}
-                </Button>
-              </div>
-            </form>
-          </div>
+          <TrackingForm 
+            trackingNumber={trackingNumber}
+            setTrackingNumber={setTrackingNumber}
+            handleTracking={handleTracking}
+            isLoading={isLoading}
+            t={t}
+          />
         </div>
 
         {isLoading && (
@@ -619,235 +416,21 @@ const Track = () => {
         {!isLoading && showResults && (
           <div className="max-w-3xl mx-auto px-4 py-10">
             {foundPackage ? (
-              <Card className="shadow-lg border border-[#E3F2FD] animate-in fade-in">
-                <CardHeader className="bg-[#F5F7FA]">
-                  <CardTitle className="flex items-center justify-between">
-                    <span>{t.packageDetails}</span>
-                    <span className={`px-3 py-1 rounded-full text-sm ${
-                      foundPackage.status === "Livré" 
-                        ? "bg-green-100 text-green-600" 
-                        : foundPackage.status === "Problème"
-                        ? "bg-red-100 text-red-600"
-                        : "bg-[#E3F2FD] text-blue-600"
-                    }`}>
-                      {getTranslatedStatus(foundPackage.status)}
-                    </span>
-                  </CardTitle>
-                  <CardDescription>
-                    {t.trackingNumber}: <span className="font-semibold">{foundPackage.trackingNumber}</span>
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="pt-6">
-                  {renderSteps(foundPackage.status)}
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-4">
-                      <div className="flex items-start">
-                        <User className="h-5 w-5 mr-3 text-gray-500 mt-0.5" />
-                        <div>
-                          <p className="text-sm text-gray-500">{t.recipient}</p>
-                          <p className="font-medium">{foundPackage.recipientName}</p>
-                        </div>
-                      </div>
-                      <div className="flex items-start">
-                        <Phone className="h-5 w-5 mr-3 text-gray-500 mt-0.5" />
-                        <div>
-                          <p className="text-sm text-gray-500">{t.phone}</p>
-                          <p className="font-medium">{foundPackage.phoneNumber}</p>
-                        </div>
-                      </div>
-                      <div className="flex items-start">
-                        <MapPin className="h-5 w-5 mr-3 text-gray-500 mt-0.5" />
-                        <div>
-                          <p className="text-sm text-gray-500">{t.origin}</p>
-                          <p className="font-medium">{foundPackage.receiptLocation}</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="space-y-4">
-                      <div className="flex items-start">
-                        <TruckIcon className="h-5 w-5 mr-3 text-gray-500 mt-0.5" />
-                        <div>
-                          <p className="text-sm text-gray-500">{t.destination}</p>
-                          <p className="font-medium">{foundPackage.deliveryLocation}</p>
-                        </div>
-                      </div>
-                      <div className="flex items-start">
-                        <Clock className="h-5 w-5 mr-3 text-gray-500 mt-0.5" />
-                        <div>
-                          <p className="text-sm text-gray-500">{t.date}</p>
-                          <p className="font-medium">{new Date(foundPackage.receiptDate).toLocaleDateString()}</p>
-                        </div>
-                      </div>
-                      {foundPackage.customerInfo && (
-                        <div className="flex items-start">
-                          <AlertCircle className="h-5 w-5 mr-3 text-gray-500 mt-0.5" />
-                          <div>
-                            <p className="text-sm text-gray-500">{t.additionalInfo}</p>
-                            <p className="font-medium">{foundPackage.customerInfo}</p>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </CardContent>
-                <CardFooter className="flex justify-between border-t pt-6 text-sm text-gray-500">
-                  <div className="flex items-center">
-                    <ShieldCheck className="h-4 w-4 mr-2 text-green-500" />
-                    Dernière mise à jour il y a 2 heures
-                  </div>
-                  <Button variant="ghost" size="sm" className="text-blue-600">
-                    <RefreshCw className="h-4 w-4 mr-2" />
-                    Actualiser
-                  </Button>
-                </CardFooter>
-              </Card>
+              <PackageDetails packageData={foundPackage} t={t} />
             ) : (
-              <Card className="shadow-lg border border-red-100 animate-in fade-in">
-                <CardHeader className="bg-red-50">
-                  <div className="flex items-center mb-2">
-                    <XCircle className="text-red-500 h-6 w-6 mr-2" />
-                    <CardTitle className="text-red-600">{t.packageNotFound}</CardTitle>
-                  </div>
-                  <CardDescription className="text-red-500">
-                    {t.tryAgain}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="pt-6">
-                  <div className="p-4 bg-red-50 rounded-lg border border-red-100 mb-6">
-                    <div className="flex">
-                      <Info className="h-5 w-5 text-red-500 mr-3 mt-0.5" />
-                      <div>
-                        <h4 className="font-medium text-red-800 mb-1">Numéro de suivi invalide</h4>
-                        <p className="text-red-700 text-sm">
-                          Le numéro de suivi "{trackingNumber}" n'a pas été trouvé dans notre système. 
-                          Veuillez vérifier que vous avez saisi le bon numéro.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <h4 className="font-medium text-gray-700 mb-3">Suggestions :</h4>
-                  <ul className="list-disc list-inside text-gray-600 space-y-2 mb-6">
-                    <li>Vérifiez que le numéro de suivi est correctement saisi</li>
-                    <li>Assurez-vous que le colis a bien été enregistré dans notre système</li>
-                    <li>Si le colis a été expédié récemment, veuillez réessayer plus tard</li>
-                    <li>Contactez notre service client pour obtenir de l'aide</li>
-                  </ul>
-                  
-                  <div className="flex flex-col sm:flex-row sm:justify-between gap-3">
-                    <Button 
-                      variant="outline" 
-                      className="border-blue-200"
-                      onClick={() => setTrackingNumber("")}
-                    >
-                      Essayer un autre numéro
-                    </Button>
-                    <Button asChild>
-                      <a href="/contact">
-                        Contacter le service client
-                        <ExternalLink className="ml-2 h-4 w-4" />
-                      </a>
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
+              <PackageNotFound 
+                trackingNumber={trackingNumber} 
+                t={t} 
+                onTryAgain={resetTrackingNumber}
+              />
             )}
           </div>
         )}
 
-        <div id="services" className="max-w-3xl mx-auto px-4 py-20">
-          <h2 className="text-2xl font-semibold mb-8 text-center">{t.ourServices}</h2>
-          <Accordion type="single" collapsible className="space-y-4">
-            <AccordionItem value="tracking" className="border border-blue-100 rounded-lg overflow-hidden">
-              <AccordionTrigger className="hover:no-underline px-4 py-3">
-                <div className="flex items-center">
-                  <Package className="h-6 w-6 mr-4 text-[#0056b3]" />
-                  <span>{t.packageTracking}</span>
-                </div>
-              </AccordionTrigger>
-              <AccordionContent className="px-4 pb-4 pt-2">
-                <div className="bg-blue-50 p-4 rounded-lg">
-                  {t.trackingDescription}
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="costs" className="border border-blue-100 rounded-lg overflow-hidden">
-              <AccordionTrigger className="hover:no-underline px-4 py-3">
-                <div className="flex items-center">
-                  <CreditCard className="h-6 w-6 mr-4 text-[#0056b3]" />
-                  <span>{t.shippingCosts}</span>
-                </div>
-              </AccordionTrigger>
-              <AccordionContent className="px-4 pb-4 pt-2">
-                <div className="bg-blue-50 p-4 rounded-lg">
-                  {t.costsDescription}
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="mailbox" className="border border-blue-100 rounded-lg overflow-hidden">
-              <AccordionTrigger className="hover:no-underline px-4 py-3">
-                <div className="flex items-center">
-                  <Mailbox className="h-6 w-6 mr-4 text-[#0056b3]" />
-                  <span>{t.virtualMailbox}</span>
-                </div>
-              </AccordionTrigger>
-              <AccordionContent className="px-4 pb-4 pt-2">
-                <div className="bg-blue-50 p-4 rounded-lg">
-                  {t.mailboxDescription}
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="planning" className="border border-blue-100 rounded-lg overflow-hidden">
-              <AccordionTrigger className="hover:no-underline px-4 py-3">
-                <div className="flex items-center">
-                  <Calendar className="h-6 w-6 mr-4 text-[#0056b3]" />
-                  <span>{t.deliveryPlanning}</span>
-                </div>
-              </AccordionTrigger>
-              <AccordionContent className="px-4 pb-4 pt-2">
-                <div className="bg-blue-50 p-4 rounded-lg">
-                  {t.planningDescription}
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
-        </div>
+        <ServicesSection t={t} />
       </main>
       
-      <footer className="bg-white text-gray-800 py-10">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div>
-              <h3 className="text-lg font-semibold mb-4">PackExpress</h3>
-              <p className="text-gray-600 text-sm">
-                Service de livraison professionnel et fiable pour tous vos besoins d'expédition.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Liens Rapides</h3>
-              <ul className="space-y-2 text-sm">
-                <li><a href="/track" className="text-gray-600 hover:text-gray-900 transition-colors">Suivi de colis</a></li>
-                <li><a href="/faq" className="text-gray-600 hover:text-gray-900 transition-colors">FAQ</a></li>
-                <li><a href="/contact" className="text-gray-600 hover:text-gray-900 transition-colors">Contact</a></li>
-                <li><a href="/terms" className="text-gray-600 hover:text-gray-900 transition-colors">Conditions générales</a></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Contact</h3>
-              <address className="not-italic text-sm text-gray-600">
-                <p>123 Rue de la Livraison</p>
-                <p>75000 Paris, France</p>
-                <p className="mt-2">Email: contact@packexpress.com</p>
-                <p>Tél: +33 1 23 45 67 89</p>
-              </address>
-            </div>
-          </div>
-          <div className="mt-8 pt-8 border-t border-gray-200 text-center text-sm text-gray-500">
-            &copy; 2024 PackExpress. Tous droits réservés.
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };

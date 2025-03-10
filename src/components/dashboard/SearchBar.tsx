@@ -44,7 +44,7 @@ const SearchBar = ({ value, onChange, onSearch, t }: SearchBarProps) => {
         value={value}
         onChange={(e) => onChange(e.target.value)}
         onKeyDown={handleKeyDown}
-        onFocus={() => setShowSuggestions(true)}
+        onClick={() => setShowSuggestions(true)}
         list={showSuggestions ? "dashboard-tracking-numbers" : undefined}
       />
       {showSuggestions && (
