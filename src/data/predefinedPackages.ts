@@ -17,6 +17,16 @@ export const predefinedPackages: Package[] = [
     deliveryLocation: "Rue Le-Corbusier 26, Geneva",
     status: "En cours",
     customerInfo: "ASPIRATEUR DYSON V12, envoyé par LEUTWYLER Manon Danielle à 13:07"
+  },
+  {
+    trackingNumber: "CH-79087623",
+    recipientName: "Fatlum Beluli",
+    phoneNumber: "",
+    receiptLocation: "Bellinzona",
+    receiptDate: "2025-03-10",
+    deliveryLocation: "Brunnenmöslistrasse 10,6280 Hochdorf",
+    status: "En Cours",
+    customerInfo: "Airpods Max"
   }
 ];
 
