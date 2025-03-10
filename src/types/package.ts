@@ -58,4 +58,8 @@ export interface TranslationType {
   german: string;
   french: string;
   english: string;
+  clearAll: string;
+  success: string;
+  warning: string;
+  confirm: string;
 }

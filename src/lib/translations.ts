@@ -1,4 +1,3 @@
-
 import { TranslationType } from "@/types/package";
 
 export const translations: Record<string, TranslationType> = {
@@ -48,7 +47,11 @@ export const translations: Record<string, TranslationType> = {
     languageSelection: "Sprache",
     german: "Deutsch",
     french: "Französisch",
-    english: "Englisch"
+    english: "Englisch",
+    clearAll: "Alles löschen",
+    success: "Erfolg",
+    warning: "Warnung",
+    confirm: "Bestätigen"
   },
   FR: {
     dashboard: "Tableau de bord",
@@ -96,7 +99,11 @@ export const translations: Record<string, TranslationType> = {
     languageSelection: "Langue",
     german: "Allemand",
     french: "Français",
-    english: "Anglais"
+    english: "Anglais",
+    clearAll: "Effacer tout",
+    success: "Succès",
+    warning: "Attention",
+    confirm: "Confirmer"
   },
   EN: {
     dashboard: "Dashboard",
@@ -144,6 +151,10 @@ export const translations: Record<string, TranslationType> = {
     languageSelection: "Language",
     german: "German",
     french: "French",
-    english: "English"
+    english: "English",
+    clearAll: "Clear All",
+    success: "Success",
+    warning: "Warning",
+    confirm: "Confirm"
   }
 };
