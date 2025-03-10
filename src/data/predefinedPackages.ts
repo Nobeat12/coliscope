@@ -6,8 +6,19 @@ export const generateProfessionalTrackingNumber = (index: number): string => {
   return `PKT-${(1000000 + index).toString().padStart(9, '0')}`;
 };
 
-// Liste vide pour commencer
-export const predefinedPackages: Package[] = [];
+// Liste pour les colis prédéfinis
+export const predefinedPackages: Package[] = [
+  {
+    trackingNumber: "CH-78906428",
+    recipientName: "BIANCA Bertaccini",
+    phoneNumber: "", // No phone number provided
+    receiptLocation: "6500 Bellinzona",
+    receiptDate: "10-03-2025",
+    deliveryLocation: "Rue Le-Corbusier 26, Geneva",
+    status: "En cours",
+    customerInfo: "ASPIRATEUR DYSON V12, envoyé par LEUTWYLER Manon Danielle à 13:07"
+  }
+];
 
 // Ajouter un nouveau colis prédéfini
 export const addPredefinedPackage = (packageData: Package): Package => {

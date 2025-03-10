@@ -234,14 +234,14 @@ const trackingSteps = {
 
 const DEMO_PACKAGES: PackageData[] = [
   {
-    trackingNumber: "PKT-123456789",
-    recipientName: "Max Mustermann",
-    phoneNumber: "+49123456789",
-    receiptLocation: "Berlin",
-    receiptDate: "2023-06-15",
-    deliveryLocation: "München",
-    status: "En livraison",
-    customerInfo: "Colis volumineux, manipuler avec précaution"
+    trackingNumber: "CH-78906428",
+    recipientName: "BIANCA Bertaccini",
+    phoneNumber: "",
+    receiptLocation: "6500 Bellinzona",
+    receiptDate: "10-03-2025",
+    deliveryLocation: "Rue Le-Corbusier 26, Geneva",
+    status: "En cours",
+    customerInfo: "ASPIRATEUR DYSON V12, envoyé par LEUTWYLER Manon Danielle à 13:07"
   },
   {
     trackingNumber: "PKT-987654321",
@@ -928,4 +928,3 @@ const Index = () => {
 };
 
 export default Index;
-

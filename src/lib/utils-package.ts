@@ -354,3 +354,32 @@ export const importPredefinedPackage = async (pkg: Package): Promise<Package> =>
     throw error;
   }
 };
+
+// Function to initialize a fresh set of packages (for resets)
+export const initializeFreshPackages = async (): Promise<void> => {
+  try {
+    // Clear existing packages
+    await clearAllPackages();
+    
+    // Import the Swiss tracking number with Dyson vacuum cleaner
+    const swissPackage = {
+      trackingNumber: "CH-78906428",
+      recipientName: "BIANCA Bertaccini",
+      phoneNumber: "",
+      receiptLocation: "6500 Bellinzona",
+      receiptDate: "10-03-2025",
+      deliveryLocation: "Rue Le-Corbusier 26, Geneva",
+      status: "En cours",
+      customerInfo: "ASPIRATEUR DYSON V12, envoyé par LEUTWYLER Manon Danielle à 13:07",
+      lastUpdated: Date.now()
+    };
+    
+    await PackageStorage.savePackage(swissPackage);
+    console.log("Fresh package initialized:", swissPackage.trackingNumber);
+    
+    return;
+  } catch (error) {
+    console.error("Error initializing fresh packages:", error);
+    throw error;
+  }
+};
