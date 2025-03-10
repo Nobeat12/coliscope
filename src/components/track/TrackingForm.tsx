@@ -35,13 +35,8 @@ const TrackingForm = ({
             placeholder={t.trackingPlaceholder}
             className="h-12 text-lg bg-white text-gray-800"
             disabled={isLoading}
-            list="tracking-numbers"
+            // Removed the list attribute so that suggestions don't show automatically
           />
-          <datalist id="tracking-numbers">
-            {predefinedPackages.map(pkg => (
-              <option key={pkg.trackingNumber} value={pkg.trackingNumber} />
-            ))}
-          </datalist>
           <Button 
             type="submit" 
             className="h-12 px-8 bg-[#FFC107] hover:bg-[#FFA000] text-gray-900 transition-colors"
