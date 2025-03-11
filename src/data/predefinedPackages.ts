@@ -75,7 +75,7 @@ export const createNewPackage = (
 
 // Pour faciliter le débogage, affiche tous les numéros de suivi dans la console
 export const logTrackingNumbers = () => {
-  console.log("Numéros de suivi disponibles :");
+  console.log("");
   predefinedPackages.forEach((pkg, index) => {
     console.log(`${index + 1}: ${pkg.trackingNumber}`);
   });
