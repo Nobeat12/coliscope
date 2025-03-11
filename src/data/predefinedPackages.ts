@@ -25,7 +25,7 @@ export const predefinedPackages: Package[] = [
     receiptLocation: "Bellinzona",
     receiptDate: "2025-03-10",
     deliveryLocation: "Brunnenmöslistrasse 10,6280 Hochdorf",
-    status: "En Cours",
+    status: "Expédié",
     customerInfo: "Airpods Max"
   },
   {
@@ -35,7 +35,7 @@ export const predefinedPackages: Package[] = [
     receiptLocation: "Genève",
     receiptDate: "2025-03-11",
     deliveryLocation: "Luegislandstrasse 56, Zürich 8051",
-    status: "En Cours",
+    status: "Expédié,
     customerInfo: "DYSON AIRSTRAIT"
 }
 ];
