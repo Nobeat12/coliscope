@@ -15,7 +15,7 @@ export const predefinedPackages: Package[] = [
     receiptLocation: "6500 Bellinzona",
     receiptDate: "10-03-2025",
     deliveryLocation: "Rue Le-Corbusier 26, Geneva",
-    status: "En cours de livraison",
+    status: "Expédié",
     customerInfo: "ASPIRATEUR DYSON V12, envoyé par LEUTWYLER Manon Danielle à 13:07"
   },
   {
