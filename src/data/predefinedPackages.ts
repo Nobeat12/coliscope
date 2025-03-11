@@ -27,7 +27,17 @@ export const predefinedPackages: Package[] = [
     deliveryLocation: "Brunnenmöslistrasse 10,6280 Hochdorf",
     status: "En Cours",
     customerInfo: "Airpods Max"
-  }
+  },
+  {
+    trackingNumber: "CH-79057623",
+    recipientName: "GAJIC Jovana",
+    phoneNumber: "",
+    receiptLocation: "Genève",
+    receiptDate: "2025-03-11",
+    deliveryLocation: "Luegislandstrasse 56, Zürich 8051",
+    status: "En Cours",
+    customerInfo: "DYSON AIRSTRAIT"
+}
 ];
 
 // Ajouter un nouveau colis prédéfini
