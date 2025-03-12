@@ -373,7 +373,7 @@ export const initializeFreshPackages = async (): Promise<void> => {
       customerInfo: "ASPIRATEUR DYSON V12, envoyé par LEUTWYLER Manon Danielle à 13:07",
       lastUpdated: Date.now()
     },
- {
+  const swissPackage = {
       trackingNumber: "CH-79057623",
       recipientName: "GAJIC Jovana",
       phoneNumber: "",
@@ -384,7 +384,7 @@ export const initializeFreshPackages = async (): Promise<void> => {
       customerInfo: "DYSON AIRSTRAIT"
       lastUpdated: Date.now()
     },
-  {
+   const swissPackage = {
       trackingNumber: "CH-79087623",
       recipientName: "Fatlum Beluli",
       phoneNumber: "",
