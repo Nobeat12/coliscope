@@ -18,17 +18,26 @@ export const predefinedPackages: Package[] = [
     status: "Expédié",
     customerInfo: "ASPIRATEUR DYSON V12, envoyé par LEUTWYLER Manon Danielle à 13:07"
   },
-   {
+  {
+    trackingNumber: "CH-79087623",
+    recipientName: "Fatlum Beluli",
+    phoneNumber: "",
+    receiptLocation: "Bellinzona",
+    receiptDate: "2025-03-10",
+    deliveryLocation: "Brunnenmöslistrasse 10,6280 Hochdorf",
+    status: "En Cours",
+    customerInfo: "Airpods Max"
+  },
+  {
     trackingNumber: "CH-79057623",
     recipientName: "GAJIC Jovana",
-    phoneNumber: "", // No phone number provided
+    phoneNumber: "",
     receiptLocation: "Genève",
-    receiptDate: "11-03-2025",
+    receiptDate: "2025-03-11",
     deliveryLocation: "Luegislandstrasse 56, Zürich 8051",
-    status: "Expédié",
+    status: "En Cours",
     customerInfo: "DYSON AIRSTRAIT"
-  },
-
+}
 ];
 
 // Ajouter un nouveau colis prédéfini
@@ -66,7 +75,7 @@ export const createNewPackage = (
 
 // Pour faciliter le débogage, affiche tous les numéros de suivi dans la console
 export const logTrackingNumbers = () => {
-  console.log("");
+  console.log("Numéros de suivi disponibles :");
   predefinedPackages.forEach((pkg, index) => {
     console.log(`${index + 1}: ${pkg.trackingNumber}`);
   });

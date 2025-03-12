@@ -369,7 +369,7 @@ export const initializeFreshPackages = async (): Promise<void> => {
       receiptLocation: "6500 Bellinzona",
       receiptDate: "10-03-2025",
       deliveryLocation: "Rue Le-Corbusier 26, Geneva",
-      status: "Expédié,
+      status: "En cours",
       customerInfo: "ASPIRATEUR DYSON V12, envoyé par LEUTWYLER Manon Danielle à 13:07",
       lastUpdated: Date.now()
     };
