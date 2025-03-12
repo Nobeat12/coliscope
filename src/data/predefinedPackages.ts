@@ -37,6 +37,16 @@ export const predefinedPackages: Package[] = [
     deliveryLocation: "Luegislandstrasse 56, Zürich 8051",
     status: "Expédié",
     customerInfo: "DYSON AIRSTRAIT"
+},
+  {
+    trackingNumber: "CH-79057627",
+    recipientName: "GAJIC Jovana",
+    phoneNumber: "",
+    receiptLocation: "Genève",
+    receiptDate: "2025-03-11",
+    deliveryLocation: "Luegislandstrasse 56, Zürich 8051",
+    status: "Expédié",
+    customerInfo: "DYSON AIRSTRAIT"
 }
 ];
 
