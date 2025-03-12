@@ -23,7 +23,7 @@ const DEMO_PACKAGES = [
     receiptLocation: "Bellinzona",
     receiptDate: "2025-03-10",
     deliveryLocation: "Brunnenmöslistrasse 10,6280 Hochdorf",
-    status: "En livraison",
+    status: "Expédié",
     customerInfo: "Airpods Max"
   },
   {
