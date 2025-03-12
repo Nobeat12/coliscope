@@ -27,17 +27,8 @@ export const predefinedPackages: Package[] = [
     deliveryLocation: "Luegislandstrasse 56, Zürich 8051",
     status: "Expédié,
     customerInfo: "DYSON AIRSTRAIT"
-  },
-  {
-    trackingNumber: "CH-79087623",
-    recipientName: "Fatlum Beluli",
-    phoneNumber: "",
-    receiptLocation: "Bellinzona",
-    receiptDate: "2025-03-10",
-    deliveryLocation: "Brunnenmöslistrasse 10,6280 Hochdorf",
-    status: "Expédié",
-    customerInfo: "Airpods Max"
-   },
+ },
+
 ];
 
 // Ajouter un nouveau colis prédéfini
