@@ -18,16 +18,16 @@ export const predefinedPackages: Package[] = [
     status: "Expédié",
     customerInfo: "ASPIRATEUR DYSON V12, envoyé par LEUTWYLER Manon Danielle à 13:07"
   },
-  {
+   {
     trackingNumber: "CH-79057623",
     recipientName: "GAJIC Jovana",
-    phoneNumber: "",
+    phoneNumber: "", // No phone number provided
     receiptLocation: "Genève",
-    receiptDate: "2025-03-11",
+    receiptDate: "11-03-2025",
     deliveryLocation: "Luegislandstrasse 56, Zürich 8051",
-    status: "Expédié,
+    status: "Expédié",
     customerInfo: "DYSON AIRSTRAIT"
- },
+  },
 
 ];
 
