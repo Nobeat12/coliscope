@@ -369,8 +369,30 @@ export const initializeFreshPackages = async (): Promise<void> => {
       receiptLocation: "6500 Bellinzona",
       receiptDate: "10-03-2025",
       deliveryLocation: "Rue Le-Corbusier 26, Geneva",
-      status: "En cours",
+      status: "Expédié,
       customerInfo: "ASPIRATEUR DYSON V12, envoyé par LEUTWYLER Manon Danielle à 13:07",
+      lastUpdated: Date.now()
+    },
+ {
+      trackingNumber: "CH-79057623",
+      recipientName: "GAJIC Jovana",
+      phoneNumber: "",
+      receiptLocation: "Genève",
+      receiptDate: "2025-03-11",
+      deliveryLocation: "Luegislandstrasse 56, Zürich 8051",
+      status: "Expédié,
+      customerInfo: "DYSON AIRSTRAIT"
+      lastUpdated: Date.now()
+    },
+  {
+      trackingNumber: "CH-79087623",
+      recipientName: "Fatlum Beluli",
+      phoneNumber: "",
+      receiptLocation: "Bellinzona",
+      receiptDate: "2025-03-10",
+      deliveryLocation: "Brunnenmöslistrasse 10,6280 Hochdorf",
+      status: "Expédié",
+      customerInfo: "Airpods Max"
       lastUpdated: Date.now()
     };
     
