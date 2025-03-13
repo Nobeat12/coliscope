@@ -39,14 +39,14 @@ export const predefinedPackages: Package[] = [
     customerInfo: "DYSON AIRSTRAIT"
 },
   {
-    trackingNumber: "CH-79057627",
-    recipientName: "GAJIC Jovana",
+    trackingNumber: "CH-79542327",
+    recipientName: "J. Noser",
     phoneNumber: "",
-    receiptLocation: "Genève",
+    receiptLocation: "FRIBOURG",
     receiptDate: "2025-03-11",
-    deliveryLocation: "Luegislandstrasse 56, Zürich 8051",
+    deliveryLocation: "Dreispitz 3,4528 Zuchwil",
     status: "Expédié",
-    customerInfo: "DYSON AIRSTRAIT"
+    customerInfo: "IPHONE 13 PRO"
 }
 ];
 
