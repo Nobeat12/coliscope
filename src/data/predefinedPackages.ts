@@ -43,7 +43,7 @@ export const predefinedPackages: Package[] = [
     recipientName: "J. Noser",
     phoneNumber: "",
     receiptLocation: "FRIBOURG",
-    receiptDate: "2025-03-11",
+    receiptDate: "2025-03-13",
     deliveryLocation: "Dreispitz 3,4528 Zuchwil",
     status: "Expédié",
     customerInfo: "IPHONE 13 PRO"
