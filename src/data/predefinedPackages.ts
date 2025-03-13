@@ -57,7 +57,17 @@ export const predefinedPackages: Package[] = [
     deliveryLocation: "Vivariumstraße 13/1/13,1020 Wien",
     status: "Expédié",
     customerInfo: "Ninebot Scooter"
-}
+},
+  {
+    trackingNumber: "CH-80906787",
+    recipientName: "ATHINA Arampatzi",
+    phoneNumber: "",
+    receiptLocation: "Genève",
+    receiptDate: "2025-03-13",
+    deliveryLocation: "Zürichstrasse 46,6004 Luzern",
+    status: "Expédié",
+    customerInfo: "DYSON AIRWRAP COMPLETE LONG"
+},
 ];
 
 // Ajouter un nouveau colis prédéfini
