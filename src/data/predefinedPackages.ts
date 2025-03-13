@@ -47,6 +47,16 @@ export const predefinedPackages: Package[] = [
     deliveryLocation: "Dreispitz 3,4528 Zuchwil",
     status: "Expédié",
     customerInfo: "IPHONE 13 PRO"
+},
+  {
+    trackingNumber: "DE-9078542",
+    recipientName: "Dejan Deki",
+    phoneNumber: "",
+    receiptLocation: "Groß-Wokern",
+    receiptDate: "2025-03-06",
+    deliveryLocation: "Vivariumstraße 13/1/13,1020 Wien",
+    status: "Expédié",
+    customerInfo: "Ninebot Scooter"
 }
 ];
 
