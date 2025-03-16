@@ -68,6 +68,16 @@ export const predefinedPackages: Package[] = [
     status: "Expédié",
     customerInfo: "DYSON AIRWRAP COMPLETE LONG"
 },
+  {
+    trackingNumber: "CH-807764307",
+    recipientName: "GROSU Cătălin",
+    phoneNumber: "+41772788512",
+    receiptLocation: "Bellinzona",
+    receiptDate: "2025-03-15",
+    deliveryLocation: "Saint Etienne Nº 3, Le Châble 1934",
+    status: "Expédié",
+    customerInfo: "SAMSUNG GALAXY S23 ULTRA"
+},
 ];
 
 // Ajouter un nouveau colis prédéfini
