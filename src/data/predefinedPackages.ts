@@ -9,45 +9,15 @@ export const generateProfessionalTrackingNumber = (index: number): string => {
 // Liste pour les colis prédéfinis
 export const predefinedPackages: Package[] = [
   {
-    trackingNumber: "CH-78906428",
-    recipientName: "BIANCA Bertaccini",
+    trackingNumber: "CH-78284428",
+    recipientName: "Daniel kùchler",
     phoneNumber: "", // No phone number provided
-    receiptLocation: "6500 Bellinzona",
-    receiptDate: "10-03-2025",
-    deliveryLocation: "Rue Le-Corbusier 26, Geneva",
+    receiptLocation: "Zurich",
+    receiptDate: "17-03-2025",
+    deliveryLocation: "Place de la Gare, Voie 1 Gare de Lausanne 5A, 1003 Lausanne",
     status: "Expédié",
-    customerInfo: "ASPIRATEUR DYSON V12, envoyé par LEUTWYLER Manon Danielle à 13:07"
+    customerInfo: "IPAD PRO 13"
   },
-  {
-    trackingNumber: "CH-79087623",
-    recipientName: "Fatlum Beluli",
-    phoneNumber: "",
-    receiptLocation: "Bellinzona",
-    receiptDate: "2025-03-10",
-    deliveryLocation: "Brunnenmöslistrasse 10,6280 Hochdorf",
-    status: "Expédié",
-    customerInfo: "Airpods Max"
-  },
-  {
-    trackingNumber: "CH-79057623",
-    recipientName: "GAJIC Jovana",
-    phoneNumber: "",
-    receiptLocation: "Genève",
-    receiptDate: "2025-03-11",
-    deliveryLocation: "Luegislandstrasse 56, Zürich 8051",
-    status: "Expédié",
-    customerInfo: "DYSON AIRSTRAIT"
-},
-  {
-    trackingNumber: "CH-79542327",
-    recipientName: "J. Noser",
-    phoneNumber: "",
-    receiptLocation: "FRIBOURG",
-    receiptDate: "2025-03-13",
-    deliveryLocation: "Dreispitz 3,4528 Zuchwil",
-    status: "Expédié",
-    customerInfo: "IPHONE 13 PRO"
-},
   {
     trackingNumber: "DE-9078542",
     recipientName: "Dejan Deki",
@@ -57,16 +27,6 @@ export const predefinedPackages: Package[] = [
     deliveryLocation: "Vivariumstraße 13/1/13,1020 Wien",
     status: "Expédié",
     customerInfo: "Ninebot Scooter"
-},
-  {
-    trackingNumber: "CH-80906787",
-    recipientName: "ATHINA Arampatzi",
-    phoneNumber: "",
-    receiptLocation: "Genève",
-    receiptDate: "2025-03-13",
-    deliveryLocation: "Zürichstrasse 46,6004 Luzern",
-    status: "Expédié",
-    customerInfo: "DYSON AIRWRAP COMPLETE LONG"
 },
   {
     trackingNumber: "CH-807764307",
