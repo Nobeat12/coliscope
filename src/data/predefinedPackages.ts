@@ -10,7 +10,7 @@ export const generateProfessionalTrackingNumber = (index: number): string => {
 export const predefinedPackages: Package[] = [
   {
     trackingNumber: "CH-78284428",
-    recipientName: "Daniel kùchler",
+    recipientName: "Simon Junior",
     phoneNumber: "", // No phone number provided
     receiptLocation: "Zurich",
     receiptDate: "17-03-2025",
@@ -23,7 +23,7 @@ export const predefinedPackages: Package[] = [
     recipientName: "Danijela Lazic",
     phoneNumber: "",
     receiptLocation: "Samnaun",
-    receiptDate: "2025-03-06",
+    receiptDate: "2025-03-17",
     deliveryLocation: "Waldmeisterstrasse 18, 8953 Dietikon",
     status: "Expédié",
     customerInfo: "Louis Vuitton Speedy 30"
