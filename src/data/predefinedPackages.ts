@@ -19,14 +19,14 @@ export const predefinedPackages: Package[] = [
     customerInfo: "IPAD PRO 13"
   },
   {
-    trackingNumber: "DE-9078542",
-    recipientName: "Dejan Deki",
+    trackingNumber: "CH-765078542",
+    recipientName: "Danijela Lazic",
     phoneNumber: "",
-    receiptLocation: "Groß-Wokern",
+    receiptLocation: "Samnaun",
     receiptDate: "2025-03-06",
-    deliveryLocation: "Vivariumstraße 13/1/13,1020 Wien",
+    deliveryLocation: "Waldmeisterstrasse 18, 8953 Dietikon",
     status: "Expédié",
-    customerInfo: "Ninebot Scooter"
+    customerInfo: "Louis Vuitton Speedy 30"
 },
   {
     trackingNumber: "CH-807764307",
