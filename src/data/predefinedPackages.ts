@@ -30,13 +30,13 @@ export const predefinedPackages: Package[] = [
 },
   {
     trackingNumber: "CH-807764307",
-    recipientName: "GROSU Cătălin",
-    phoneNumber: "+41772788512",
-    receiptLocation: "Bellinzona",
-    receiptDate: "2025-03-15",
-    deliveryLocation: "Saint Etienne Nº 3, Le Châble 1934",
+    recipientName: "Fazli gjokaj",
+    phoneNumber: "",
+    receiptLocation: "ZUG",
+    receiptDate: "2025-03-17",
+    deliveryLocation: "In der fadmatt 20, 8902 Urodrf -zürich",
     status: "Expédié",
-    customerInfo: "SAMSUNG GALAXY S23 ULTRA"
+    customerInfo: "GoPro héro 12"
 },
 ];
 
