@@ -19,14 +19,14 @@ export const predefinedPackages: Package[] = [
     customerInfo: "IPAD PRO 13"
   },
   {
-    trackingNumber: "CH-765078542",
-    recipientName: "Danijela Lazic",
-    phoneNumber: "",
-    receiptLocation: "Samnaun",
+    trackingNumber: "CH-765078549",
+    recipientName: "Bujar Syla",
+    phoneNumber: "+41766205288",
+    receiptLocation: "St.Gallen",
     receiptDate: "2025-03-17",
-    deliveryLocation: "Waldmeisterstrasse 18, 8953 Dietikon",
+    deliveryLocation: "Zürichstrasse 165, 8910 Affoltern am Albis, Suisse",
     status: "Expédié",
-    customerInfo: "Louis Vuitton Speedy 30"
+    customerInfo: "IPHONE 13"
 },
   {
     trackingNumber: "CH-807764307",
@@ -37,6 +37,16 @@ export const predefinedPackages: Package[] = [
     deliveryLocation: "In der fadmatt 20, 8902 Urodrf -zürich",
     status: "Expédié",
     customerInfo: "GoPro héro 12"
+},
+  {
+    trackingNumber: "CH-71025865",
+    recipientName: "Bagnan Fontenla Aaliyah",
+    phoneNumber: "",
+    receiptLocation: "St. Gallen",
+    receiptDate: "2025-03-17",
+    deliveryLocation: "route de sous-la-ville 8 1070 puidoux",
+    status: "Expédié",
+    customerInfo: "APPLE IPAD 12 PRO"
 },
 ];
 
