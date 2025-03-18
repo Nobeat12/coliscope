@@ -14,7 +14,7 @@ export const predefinedPackages: Package[] = [
     phoneNumber: "", // No phone number provided
     receiptLocation: "Zurich",
     receiptDate: "18-03-2025",
-    deliveryLocation: "Golattenmattgasse 21,5000 Aarau",
+    deliveryLocation: "Golattenmattgasse 21,5000 Aarau,Suisse",
     status: "Expédié",
     customerInfo: "IPAD PRO 13"
   },
