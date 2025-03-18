@@ -18,16 +18,6 @@ export const predefinedPackages: Package[] = [
     status: "Expédié",
     customerInfo: "IPAD PRO 13"
   },
-  {
-    trackingNumber: "CH-71025865",
-    recipientName: "Bagnan Fontenla Aaliyah",
-    phoneNumber: "",
-    receiptLocation: "St. Gallen",
-    receiptDate: "2025-03-17",
-    deliveryLocation: "route de sous-la-ville 8 1070 puidoux",
-    status: "Expédié",
-    customerInfo: "APPLE IPAD 12 PRO"
-},
 ];
 
 // Ajouter un nouveau colis prédéfini
