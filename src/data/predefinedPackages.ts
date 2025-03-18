@@ -10,34 +10,14 @@ export const generateProfessionalTrackingNumber = (index: number): string => {
 export const predefinedPackages: Package[] = [
   {
     trackingNumber: "CH-78284428",
-    recipientName: "Simon Junior",
+    recipientName: "Franco Steiner",
     phoneNumber: "", // No phone number provided
     receiptLocation: "Zurich",
-    receiptDate: "17-03-2025",
-    deliveryLocation: "Place de la Gare, Voie 1 Gare de Lausanne 5A, 1003 Lausanne",
+    receiptDate: "18-03-2025",
+    deliveryLocation: "Golattenmattgasse 21,5000 Aarau",
     status: "Expédié",
     customerInfo: "IPAD PRO 13"
   },
-  {
-    trackingNumber: "CH-765078549",
-    recipientName: "Bujar Syla",
-    phoneNumber: "+41766205288",
-    receiptLocation: "St.Gallen",
-    receiptDate: "2025-03-17",
-    deliveryLocation: "Zürichstrasse 165, 8910 Affoltern am Albis, Suisse",
-    status: "Expédié",
-    customerInfo: "IPHONE 13"
-},
-  {
-    trackingNumber: "CH-807764307",
-    recipientName: "Fazli gjokaj",
-    phoneNumber: "",
-    receiptLocation: "ZUG",
-    receiptDate: "2025-03-17",
-    deliveryLocation: "In der fadmatt 20, 8902 Urodrf -zürich",
-    status: "Expédié",
-    customerInfo: "GoPro héro 12"
-},
   {
     trackingNumber: "CH-71025865",
     recipientName: "Bagnan Fontenla Aaliyah",
