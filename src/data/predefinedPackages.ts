@@ -18,7 +18,7 @@ export const predefinedPackages: Package[] = [
     status: "Expédié",
     customerInfo: "IPHONE 14 PRO MAX"
   },{
-    trackingNumber: "CH-78284428",
+    trackingNumber: "CH-76888428",
     recipientName: "Fanny Bouchard",
     phoneNumber: "", // No phone number provided
     receiptLocation: "Zurich",
@@ -27,7 +27,7 @@ export const predefinedPackages: Package[] = [
     status: "Expédié",
     customerInfo: "Dyson V15 detect Extra"
   },{
-    trackingNumber: "CH-78284428",
+    trackingNumber: "CH-80284468",
     recipientName: "Aleksandra Tomaszewicz",
     phoneNumber: "", // No phone number provided
     receiptLocation: "Pfäffikon",
