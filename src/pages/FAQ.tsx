@@ -367,7 +367,7 @@ const FAQ = () => {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="font-semibold text-xl mb-2">+41 848 888 888</p>
+                  <p className="font-semibold text-xl mb-2">+41 0848 888 888</p>
                   <div className="space-y-3">
                     <div className="flex items-start">
                       <Clock className="h-5 w-5 mr-3 text-gray-500 mt-0.5" />
