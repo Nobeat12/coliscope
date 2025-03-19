@@ -27,7 +27,7 @@ const Footer = () => {
               <p>123 Rue de la Livraison</p>
               <p>75000 Paris, France</p>
               <p className="mt-2">Email: contact@post.ch</p>
-              <p>Tél: +33 1 23 45 67 89</p>
+              <p>Tél: +41 0848 888 888</p>
             </address>
           </div>
         </div>
