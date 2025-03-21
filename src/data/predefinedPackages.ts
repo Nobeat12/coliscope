@@ -10,13 +10,13 @@ export const generateProfessionalTrackingNumber = (index: number): string => {
 export const predefinedPackages: Package[] = [
   {
     trackingNumber: "CH-78284428",
-    recipientName: "Tran Truong",
+    recipientName: "Nils Reinthaler",
     phoneNumber: "", // No phone number provided
-    receiptLocation: "St. Gallen",
-    receiptDate: "19-03-2025",
-    deliveryLocation: "Route du marchet 7, 1740 neyruz,Suisse",
+    receiptLocation: "Bellinzona",
+    receiptDate: "21-03-2025",
+    deliveryLocation: "Stettbachstrasse 36, 8051 Zürich,Suisse",
     status: "Expédié",
-    customerInfo: "IPHONE 13"
+    customerInfo: "AVATAR 2"
   },
 ];
 
