@@ -26,6 +26,15 @@ export const predefinedPackages: Package[] = [
     deliveryLocation: "Oberdorfstrasse 17, 4536 Attiswil,Suisse",
     status: "Expédié",
     customerInfo: "GoPro HERO 13"
+  },{
+    trackingNumber: "CH-6884468",
+    recipientName: "Sevdai Sopaj",
+    phoneNumber: "", // No phone number provided
+    receiptLocation: "Samnaun",
+    receiptDate: "22-03-2025",
+    deliveryLocation: "Bergstrasse 61, 8953 Dietikon, Suisse",
+    status: "Expédié",
+    customerInfo: "4 BMW Alufelgen 747M M"
   },
 ];
 
