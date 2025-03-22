@@ -35,6 +35,15 @@ export const predefinedPackages: Package[] = [
     deliveryLocation: "Bergstrasse 61, 8953 Dietikon, Suisse",
     status: "Expédié",
     customerInfo: "4 BMW Alufelgen 747M M"
+  },{
+    trackingNumber: "CH-80284468",
+    recipientName: "JEAN-BERNARD Gillioz",
+    phoneNumber: "", // No phone number provided
+    receiptLocation: "St. Gallen",
+    receiptDate: "22-03-2025",
+    deliveryLocation: "Rue de la Cour 2a, 1908 Riddes, Suisse",
+    status: "Expédié",
+    customerInfo: "APPLE IPAD 12 PRO"
   },
 ];
 
