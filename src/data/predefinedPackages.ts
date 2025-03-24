@@ -17,6 +17,33 @@ export const predefinedPackages: Package[] = [
     deliveryLocation: "Chemin jean baptiste vandelle 1, 1290 Versoix, Suisse",
     status: "Expédié",
     customerInfo: "REMARKABLE 2"
+  },{
+    trackingNumber: "CH-89808428",
+    recipientName: "Marie Emma Pahud",
+    phoneNumber: "",
+    receiptLocation: "Bellinzona",
+    receiptDate: "24-03-2025",
+    deliveryLocation: "Vers Savagnier 5, 2054 Chezard-St-Martin, Suisse",
+    status: "Expédié",
+    customerInfo: "Machine à broder brother innovis V3"
+  },{
+    trackingNumber: "CH-76538428",
+    recipientName: "Almer Marco",
+    phoneNumber: "",
+    receiptLocation: "Bellinzona",
+    receiptDate: "24-03-2025",
+    deliveryLocation: "Hauptsrasse 20, 3706 Leissigen, Suisse",
+    status: "Expédié",
+    customerInfo: "LUNETTE AVATA 2"
+  },{
+    trackingNumber: "CH-76808428",
+    recipientName: "Tesfahiwet Andemicheal",
+    phoneNumber: "",
+    receiptLocation: "Bellinzona",
+    receiptDate: "24-03-2025",
+    deliveryLocation: "Qeullmattstrasse 78, 5035 unterentenfelden, Suisse",
+    status: "Expédié",
+    customerInfo: "Samsung Galaxy S24"
   },
 ];
 
