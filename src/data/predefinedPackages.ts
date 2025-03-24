@@ -21,7 +21,7 @@ export const predefinedPackages: Package[] = [
     trackingNumber: "CH-89808428",
     recipientName: "Marie Emma Pahud",
     phoneNumber: "",
-    receiptLocation: "Bellinzona",
+    receiptLocation: "Butschwil",
     receiptDate: "24-03-2025",
     deliveryLocation: "Vers Savagnier 5, 2054 Chezard-St-Martin, Suisse",
     status: "Expédié",
@@ -39,11 +39,20 @@ export const predefinedPackages: Package[] = [
     trackingNumber: "CH-96808428",
     recipientName: "Tesfahiwet Andemicheal",
     phoneNumber: "",
-    receiptLocation: "Bellinzona",
+    receiptLocation: "Prilly",
     receiptDate: "24-03-2025",
     deliveryLocation: "Qeullmattstrasse 78, 5035 unterentenfelden, Suisse",
     status: "Expédié",
     customerInfo: "Samsung Galaxy S24"
+  },{
+    trackingNumber: "CH-96596328",
+    recipientName: "BEN SLIMEN Montassar",
+    phoneNumber: "",
+    receiptLocation: "Bellinzona",
+    receiptDate: "24-03-2025",
+    deliveryLocation: "rue des grottes 28, 1201 Genève, Suisse",
+    status: "Expédié",
+    customerInfo: "AVATA 2"
   },
 ];
 
