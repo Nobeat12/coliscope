@@ -36,7 +36,7 @@ export const predefinedPackages: Package[] = [
     status: "Expédié",
     customerInfo: "LUNETTE AVATA 2"
   },{
-    trackingNumber: "CH-76808428",
+    trackingNumber: "CH-96808428",
     recipientName: "Tesfahiwet Andemicheal",
     phoneNumber: "",
     receiptLocation: "Bellinzona",
