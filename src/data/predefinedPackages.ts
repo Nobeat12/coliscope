@@ -9,41 +9,14 @@ export const generateProfessionalTrackingNumber = (index: number): string => {
 // Liste pour les colis prédéfinis
 export const predefinedPackages: Package[] = [
   {
-    trackingNumber: "CH-76888428",
-    recipientName: "DONIA Moeri",
-    phoneNumber: "+41 79 729 57 16",
+    trackingNumber: "CH-76808428",
+    recipientName: "Gabriele Rizzo",
+    phoneNumber: "",
     receiptLocation: "Bellinzona",
-    receiptDate: "22-03-2025",
-    deliveryLocation: "Lotzwilstrasse 23a, 4900 Langenthal, Suisse",
+    receiptDate: "24-03-2025",
+    deliveryLocation: "Chemin jean baptiste vandelle 1, 1290 Versoix, Suisse",
     status: "Expédié",
-    customerInfo: "IPHONE 13"
-  },{
-    trackingNumber: "CH-80284468",
-    recipientName: "Marc Müller",
-    phoneNumber: "", // No phone number provided
-    receiptLocation: "Zollikofen",
-    receiptDate: "22-03-2025",
-    deliveryLocation: "Oberdorfstrasse 17, 4536 Attiswil,Suisse",
-    status: "Expédié",
-    customerInfo: "GoPro HERO 13"
-  },{
-    trackingNumber: "CH-6884468",
-    recipientName: "Sevdai Sopaj",
-    phoneNumber: "", // No phone number provided
-    receiptLocation: "Samnaun",
-    receiptDate: "22-03-2025",
-    deliveryLocation: "Bergstrasse 61, 8953 Dietikon, Suisse",
-    status: "Expédié",
-    customerInfo: "4 BMW Alufelgen 747M M"
-  },{
-    trackingNumber: "CH-80284468",
-    recipientName: "JEAN-BERNARD Gillioz",
-    phoneNumber: "", // No phone number provided
-    receiptLocation: "St. Gallen",
-    receiptDate: "22-03-2025",
-    deliveryLocation: "Rue de la Cour 2a, 1908 Riddes, Suisse",
-    status: "Expédié",
-    customerInfo: "APPLE IPAD 12 PRO"
+    customerInfo: "REMARKABLE 2"
   },
 ];
 
