@@ -43,7 +43,7 @@ export const predefinedPackages: Package[] = [
     receiptDate: "24-03-2025",
     deliveryLocation: "Qeullmattstrasse 78, 5035 unterentenfelden, Suisse",
     status: "Expédié",
-    customerInfo: "Samsung Galaxy S24"
+    customerInfo: "Samsung Galaxy S24 Ultra"
   },{
     trackingNumber: "CH-96596328",
     recipientName: "BEN SLIMEN Montassar",
