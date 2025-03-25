@@ -9,32 +9,14 @@ export const generateProfessionalTrackingNumber = (index: number): string => {
 // Liste pour les colis prédéfinis
 export const predefinedPackages: Package[] = [
   {
-    trackingNumber: "CH-76808428",
-    recipientName: "Gabriele Rizzo",
+    trackingNumber: "CH-76898428",
+    recipientName: "Younes sarghini",
     phoneNumber: "",
-    receiptLocation: "Bellinzona",
-    receiptDate: "24-03-2025",
-    deliveryLocation: "Chemin jean baptiste vandelle 1, 1290 Versoix, Suisse",
+    receiptLocation: "St. Gallen",
+    receiptDate: "25-03-2025",
+    deliveryLocation: "rue de l’étoile 21, 01200 bellegarde sur valserine, France",
     status: "Expédié",
-    customerInfo: "REMARKABLE 2"
-  },{
-    trackingNumber: "CH-89808428",
-    recipientName: "Marie Emma Pahud",
-    phoneNumber: "",
-    receiptLocation: "Butschwil",
-    receiptDate: "24-03-2025",
-    deliveryLocation: "Vers Savagnier 5, 2054 Chezard-St-Martin, Suisse",
-    status: "Expédié",
-    customerInfo: "Machine à broder brother innovis V3"
-  },{
-    trackingNumber: "CH-76538428",
-    recipientName: "Almer Marco",
-    phoneNumber: "",
-    receiptLocation: "Bellinzona",
-    receiptDate: "24-03-2025",
-    deliveryLocation: "Hauptsrasse 20, 3706 Leissigen, Suisse",
-    status: "Expédié",
-    customerInfo: "LUNETTE AVATA 2"
+    customerInfo: "DRONE DJI MINI 4 PRO"
   },{
     trackingNumber: "CH-96808428",
     recipientName: "Tesfahiwet Andemicheal",
@@ -44,15 +26,6 @@ export const predefinedPackages: Package[] = [
     deliveryLocation: "Qeullmattstrasse 78, 5035 unterentenfelden, Suisse",
     status: "Expédié",
     customerInfo: "Samsung Galaxy S24 Ultra"
-  },{
-    trackingNumber: "CH-96596328",
-    recipientName: "BEN SLIMEN Montassar",
-    phoneNumber: "",
-    receiptLocation: "Bellinzona",
-    receiptDate: "24-03-2025",
-    deliveryLocation: "rue des grottes 28, 1201 Genève, Suisse",
-    status: "Expédié",
-    customerInfo: "AVATA 2"
   },
 ];
 
