@@ -10,22 +10,13 @@ export const generateProfessionalTrackingNumber = (index: number): string => {
 export const predefinedPackages: Package[] = [
   {
     trackingNumber: "CH-76898428",
-    recipientName: "Younes sarghini",
+    recipientName: "Albiona Beshiri",
     phoneNumber: "",
-    receiptLocation: "St. Gallen",
-    receiptDate: "25-03-2025",
-    deliveryLocation: "rue de l’étoile 21, 01200 bellegarde sur valserine, France",
+    receiptLocation: "Zürich",
+    receiptDate: "26-03-2025",
+    deliveryLocation: "Avenue de Beaulieu 42 1180 Rolle, Suisse",
     status: "Expédié",
-    customerInfo: "DRONE DJI MINI 4 PRO"
-  },{
-    trackingNumber: "CH-96808428",
-    recipientName: "Tesfahiwet Andemicheal",
-    phoneNumber: "",
-    receiptLocation: "Prilly",
-    receiptDate: "24-03-2025",
-    deliveryLocation: "Qeullmattstrasse 78, 5035 unterentenfelden, Suisse",
-    status: "Expédié",
-    customerInfo: "Samsung Galaxy S24 Ultra"
+    customerInfo: "PAKET"
   },
 ];
 
