@@ -44,6 +44,15 @@ export const predefinedPackages: Package[] = [
     deliveryLocation: "Rue de la borde 33 1018 lausanne, Suisse",
     status: "Expédié",
     customerInfo: "Iphone 15 pro max 256GB"
+  },{
+    trackingNumber: "CH-90898428",
+    recipientName: "Kseniia Cherednychenko",
+    phoneNumber: "",
+    receiptLocation: "Davos Platz",
+    receiptDate: "26-03-2025",
+    deliveryLocation: "Birmensdorferstrasse 491, 8055 Zürich, Suisse",
+    status: "Expédié",
+    customerInfo: "Asus ROG Strix Scar 18 4090 2TB"
   },
 ];
 
