@@ -35,6 +35,15 @@ export const predefinedPackages: Package[] = [
     deliveryLocation: "Seilerweg 7, 2557 Studen Be, Suisse",
     status: "Expédié",
     customerInfo: "Sommerräder 19 Zoll Original Audi S3 8V"
+  },{
+    trackingNumber: "CH-78908428",
+    recipientName: "Sahar Shirjani",
+    phoneNumber: "",
+    receiptLocation: "St. Gall",
+    receiptDate: "26-03-2025",
+    deliveryLocation: "Rue de la borde 33 1018 lausanne, Suisse",
+    status: "Expédié",
+    customerInfo: "Iphone 15 pro max 256GB"
   },
 ];
 
