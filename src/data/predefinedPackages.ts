@@ -27,14 +27,14 @@ export const predefinedPackages: Package[] = [
     status: "Expédié",
     customerInfo: "Louis Vuitton Speedy 30 Damier"
   },{
-    trackingNumber: "CH-68038428",
-    recipientName: "Blerim Morina",
+    trackingNumber: "CH-68573848",
+    recipientName: "Natalia Palmeira",
     phoneNumber: "",
-    receiptLocation: "Samnaun",
+    receiptLocation: "Davos Platz",
     receiptDate: "26-03-2025",
-    deliveryLocation: "Seilerweg 7, 2557 Studen Be, Suisse",
+    deliveryLocation: "Quai Charles-Page n.25, 1205 Genève, Suisse",
     status: "Expédié",
-    customerInfo: "Sommerräder 19 Zoll Original Audi S3 8V"
+    customerInfo: "Chopard 30g Happy Spirit Au750 Yellow Gold"
   },{
     trackingNumber: "CH-78908428",
     recipientName: "Sahar Shirjani",
@@ -44,15 +44,6 @@ export const predefinedPackages: Package[] = [
     deliveryLocation: "Rue de la borde 33 1018 lausanne, Suisse",
     status: "Expédié",
     customerInfo: "Iphone 15 pro max 256GB"
-  },{
-    trackingNumber: "CH-90898428",
-    recipientName: "Kseniia Cherednychenko",
-    phoneNumber: "",
-    receiptLocation: "Davos Platz",
-    receiptDate: "26-03-2025",
-    deliveryLocation: "Birmensdorferstrasse 491, 8055 Zürich, Suisse",
-    status: "Expédié",
-    customerInfo: "Asus ROG Strix Scar 18 4090 2TB"
   },
 ];
 
