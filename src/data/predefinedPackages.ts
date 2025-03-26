@@ -26,6 +26,15 @@ export const predefinedPackages: Package[] = [
     deliveryLocation: "Weiherstrasse 4,8309 Nürensdorf, Suisse",
     status: "Expédié",
     customerInfo: "Louis Vuitton Speedy 30 Damier"
+  },{
+    trackingNumber: "CH-68038428",
+    recipientName: "Blerim Morina",
+    phoneNumber: "",
+    receiptLocation: "Samnaun",
+    receiptDate: "26-03-2025",
+    deliveryLocation: "Seilerweg 7, 2557 Studen Be, Suisse",
+    status: "Expédié",
+    customerInfo: "Sommerräder 19 Zoll Original Audi S3 8V"
   },
 ];
 
