@@ -17,6 +17,15 @@ export const predefinedPackages: Package[] = [
     deliveryLocation: "Avenue de Beaulieu 42 1180 Rolle, Suisse",
     status: "Expédié",
     customerInfo: "PAKET"
+  },{
+    trackingNumber: "CH-90698428",
+    recipientName: "Rachida Fröhlich",
+    phoneNumber: "",
+    receiptLocation: "Samnaun",
+    receiptDate: "26-03-2025",
+    deliveryLocation: "Weiherstrasse 4,8309 Nürensdorf, Suisse",
+    status: "Expédié",
+    customerInfo: "Louis Vuitton Speedy 30 Damier"
   },
 ];
 
