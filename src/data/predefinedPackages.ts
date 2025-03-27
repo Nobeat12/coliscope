@@ -9,14 +9,14 @@ export const generateProfessionalTrackingNumber = (index: number): string => {
 // Liste pour les colis prédéfinis
 export const predefinedPackages: Package[] = [
   {
-    trackingNumber: "CH-768908428",
-    recipientName: "Ueli Buob",
+    trackingNumber: "CH-98908828",
+    recipientName: "Muntadher Aldhalemi",
     phoneNumber: "",
-    receiptLocation: "Lausanne",
-    receiptDate: "26-03-2025",
-    deliveryLocation: "Mittlere Gasse 63, 4493 Wenslingen, Suisse",
+    receiptLocation: "St. Gallen",
+    receiptDate: "27-03-2025",
+    deliveryLocation: "St. Niklausengasse 14, 6010 Kriens, Suisse",
     status: "Expédié",
-    customerInfo: "Dyson v12 Staubsauger"
+    customerInfo: "SAMSUNG GALAXY Z FOLD5"
   },{
     trackingNumber: "CH-90698428",
     recipientName: "Rachida Fröhlich",
