@@ -36,14 +36,14 @@ export const predefinedPackages: Package[] = [
     status: "Expédié",
     customerInfo: "Chopard 30g Happy Spirit Au750 Yellow Gold"
   },{
-    trackingNumber: "CH-78908428",
-    recipientName: "Sahar Shirjani",
+    trackingNumber: "CH-780913428",
+    recipientName: "Darweshi Bigwz Shayan",
     phoneNumber: "",
-    receiptLocation: "St. Gall",
-    receiptDate: "26-03-2025",
-    deliveryLocation: "Rue de la borde 33 1018 lausanne, Suisse",
+    receiptLocation: "Lausanne",
+    receiptDate: "27-03-2025",
+    deliveryLocation: "Erlenstrasse 87,6020 Emmenbrücke, Suisse",
     status: "Expédié",
-    customerInfo: "Iphone 15 pro max 256GB"
+    customerInfo: "GoPro HERO 12"
   },
 ];
 
