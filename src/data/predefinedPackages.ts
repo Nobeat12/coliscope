@@ -35,6 +35,24 @@ export const predefinedPackages: Package[] = [
     deliveryLocation: "  Avenue du valais 26 1896 Vouvry, Suisse",
     status: "Expédié",
     customerInfo: "DJI AVATAR 2"
+  },{
+    trackingNumber: "CH-9045373848",
+    recipientName: "Johan Palma Chilan",
+    phoneNumber: "",
+    receiptLocation: "Samnaun",
+    receiptDate: "28-03-2025",
+    deliveryLocation: "chemin de malley 12, 1007 lausanne, Suisse",
+    status: "Expédié",
+    customerInfo: "Samsung Galaxy Tab S9 Ultra SM"
+  },{
+    trackingNumber: "CH-90752573848",
+    recipientName: "Jimmy Locatelli",
+    phoneNumber: "",
+    receiptLocation: "Lugano",
+    receiptDate: "28-03-2025",
+    deliveryLocation: "  Via Orselina 11, 6600 Muralto, Suisse",
+    status: "Expédié",
+    customerInfo: "Scott Spark RC welcup"
   },
 ];
 
