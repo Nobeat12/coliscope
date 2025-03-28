@@ -28,13 +28,13 @@ export const predefinedPackages: Package[] = [
     customerInfo: "IPHONE13"
   },{
     trackingNumber: "CH-68573848",
-    recipientName: "Natalia Palmeira",
+    recipientName: "David Vaz",
     phoneNumber: "",
-    receiptLocation: "Davos Platz",
-    receiptDate: "26-03-2025",
-    deliveryLocation: "Quai Charles-Page n.25, 1205 Genève, Suisse",
+    receiptLocation: "St. Gallen",
+    receiptDate: "28-03-2025",
+    deliveryLocation: "  Avenue du valais 26 1896 Vouvry, Suisse",
     status: "Expédié",
-    customerInfo: "Chopard 30g Happy Spirit Au750 Yellow Gold"
+    customerInfo: "DJI AVATAR 2"
   },
 ];
 
