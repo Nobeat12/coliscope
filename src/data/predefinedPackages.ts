@@ -19,13 +19,13 @@ export const predefinedPackages: Package[] = [
     customerInfo: "SAMSUNG GALAXY Z FOLD5"
   },{
     trackingNumber: "CH-90698428",
-    recipientName: "Rachida Fröhlich",
+    recipientName: "Sandro Duque",
     phoneNumber: "",
-    receiptLocation: "Samnaun",
-    receiptDate: "26-03-2025",
-    deliveryLocation: "Weiherstrasse 4,8309 Nürensdorf, Suisse",
+    receiptLocation: "Bellinzona",
+    receiptDate: "28-03-2025",
+    deliveryLocation: "Rathausgasse 6, 7130 Ilanz, Suisse",
     status: "Expédié",
-    customerInfo: "Louis Vuitton Speedy 30 Damier"
+    customerInfo: "IPHONE13"
   },{
     trackingNumber: "CH-68573848",
     recipientName: "Natalia Palmeira",
@@ -35,15 +35,6 @@ export const predefinedPackages: Package[] = [
     deliveryLocation: "Quai Charles-Page n.25, 1205 Genève, Suisse",
     status: "Expédié",
     customerInfo: "Chopard 30g Happy Spirit Au750 Yellow Gold"
-  },{
-    trackingNumber: "CH-780913428",
-    recipientName: "Darweshi Bigwz Shayan",
-    phoneNumber: "",
-    receiptLocation: "Lausanne",
-    receiptDate: "27-03-2025",
-    deliveryLocation: "Erlenstrasse 87,6020 Emmenbrücke, Suisse",
-    status: "Expédié",
-    customerInfo: "GoPro HERO 12"
   },
 ];
 
