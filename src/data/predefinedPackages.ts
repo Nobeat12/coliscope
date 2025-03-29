@@ -18,41 +18,23 @@ export const predefinedPackages: Package[] = [
     status: "Expédié",
     customerInfo: "SAMSUNG GALAXY Z FOLD5"
   },{
-    trackingNumber: "CH-90698428",
-    recipientName: "Sandro Duque",
+    trackingNumber: "CH-90690428",
+    recipientName: "Rey Reyes -Roseane ",
     phoneNumber: "",
-    receiptLocation: "Bellinzona",
-    receiptDate: "28-03-2025",
-    deliveryLocation: "Rathausgasse 6, 7130 Ilanz, Suisse",
+    receiptLocation: "Dübendorf",
+    receiptDate: "29-03-2025",
+    deliveryLocation: "Schettstadterstrasse 12, 4055 Basel, Suisse",
     status: "Expédié",
-    customerInfo: "IPHONE13"
+    customerInfo: "Airpods Max"
   },{
-    trackingNumber: "CH-68573848",
-    recipientName: "David Vaz",
-    phoneNumber: "",
-    receiptLocation: "St. Gallen",
-    receiptDate: "28-03-2025",
-    deliveryLocation: "  Avenue du valais 26 1896 Vouvry, Suisse",
-    status: "Expédié",
-    customerInfo: "DJI AVATAR 2"
-  },{
-    trackingNumber: "CH-9045373848",
-    recipientName: "Johan Palma Chilan",
-    phoneNumber: "",
-    receiptLocation: "Samnaun",
-    receiptDate: "28-03-2025",
-    deliveryLocation: "chemin de malley 12, 1007 lausanne, Suisse",
-    status: "Expédié",
-    customerInfo: "Samsung Galaxy Tab S9 Ultra SM"
-  },{
-    trackingNumber: "CH-90752573848",
-    recipientName: "Jimmy Locatelli",
+    trackingNumber: "CH-68593848",
+    recipientName: "Laura Gonzalez-Valdizan",
     phoneNumber: "",
     receiptLocation: "Lugano",
     receiptDate: "28-03-2025",
-    deliveryLocation: "  Via Orselina 11, 6600 Muralto, Suisse",
+    deliveryLocation: "  Bd Helvétique 24, 1207 Genève, Suisse",
     status: "Expédié",
-    customerInfo: "Scott Spark RC welcup"
+    customerInfo: "Machine à broder brother innovis V3"
   },
 ];
 
