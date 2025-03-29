@@ -31,7 +31,7 @@ export const predefinedPackages: Package[] = [
     recipientName: "Laura Gonzalez-Valdizan",
     phoneNumber: "",
     receiptLocation: "Lugano",
-    receiptDate: "28-03-2025",
+    receiptDate: "29-03-2025",
     deliveryLocation: "  Bd Helvétique 24, 1207 Genève, Suisse",
     status: "Expédié",
     customerInfo: "Machine à broder brother innovis V3"
