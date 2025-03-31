@@ -10,31 +10,13 @@ export const generateProfessionalTrackingNumber = (index: number): string => {
 export const predefinedPackages: Package[] = [
   {
     trackingNumber: "CH-98908828",
-    recipientName: "Muntadher Aldhalemi",
+    recipientName: "Markus Wenzin",
     phoneNumber: "",
-    receiptLocation: "St. Gallen",
-    receiptDate: "27-03-2025",
-    deliveryLocation: "St. Niklausengasse 14, 6010 Kriens, Suisse",
+    receiptLocation: "Samnaun",
+    receiptDate: "31-03-2025",
+    deliveryLocation: "Rheinstrasse 130, 7000 Chur, Suisse",
     status: "Expédié",
-    customerInfo: "SAMSUNG GALAXY Z FOLD5"
-  },{
-    trackingNumber: "CH-90690428",
-    recipientName: "Rey Reyes -Roseane ",
-    phoneNumber: "",
-    receiptLocation: "Dübendorf",
-    receiptDate: "29-03-2025",
-    deliveryLocation: "Schettstadterstrasse 12, 4055 Basel, Suisse",
-    status: "Expédié",
-    customerInfo: "Airpods Max"
-  },{
-    trackingNumber: "CH-68593848",
-    recipientName: "Laura Gonzalez-Valdizan",
-    phoneNumber: "",
-    receiptLocation: "Lugano",
-    receiptDate: "29-03-2025",
-    deliveryLocation: "  Bd Helvétique 24, 1207 Genève, Suisse",
-    status: "Expédié",
-    customerInfo: "Machine à broder brother innovis V3"
+    customerInfo: "Sony PlayStation 5 Pro Edition limited"
   },
 ];
 
