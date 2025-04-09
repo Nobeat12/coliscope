@@ -19,11 +19,11 @@ export const predefinedPackages: Package[] = [
     customerInfo: "SRAM RED eTap AXS 2x D1 HRD"
   },
   {  trackingNumber: "CH-02379828",
-    recipientName: "Davoli Samanta",
+    recipientName: "François Fernandez",
     phoneNumber: "",
     receiptLocation: "Davos Platz",
     receiptDate: "09-04-2025",
-    deliveryLocation: "Talstrasse 42, 7270 Davos Platz, Suisse, Suisse",
+    deliveryLocation: "Av. Granges-Paccot 14, 1700 Fribourg, Suisse",
     status: "Expédié",
     customerInfo: "Apple Mac Studio M2 Max"
   },
