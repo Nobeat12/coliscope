@@ -10,13 +10,22 @@ export const generateProfessionalTrackingNumber = (index: number): string => {
 export const predefinedPackages: Package[] = [
   {
     trackingNumber: "CH-989089828",
-    recipientName: "CHRISTINAZ Monique Virginie",
+    recipientName: "Tournaire Tristan",
     phoneNumber: "",
-    receiptLocation: "Genève",
-    receiptDate: "03-04-2025",
-    deliveryLocation: "Luegislandstrasse 56, 8051 Zurich Aayush Grover, Suisse",
+    receiptLocation: "Samnaun",
+    receiptDate: "09-04-2025",
+    deliveryLocation: "Route du Burenoz 35 belmont sur Lausanne 1092, Suisse",
     status: "Expédié",
-    customerInfo: "DJI DRONE 4 PRO"
+    customerInfo: "SRAM RED eTap AXS 2x D1 HRD"
+  },
+  {  trackingNumber: "CH-02379828",
+    recipientName: "Davoli Samanta",
+    phoneNumber: "",
+    receiptLocation: "Davos Platz",
+    receiptDate: "09-04-2025",
+    deliveryLocation: "Talstrasse 42, 7270 Davos Platz, Suisse, Suisse",
+    status: "Expédié",
+    customerInfo: "Apple Mac Studio M2 Max"
   },
 ];
 
