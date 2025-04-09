@@ -18,7 +18,7 @@ export const predefinedPackages: Package[] = [
     status: "Expédié",
     customerInfo: "SRAM RED eTap AXS 2x D1 HRD"
   },
-  {  trackingNumber: "CH-02379828",
+  {  trackingNumber: "CH-59979828",
     recipientName: "François Fernandez",
     phoneNumber: "",
     receiptLocation: "Davos Platz",
