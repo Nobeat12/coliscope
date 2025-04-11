@@ -22,19 +22,19 @@ export const predefinedPackages: Package[] = [
     recipientName: "AISSATOU Bella Diallo",
     phoneNumber: "",
     receiptLocation: "St.Gallen",
-    receiptDate: "09-04-2025",
+    receiptDate: "11-04-2025",
     deliveryLocation: "rue vieux chênes 5, 1700 Fribourg, Suisse",
     status: "Expédié",
     customerInfo: "APPLE IPHONE 16 PRO MAX"
   },
-  {  trackingNumber: "CH-59979828",
-    recipientName: "François Fernandez",
+  {  trackingNumber: "CH-599787828",
+    recipientName: "Jalaly A",
     phoneNumber: "",
-    receiptLocation: "Davos Platz",
-    receiptDate: "09-04-2025",
-    deliveryLocation: "Av. Granges-Paccot 14, 1700 Fribourg, Suisse",
+    receiptLocation: "St.Gallen",
+    receiptDate: "11-04-2025",
+    deliveryLocation: "Chem. Isabelle-de-Montolieu 177, 1010 Lausanne, Suisse",
     status: "Expédié",
-    customerInfo: "Apple Mac Studio M2 Max"
+    customerInfo: "APPLE IPHONE 15 PRO MAX"
   },
 ];
 
