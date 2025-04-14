@@ -9,32 +9,14 @@ export const generateProfessionalTrackingNumber = (index: number): string => {
 // Liste pour les colis prédéfinis
 export const predefinedPackages: Package[] = [
   {
-     trackingNumber: "CH-9890089828",
-    recipientName: "Thiyagarasan Krishnamenan",
+     trackingNumber: "00096584789828",
+    recipientName: "Souha Senhadji",
     phoneNumber: "",
-    receiptLocation: "Prilly",
-    receiptDate: "11-04-2025",
-    deliveryLocation: "Bärenweg 4c, 3504 Thun, Suisse",
+    receiptLocation: "Brugg AG",
+    receiptDate: "09-04-2025",
+    deliveryLocation: "Rue Gardiol 6BIS, 1218 Le Grand-Saconnex, Suisse",
     status: "Expédié",
-    customerInfo: "DJI OSMO POCKET 3"
-  },
-  {  trackingNumber: "CH-599079828",
-    recipientName: "AISSATOU Bella Diallo",
-    phoneNumber: "",
-    receiptLocation: "St.Gallen",
-    receiptDate: "11-04-2025",
-    deliveryLocation: "rue vieux chênes 5, 1700 Fribourg, Suisse",
-    status: "Expédié",
-    customerInfo: "APPLE IPHONE 16 PRO MAX"
-  },
-  {  trackingNumber: "CH-599787828",
-    recipientName: "Jalaly A",
-    phoneNumber: "",
-    receiptLocation: "St.Gallen",
-    receiptDate: "11-04-2025",
-    deliveryLocation: "Chem. Isabelle-de-Montolieu 177, 1010 Lausanne, Suisse",
-    status: "Expédié",
-    customerInfo: "APPLE IPHONE 15 PRO MAX"
+    customerInfo: "IPHONE 15 PRO MAX"
   },
 ];
 
