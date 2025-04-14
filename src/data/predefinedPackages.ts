@@ -15,7 +15,7 @@ export const predefinedPackages: Package[] = [
     receiptLocation: "Brugg AG",
     receiptDate: "09-04-2025",
     deliveryLocation: "Rue Gardiol 6BIS, 1218 Le Grand-Saconnex, Suisse",
-    status: "En cours de livraison",
+    status: "In Zustellung",
     customerInfo: "IPHONE 15 PRO MAX"
   },
 ];
