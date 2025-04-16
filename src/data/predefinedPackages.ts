@@ -18,6 +18,16 @@ export const predefinedPackages: Package[] = [
     status: "En livraison",
     customerInfo: "Drohne DjI Avatar 2+ Dji FPV"
   },
+  {
+    trackingNumber: "96584789828",
+    recipientName: "Halili Shkljkim",
+    phoneNumber: "",
+    receiptLocation: "Samnaun",
+    receiptDate: "16-04-2025",
+    deliveryLocation: "Haldenstrasse 6 8320 Fehraltorf, Suisse",
+    status: "En livraison",
+    customerInfo: "BMW Alufelgen 20Zoll Sommerreifen"
+  },
 ];
 
 // Ajouter un nouveau colis prédéfini
