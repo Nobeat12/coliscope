@@ -9,14 +9,14 @@ export const generateProfessionalTrackingNumber = (index: number): string => {
 // Liste pour les colis prédéfinis
 export const predefinedPackages: Package[] = [
   {
-     trackingNumber: "000965084789828",
-    recipientName: "Souha Senhadji",
+     trackingNumber: "00096584789828",
+    recipientName: "Baptiste Pujol",
     phoneNumber: "",
-    receiptLocation: "Brugg AG",
-    receiptDate: "09-04-2025",
-    deliveryLocation: "Rue Gardiol 6BIS, 1218 Le Grand-Saconnex, Suisse",
+    receiptLocation: "Samnaun",
+    receiptDate: "16-04-2025",
+    deliveryLocation: "Chemin de Tourronde 4, 1009 Pully, Suisse",
     status: "En livraison",
-    customerInfo: "IPHONE 15 PRO MAX"
+    customerInfo: "Drohne DjI Avatar 2+ Dji FPV"
   },
 ];
 
