@@ -9,13 +9,23 @@ export const generateProfessionalTrackingNumber = (index: number): string => {
 // Liste pour les colis prédéfinis
 export const predefinedPackages: Package[] = [
   {
-     trackingNumber: "00096584789828",
+    trackingNumber: "00965889828",
+    recipientName: "Blanc Claude René",
+    phoneNumber: "",
+    receiptLocation: "Brugg AG",
+    receiptDate: "16-04-2025",
+    deliveryLocation: "Rue Gardiol n1 1218 grand saconnx Genève, Suisse",
+    status: "En livraison",
+    customerInfo: " IPHONE 15 PRO MAX"
+  },
+  {
+    trackingNumber: "00096584789828",
     recipientName: "Baptiste Pujol",
     phoneNumber: "",
     receiptLocation: "Samnaun",
     receiptDate: "16-04-2025",
     deliveryLocation: "Chemin de Tourronde 4, 1009 Pully, Suisse",
-    status: "En livraison",
+    status: "Expédié",
     customerInfo: "Drohne DjI Avatar 2+ Dji FPV"
   },
   {
@@ -25,7 +35,7 @@ export const predefinedPackages: Package[] = [
     receiptLocation: "Samnaun",
     receiptDate: "16-04-2025",
     deliveryLocation: "Haldenstrasse 6 8320 Fehraltorf, Suisse",
-    status: "En livraison",
+    status: "Expédié",
     customerInfo: "BMW Alufelgen 20Zoll Sommerreifen"
   },
 ];
