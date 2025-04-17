@@ -19,14 +19,14 @@ export const predefinedPackages: Package[] = [
     customerInfo: "Drone DJI mini 4 pro"
   },
   {
-    trackingNumber: "00096584789828",
-    recipientName: "Baptiste Pujol",
+    trackingNumber: "0009658479828",
+    recipientName: "Santosh B.K",
     phoneNumber: "",
     receiptLocation: "Samnaun",
-    receiptDate: "16-04-2025",
-    deliveryLocation: "Chemin de Tourronde 4, 1009 Pully, Suisse",
+    receiptDate: "17-04-2025",
+    deliveryLocation: "Chemin du Petit-Flon 52, 1018 Lausanne, Suisse",
     status: "Expédié",
-    customerInfo: "Drohne DjI Avatar 2+ Dji FPV"
+    customerInfo: "Samsung S24 ULTRA"
   },
   {
     trackingNumber: "96584789828",
