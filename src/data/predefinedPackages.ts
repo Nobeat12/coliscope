@@ -37,6 +37,7 @@ export const predefinedPackages: Package[] = [
     deliveryLocation: "Dorfstrasse 12, 8037 zurich, Suisse",
     status: "Expédié",
     customerInfo: "Drone DJI mini 4 pro"
+  },
 ];
 
 // Ajouter un nouveau colis prédéfini
