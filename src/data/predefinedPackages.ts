@@ -19,25 +19,24 @@ export const predefinedPackages: Package[] = [
     customerInfo: "Drone DJI mini 4 pro"
   },
   {
-    trackingNumber: "0009658479828",
-    recipientName: "Santosh B.K",
+    trackingNumber: "000658479828",
+    recipientName: "Fernando Suarez",
     phoneNumber: "",
-    receiptLocation: "Samnaun",
-    receiptDate: "17-04-2025",
-    deliveryLocation: "Chemin du Petit-Flon 52, 1018 Lausanne, Suisse",
+    receiptLocation: "St.Gallen",
+    receiptDate: "18-04-2025",
+    deliveryLocation: "Quai Gustave - Ador 46 ( 1207 ) Geneve eaux-vives",
     status: "Expédié",
-    customerInfo: "Samsung S24 ULTRA"
+    customerInfo: "Airpods Max"
   },
   {
-    trackingNumber: "96584789828",
-    recipientName: "Halili Shkljkim",
+    trackingNumber: "9658478828",
+    recipientName: "Tiago Soares",
     phoneNumber: "",
-    receiptLocation: "Samnaun",
-    receiptDate: "16-04-2025",
-    deliveryLocation: "Haldenstrasse 6 8320 Fehraltorf, Suisse",
+    receiptLocation: "Aarau",
+    receiptDate: "18-04-2025",
+    deliveryLocation: "Dorfstrasse 12, 8037 zurich, Suisse",
     status: "Expédié",
-    customerInfo: "BMW Alufelgen 20Zoll Sommerreifen"
-  },
+    customerInfo: "Drone DJI mini 4 pro"
 ];
 
 // Ajouter un nouveau colis prédéfini
