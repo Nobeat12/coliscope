@@ -19,14 +19,14 @@ export const predefinedPackages: Package[] = [
     customerInfo: "APPLE IPHONE 14"
   },
   {
-    trackingNumber: "000658479828",
-    recipientName: "Fernando Suarez",
+    trackingNumber: "0006583479828",
+    recipientName: "Florian Sylejmanj",
     phoneNumber: "",
     receiptLocation: "St.Gallen",
-    receiptDate: "18-04-2025",
-    deliveryLocation: "Quai Gustave - Ador 46 ( 1207 ) Geneve eaux-vives",
+    receiptDate: "23-04-2025",
+    deliveryLocation: "Ahornstrasse 4 6300 Zug, Suisse",
     status: "Expédié",
-    customerInfo: "Airpods Max"
+    customerInfo: "Drone DJI Mini 3 Pro"
   },
   {
     trackingNumber: "9658478828",
