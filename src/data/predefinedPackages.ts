@@ -19,16 +19,6 @@ export const predefinedPackages: Package[] = [
     customerInfo: "Drone DJI mini 4 pro"
   },
   {
-    trackingNumber: "006583479828",
-    recipientName: "Traore Doussouba",
-    phoneNumber: "",
-    receiptLocation: "St.Gallen",
-    receiptDate: "25-04-2025",
-    deliveryLocation: "Avenue des Grandes-Communes 64, 1213 Onex Genève, Suisse",
-    status: "Expédié",
-    customerInfo: "Iphone 13 pro max 128 GB"
-  },
-  {
     trackingNumber: "96508407828",
     recipientName: "Praise Sakanwi",
     phoneNumber: "",
