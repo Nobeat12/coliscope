@@ -29,14 +29,14 @@ export const predefinedPackages: Package[] = [
     customerInfo: "Iphone 13 pro max 128 GB"
   },
   {
-    trackingNumber: "9658478828",
-    recipientName: "Tiago Soares",
+    trackingNumber: "96508478828",
+    recipientName: "Mark Stay",
     phoneNumber: "",
-    receiptLocation: "Aarau",
-    receiptDate: "18-04-2025",
-    deliveryLocation: "Dorfstrasse 12, 8037 zurich, Suisse",
+    receiptLocation: "Davos Platz",
+    receiptDate: "24-04-2025",
+    deliveryLocation: "Sonnhaldensteig 10, 5070 Frick, Suisse",
     status: "Expédié",
-    customerInfo: "Drone DJI mini 4 pro"
+    customerInfo: "Fujitsu Primergy RX2450 M1"
   },
 ];
 
