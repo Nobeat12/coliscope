@@ -13,7 +13,7 @@ export const predefinedPackages: Package[] = [
     recipientName: "Aron Mebrahtum",
     phoneNumber: "",
     receiptLocation: "Winterthur",
-    receiptDate: "24-04-2025",
+    receiptDate: "25-04-2025",
     deliveryLocation: "Chemin du château-sec 10, 1510 Moudon, Suisse",
     status: "En livraison",
     customerInfo: "Drone DJI mini 4 pro"
@@ -23,7 +23,7 @@ export const predefinedPackages: Package[] = [
     recipientName: "Traore Doussouba",
     phoneNumber: "",
     receiptLocation: "St.Gallen",
-    receiptDate: "24-04-2025",
+    receiptDate: "25-04-2025",
     deliveryLocation: "Avenue des Grandes-Communes 64, 1213 Onex Genève, Suisse",
     status: "Expédié",
     customerInfo: "Iphone 13 pro max 128 GB"
