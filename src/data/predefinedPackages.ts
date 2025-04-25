@@ -29,14 +29,14 @@ export const predefinedPackages: Package[] = [
     customerInfo: "Iphone 13 pro max 128 GB"
   },
   {
-    trackingNumber: "96508478828",
-    recipientName: "Mark Stay",
+    trackingNumber: "96508407828",
+    recipientName: "Praise Sakanwi",
     phoneNumber: "",
     receiptLocation: "Davos Platz",
-    receiptDate: "24-04-2025",
-    deliveryLocation: "Sonnhaldensteig 10, 5070 Frick, Suisse",
+    receiptDate: "25-04-2025",
+    deliveryLocation: "Tannwaldstrasse 64, 4600 Olten, Suisse",
     status: "Expédié",
-    customerInfo: "Fujitsu Primergy RX2450 M1"
+    customerInfo: "Synology 4-Bay NAS DiskStation DS920+"
   },
 ];
 
