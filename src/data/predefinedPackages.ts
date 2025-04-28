@@ -19,14 +19,14 @@ export const predefinedPackages: Package[] = [
     customerInfo: "DJI OSMO POCKET 3"
   },
   {
-    trackingNumber: "96508407828",
-    recipientName: "Praise Sakanwi",
+    trackingNumber: "965708407828",
+    recipientName: "Mateo Bosnjak",
     phoneNumber: "",
-    receiptLocation: "Davos Platz",
-    receiptDate: "25-04-2025",
-    deliveryLocation: "Tannwaldstrasse 64, 4600 Olten, Suisse",
+    receiptLocation: "St.Gallen",
+    receiptDate: "28-04-2025",
+    deliveryLocation: "Schulweg 2, 6285 Hitzkirch, Suisse",
     status: "Expédié",
-    customerInfo: "Synology 4-Bay NAS DiskStation DS920+"
+    customerInfo: "Drone DJI mini 4 pro"
   },
 ];
 
