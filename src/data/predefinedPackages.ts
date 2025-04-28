@@ -18,6 +18,16 @@ export const predefinedPackages: Package[] = [
     status: "Expédié",
     customerInfo: "Dyson v15 Staubsauger"
   },
+  {
+    trackingNumber: "96578407828",
+    recipientName: "Urna Shaikh",
+    phoneNumber: "",
+    receiptLocation: "St.Gallen",
+    receiptDate: "28-04-2025",
+    deliveryLocation: "Rue de Gottefrey 11, 1907 Saxon, Suisse",
+    status: "Expédié",
+    customerInfo: "DJI RS3 RONIN"
+  },
 ];
 
 // Ajouter un nouveau colis prédéfini
