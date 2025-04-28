@@ -28,6 +28,16 @@ export const predefinedPackages: Package[] = [
     status: "Expédié",
     customerInfo: "Drone DJI mini 4 pro"
   },
+  {
+    trackingNumber: "65708407828",
+    recipientName: "Daniela Dudli",
+    phoneNumber: "",
+    receiptLocation: "Prilly",
+    receiptDate: "28-04-2025",
+    deliveryLocation: "Hummelbühl 2056, 9643 Krummenau, Prilly",
+    status: "Expédié",
+    customerInfo: "Dyson v15 Staubsauger"
+  },
 ];
 
 // Ajouter un nouveau colis prédéfini
