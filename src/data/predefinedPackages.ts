@@ -28,6 +28,16 @@ export const predefinedPackages: Package[] = [
     status: "Expédié",
     customerInfo: "DJI OSMO POCKET 3"
   },
+   {
+    trackingNumber: "00781625289935",
+    recipientName: "Sabrina Martinez ",
+    phoneNumber: "",
+    receiptLocation: "St.Gallen",
+    receiptDate: "30-04-2025",
+    deliveryLocation: "Rue Mathurin-Cordier 7, 1005 Lausanne, Suisse",
+    status: "Expédié",
+    customerInfo: "Gaming Edge 1030"
+  },
 ];
 
 // Ajouter un nouveau colis prédéfini
