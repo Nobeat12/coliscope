@@ -12,7 +12,7 @@ export const predefinedPackages: Package[] = [
     trackingNumber: "07840709828",
     recipientName: "BIEDERMANN Fabienne",
     phoneNumber: "",
-    receiptLocation: "Bellinzona",
+    receiptLocation: "Neuchâtel",
     receiptDate: "01-05-2025",
     deliveryLocation: "Route De Grandvaux 42, 1072 Forel Lavaux, Suisse",
     status: "Expédié",
