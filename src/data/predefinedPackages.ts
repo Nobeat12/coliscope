@@ -19,14 +19,14 @@ export const predefinedPackages: Package[] = [
     customerInfo: "Dyson v15 Staubsauger"
   },
   {
-    trackingNumber: "965078407828",
-    recipientName: "Noëllah Mae Abdullatif",
+    trackingNumber: "0009965077828",
+    recipientName: "Da Silva Tavares Joana",
     phoneNumber: "",
     receiptLocation: "St.Gallen",
-    receiptDate: "30-04-2025",
-    deliveryLocation: "Route des Arsenaux 24, 1700 Fribourg, Suisse",
+    receiptDate: "01-05-2025",
+    deliveryLocation: "Avenue wendt 9, 1203 Genève, Suisse",
     status: "Expédié",
-    customerInfo: "DJI OSMO POCKET 3"
+    customerInfo: "Casque airpods max"
   },
    {
     trackingNumber: "00781625289935",
