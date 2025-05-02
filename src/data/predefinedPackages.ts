@@ -9,14 +9,14 @@ export const generateProfessionalTrackingNumber = (index: number): string => {
 // Liste pour les colis prédéfinis
 export const predefinedPackages: Package[] = [
   {
-    trackingNumber: "07840709828",
-    recipientName: "BIEDERMANN Fabienne",
+    trackingNumber: "078880709828",
+    recipientName: "OZLEM Ozdemir",
     phoneNumber: "",
-    receiptLocation: "Neuchâtel",
+    receiptLocation: "St.Gallen",
     receiptDate: "01-05-2025",
-    deliveryLocation: "Route De Grandvaux 42, 1072 Forel Lavaux, Suisse",
+    deliveryLocation: "Av de Jean-Marie Musy 28, 1700 Fribourg, Suisse",
     status: "Expédié",
-    customerInfo: "Samsung Galaxy S22 Ultra"
+    customerInfo: "DJI OSMO POCKET 3"
   },
   {
     trackingNumber: "0009965077828",
