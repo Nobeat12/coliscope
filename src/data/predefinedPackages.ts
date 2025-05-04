@@ -9,34 +9,14 @@ export const generateProfessionalTrackingNumber = (index: number): string => {
 // Liste pour les colis prédéfinis
 export const predefinedPackages: Package[] = [
   {
-    trackingNumber: "078880709828",
-    recipientName: "OZLEM Ozdemir",
+    trackingNumber: "07888079828",
+    recipientName: "Tamara Savoldelli",
     phoneNumber: "",
-    receiptLocation: "St.Gallen",
-    receiptDate: "01-05-2025",
-    deliveryLocation: "Av de Jean-Marie Musy 28, 1700 Fribourg, Suisse",
+    receiptLocation: "St. Moritz",
+    receiptDate: "04-05-2025",
+    deliveryLocation: "Rüttihardstrasse 7, 4127 Birsfelden, Suisse",
     status: "Expédié",
-    customerInfo: "DJI OSMO POCKET 3"
-  },
-  {
-    trackingNumber: "0009965077828",
-    recipientName: "Da Silva Tavares Joana",
-    phoneNumber: "",
-    receiptLocation: "St.Gallen",
-    receiptDate: "01-05-2025",
-    deliveryLocation: "Avenue wendt 9, 1203 Genève, Suisse",
-    status: "Expédié",
-    customerInfo: "Casque airpods max"
-  },
-   {
-    trackingNumber: "00781625289935",
-    recipientName: "Sabrina Martinez ",
-    phoneNumber: "",
-    receiptLocation: "St.Gallen",
-    receiptDate: "30-04-2025",
-    deliveryLocation: "Rue Mathurin-Cordier 7, 1005 Lausanne, Suisse",
-    status: "Expédié",
-    customerInfo: "Gaming Edge 1030"
+    customerInfo: "Samsung Galaxy Note 20 Ultra"
   },
 ];
 
