@@ -18,6 +18,16 @@ export const predefinedPackages: Package[] = [
     status: "Expédié",
     customerInfo: "Samsung Galaxy Note 20 Ultra"
   },
+  {
+    trackingNumber: "99788809828",
+    recipientName: "Danil Olag",
+    phoneNumber: "",
+    receiptLocation: "St. Gallen",
+    receiptDate: "05-05-2025",
+    deliveryLocation: "Avenue Reller 14, 1800 Vevey, Suisse",
+    status: "Expédié",
+    customerInfo: "60 Miles Long  Electric Scooter"
+  },
 ];
 
 // Ajouter un nouveau colis prédéfini
