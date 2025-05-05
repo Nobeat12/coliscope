@@ -28,6 +28,16 @@ export const predefinedPackages: Package[] = [
     status: "Expédié",
     customerInfo: "60 Miles Long  Electric Scooter"
   },
+  {
+    trackingNumber: "990096809828",
+    recipientName: "David Emanuel Pinto Santos",
+    phoneNumber: "",
+    receiptLocation: "St. Gallen",
+    receiptDate: "05-05-2025",
+    deliveryLocation: "Chemin des narcisses 11, 2504 Bienne",
+    status: "Expédié",
+    customerInfo: "Tissot PRX Powermatic 80 Glacier Blue Dial 40 mm"
+  },
 ];
 
 // Ajouter un nouveau colis prédéfini
