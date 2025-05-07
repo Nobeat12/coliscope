@@ -29,14 +29,14 @@ export const predefinedPackages: Package[] = [
     customerInfo: "Samsung Galaxy S23 ultra"
   },
   {
-    trackingNumber: "990096809828",
-    recipientName: "David Emanuel Pinto Santos",
+    trackingNumber: "000096809828",
+    recipientName: "BAUMANN Ronald",
     phoneNumber: "",
-    receiptLocation: "St. Gallen",
+    receiptLocation: "St. Moritz",
     receiptDate: "05-05-2025",
-    deliveryLocation: "Chemin des narcisses 11, 2504 Bienne",
+    deliveryLocation: "Dorfstraße 44, 3624 goldiwil, Suisse",
     status: "Expédié",
-    customerInfo: "Tissot PRX Powermatic 80 Glacier Blue Dial 40 mm"
+    customerInfo: "SAMSUNG GALAXY NOTE 20 ULTRA"
   },
 ];
 
