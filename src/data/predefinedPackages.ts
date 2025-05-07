@@ -33,7 +33,7 @@ export const predefinedPackages: Package[] = [
     recipientName: "BAUMANN Ronald",
     phoneNumber: "",
     receiptLocation: "St. Moritz",
-    receiptDate: "05-05-2025",
+    receiptDate: "07-05-2025",
     deliveryLocation: "Dorfstraße 44, 3624 goldiwil, Suisse",
     status: "Expédié",
     customerInfo: "SAMSUNG GALAXY NOTE 20 ULTRA"
