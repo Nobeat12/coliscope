@@ -19,14 +19,14 @@ export const predefinedPackages: Package[] = [
     customerInfo: "Garmin edge 840"
   },
   {
-    trackingNumber: "99788809828",
-    recipientName: "Danil Olag",
+    trackingNumber: "9289788809828",
+    recipientName: "Maifano Maru Tutini Bryan ",
     phoneNumber: "",
-    receiptLocation: "St. Gallen",
-    receiptDate: "05-05-2025",
-    deliveryLocation: "Avenue Reller 14, 1800 Vevey, Suisse",
+    receiptLocation: "Unterseen",
+    receiptDate: "07-05-2025",
+    deliveryLocation: "Sandbach 245A Chalet Berna, STECHELBERG 3824, Suisse",
     status: "Expédié",
-    customerInfo: "60 Miles Long  Electric Scooter"
+    customerInfo: "Samsung Galaxy S23 ultra"
   },
   {
     trackingNumber: "990096809828",
