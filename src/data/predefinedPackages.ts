@@ -38,6 +38,16 @@ export const predefinedPackages: Package[] = [
     status: "Expédié",
     customerInfo: "SAMSUNG GALAXY NOTE 20 ULTRA"
   },
+  {
+    trackingNumber: "0009680982978",
+    recipientName: "CHOLLET Lucie",
+    phoneNumber: "",
+    receiptLocation: "St. Moritz",
+    receiptDate: "06-05-2025",
+    deliveryLocation: "Rue De La Coopérative 2, 1522 Lucens",
+    status: "Expédié",
+    customerInfo: "ASPIRATEUR DYSON V12"
+  },
 ];
 
 // Ajouter un nouveau colis prédéfini
