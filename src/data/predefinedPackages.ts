@@ -28,6 +28,16 @@ export const predefinedPackages: Package[] = [
     status: "Expédié",
     customerInfo: "X40 Ultra Roboterstaubsauger"
   },
+  {
+    trackingNumber: "30968098297800",
+    recipientName: "Taiebi Ali",
+    phoneNumber: "",
+    receiptLocation: "St.Gallen",
+    receiptDate: "08-05-2025",
+    deliveryLocation: "5 rue Jean Dassier Genève 1201, Suisse",
+    status: "Expédié",
+    customerInfo: "Samsung Galaxy S23 ultra"
+  },
 ];
 
 // Ajouter un nouveau colis prédéfini
