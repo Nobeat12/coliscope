@@ -38,6 +38,17 @@ export const predefinedPackages: Package[] = [
     status: "Expédié",
     customerInfo: "SAMSUNG GALAXY NOTE 20 ULTRA"
   },
+  
+  {
+    trackingNumber: "0008796809828",
+    recipientName: "MARCO Fieno",
+    phoneNumber: "",
+    receiptLocation: "St. Moritz",
+    receiptDate: "08-05-2025",
+    deliveryLocation: " Av.François-besson 17, 1217 Meyrin, Suisse",
+    status: "Expédié",
+    customerInfo: "DJI OSMO POCKET 3"
+  },
   {
     trackingNumber: "00309680982978",
     recipientName: "Belleguic louëlla",
