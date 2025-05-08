@@ -29,17 +29,6 @@ export const predefinedPackages: Package[] = [
     customerInfo: "Samsung Galaxy S23 ultra"
   },
   {
-    trackingNumber: "000096809828",
-    recipientName: "BAUMANN Ronald",
-    phoneNumber: "",
-    receiptLocation: "St. Moritz",
-    receiptDate: "07-05-2025",
-    deliveryLocation: "Dorfstraße 44, 3624 goldiwil, Suisse",
-    status: "Expédié",
-    customerInfo: "SAMSUNG GALAXY NOTE 20 ULTRA"
-  },
-  
-  {
     trackingNumber: "0008796809828",
     recipientName: "MARCO Fieno",
     phoneNumber: "",
