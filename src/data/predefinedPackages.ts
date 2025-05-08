@@ -39,14 +39,14 @@ export const predefinedPackages: Package[] = [
     customerInfo: "SAMSUNG GALAXY NOTE 20 ULTRA"
   },
   {
-    trackingNumber: "0009680982978",
-    recipientName: "CHOLLET Lucie",
+    trackingNumber: "00309680982978",
+    recipientName: "Belleguic louëlla",
     phoneNumber: "",
-    receiptLocation: "St. Moritz",
-    receiptDate: "06-05-2025",
-    deliveryLocation: "Rue De La Coopérative 2, 1522 Lucens",
+    receiptLocation: "Yverdon-les-Bains",
+    receiptDate: "08-05-2025",
+    deliveryLocation: "Rue de grise pierre 5, 2000 neuchatel, Suisse",
     status: "Expédié",
-    customerInfo: "ASPIRATEUR DYSON V12"
+    customerInfo: "X40 Ultra Roboterstaubsauger"
   },
 ];
 
