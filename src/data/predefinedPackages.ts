@@ -48,6 +48,16 @@ export const predefinedPackages: Package[] = [
     status: "Expédié",
     customerInfo: "Samsung Galaxy S23 ultra"
   },
+  {
+    trackingNumber: "00653280987",
+    recipientName: "Emilien Gallot",
+    phoneNumber: "",
+    receiptLocation: "St.Gallen",
+    receiptDate: "09-05-2025",
+    deliveryLocation: "Chemin du colombier 1, 1053 Cugy, Suisse",
+    status: "Expédié",
+    customerInfo: "Tissot PRX  80 Glacier"
+  },
 ];
 
 // Ajouter un nouveau colis prédéfini
