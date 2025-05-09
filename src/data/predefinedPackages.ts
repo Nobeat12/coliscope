@@ -11,7 +11,7 @@ export const predefinedPackages: Package[] = [
   {
     trackingNumber: "009823705761",
     recipientName: "Mirko vagliviello",
-    phoneNumber: "+49 76 704 1164",
+    phoneNumber: "+41 76 704 1164",
     receiptLocation: "St. Moritz",
     receiptDate: "09-05-2025",
     deliveryLocation: " Büttenenhalde 38, 6006 luzern, Suisse",
