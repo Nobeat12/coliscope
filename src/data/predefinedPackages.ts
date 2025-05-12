@@ -28,6 +28,16 @@ export const predefinedPackages: Package[] = [
     status: "Expédié",
     customerInfo: "DYSON AIRSTRAIT"
   },
+  {
+    trackingNumber: "0023699751456",
+    recipientName: "KURZ Prudence",
+    phoneNumber: "",
+    receiptLocation: "St.Moritz",
+    receiptDate: "12-05-2025",
+    deliveryLocation: "41 Chemin De L'esplanade, 1214 Vernier, Suisse",
+    status: "Expédié",
+    customerInfo: "DYSON V12"
+  },
 ];
 
 // Ajouter un nouveau colis prédéfini
