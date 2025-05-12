@@ -9,54 +9,14 @@ export const generateProfessionalTrackingNumber = (index: number): string => {
 // Liste pour les colis prédéfinis
 export const predefinedPackages: Package[] = [
   {
-    trackingNumber: "009823705761",
-    recipientName: "Mirko vagliviello",
-    phoneNumber: "+41 76 704 1164",
-    receiptLocation: "St. Moritz",
-    receiptDate: "09-05-2025",
-    deliveryLocation: " Büttenenhalde 38, 6006 luzern, Suisse",
-    status: "Expédié",
-    customerInfo: "DJI AVATAR 2"
-  },
-  {
-    trackingNumber: "0008796809828",
-    recipientName: "MARCO Fieno",
+    trackingNumber: "0087823705761",
+    recipientName: "GIULIA Gehringer",
     phoneNumber: "",
-    receiptLocation: "St. Moritz",
-    receiptDate: "08-05-2025",
-    deliveryLocation: " Av.François-besson 17, 1217 Meyrin, Suisse",
+    receiptLocation: "Lausanne",
+    receiptDate: "12-05-2025",
+    deliveryLocation: " Hofwiesenstrasse 81, 8105 Regensdorf, Suisse",
     status: "Expédié",
-    customerInfo: "DJI OSMO POCKET 3"
-  },
-  {
-    trackingNumber: "00309680982978",
-    recipientName: "Belleguic louëlla",
-    phoneNumber: "",
-    receiptLocation: "Yverdon-les-Bains",
-    receiptDate: "08-05-2025",
-    deliveryLocation: "Rue de grise pierre 5, 2000 neuchatel, Suisse",
-    status: "Expédié",
-    customerInfo: "X40 Ultra Roboterstaubsauger"
-  },
-  {
-    trackingNumber: "30968098297800",
-    recipientName: "Taiebi Ali",
-    phoneNumber: "",
-    receiptLocation: "St.Gallen",
-    receiptDate: "08-05-2025",
-    deliveryLocation: "5 rue Jean Dassier Genève 1201, Suisse",
-    status: "Expédié",
-    customerInfo: "Samsung Galaxy S23 ultra"
-  },
-  {
-    trackingNumber: "00653280987",
-    recipientName: "Emilien Gallot",
-    phoneNumber: "",
-    receiptLocation: "St.Gallen",
-    receiptDate: "09-05-2025",
-    deliveryLocation: "Chemin du colombier 1, 1053 Cugy, Suisse",
-    status: "Expédié",
-    customerInfo: "Tissot PRX  80 Glacier"
+    customerInfo: "APPLE AIRPODS MAX"
   },
 ];
 
