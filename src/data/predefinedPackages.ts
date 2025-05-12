@@ -18,6 +18,16 @@ export const predefinedPackages: Package[] = [
     status: "Expédié",
     customerInfo: "APPLE AIRPODS MAX"
   },
+  {
+    trackingNumber: "0050873636367",
+    recipientName: "CAROLINA Pereira",
+    phoneNumber: "",
+    receiptLocation: "St. Moritz",
+    receiptDate: "12-05-2025",
+    deliveryLocation: " Horburgstrasse 55, 4057 Basel, Suisse",
+    status: "Expédié",
+    customerInfo: "DYSON AIRSTRAIT"
+  },
 ];
 
 // Ajouter un nouveau colis prédéfini
