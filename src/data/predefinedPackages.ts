@@ -19,6 +19,16 @@ export const predefinedPackages: Package[] = [
     customerInfo: "Kamera Sony A7R V 61MP und Objektiv"
   },
   {
+    trackingNumber: "50073753899",
+    recipientName: "Raccuglia Francesco",
+    phoneNumber: "",
+    receiptLocation: "Samnaun",
+    receiptDate: "13-05-2025",
+    deliveryLocation: " Impasse de la Côte 16,1562 Corcelles-près-Payerne,Suisse",
+    status: "Expédié",
+    customerInfo: "SRAM force D2 AXS Gruppe"
+  },
+  {
     trackingNumber: "0087823705761",
     recipientName: "GIULIA Gehringer",
     phoneNumber: "",
