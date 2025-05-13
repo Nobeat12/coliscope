@@ -9,6 +9,16 @@ export const generateProfessionalTrackingNumber = (index: number): string => {
 // Liste pour les colis prédéfinis
 export const predefinedPackages: Package[] = [
   {
+    trackingNumber: "000076098435",
+    recipientName: "Matteo Stanca",
+    phoneNumber: "",
+    receiptLocation: "Samnaun",
+    receiptDate: "13-05-2025",
+    deliveryLocation: "Route Benex-Dessus 17, 1197 Prangins, Suisse",
+    status: "Expédié",
+    customerInfo: "Kamera Sony A7R V 61MP und Objektiv"
+  },
+  {
     trackingNumber: "0087823705761",
     recipientName: "GIULIA Gehringer",
     phoneNumber: "",
