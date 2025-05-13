@@ -29,6 +29,16 @@ export const predefinedPackages: Package[] = [
     customerInfo: "SRAM force D2 AXS Gruppe"
   },
   {
+    trackingNumber: "9000693652782",
+    recipientName: "MORGANE Chenaux",
+    phoneNumber: "",
+    receiptLocation: "St.Gallen",
+    receiptDate: "13-05-2025",
+    deliveryLocation: " MP Numa-Droz, 2000 Neuchâtel, MyPost24 PK752593, Suisse",
+    status: "Expédié",
+    customerInfo: "OSMO POCKET 3"
+  },
+  {
     trackingNumber: "0087823705761",
     recipientName: "GIULIA Gehringer",
     phoneNumber: "",
