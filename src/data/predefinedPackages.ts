@@ -38,35 +38,15 @@ export const predefinedPackages: Package[] = [
     status: "Expédié",
     customerInfo: "OSMO POCKET 3"
   },
-  {
-    trackingNumber: "0087823705761",
-    recipientName: "GIULIA Gehringer",
+   {
+    trackingNumber: "009863626667400",
+    recipientName: "Chatri Peter Rutz",
     phoneNumber: "",
-    receiptLocation: "Lausanne",
-    receiptDate: "12-05-2025",
-    deliveryLocation: " Hofwiesenstrasse 81, 8105 Regensdorf, Suisse",
+    receiptLocation: "Davos Platz",
+    receiptDate: "14-05-2025",
+    deliveryLocation: "Schulstrasse 1, 8583 Donzhausen, Suisse",
     status: "Expédié",
-    customerInfo: "APPLE AIRPODS MAX"
-  },
-  {
-    trackingNumber: "0050873636367",
-    recipientName: "CAROLINA Pereira",
-    phoneNumber: "",
-    receiptLocation: "St. Moritz",
-    receiptDate: "12-05-2025",
-    deliveryLocation: " Horburgstrasse 55, 4057 Basel, Suisse",
-    status: "Expédié",
-    customerInfo: "DYSON AIRSTRAIT"
-  },
-  {
-    trackingNumber: "0023699751456",
-    recipientName: "KURZ Prudence",
-    phoneNumber: "",
-    receiptLocation: "St.Moritz",
-    receiptDate: "12-05-2025",
-    deliveryLocation: "41 Chemin De L'esplanade, 1214 Vernier, Suisse",
-    status: "Expédié",
-    customerInfo: "DYSON V12"
+    customerInfo: "Mac Studio M1 Ultra – 128GB RAM / 1TB SSD"
   },
 ];
 
