@@ -9,34 +9,14 @@ export const generateProfessionalTrackingNumber = (index: number): string => {
 // Liste pour les colis prédéfinis
 export const predefinedPackages: Package[] = [
   {
-    trackingNumber: "000076098435",
-    recipientName: "Matteo Stanca",
+    trackingNumber: "009287293038",
+    recipientName: "Beda Morger",
     phoneNumber: "",
-    receiptLocation: "Samnaun",
-    receiptDate: "13-05-2025",
-    deliveryLocation: "Route Benex-Dessus 17, 1197 Prangins, Suisse",
+    receiptLocation: "Poschiavo",
+    receiptDate: "15-05-2025",
+    deliveryLocation: "Giacomettistrasse 75, 7000 Chur, Suisse",
     status: "Expédié",
-    customerInfo: "Kamera Sony A7R V 61MP und Objektiv"
-  },
-  {
-    trackingNumber: "50073753899",
-    recipientName: "Raccuglia Francesco",
-    phoneNumber: "",
-    receiptLocation: "Samnaun",
-    receiptDate: "13-05-2025",
-    deliveryLocation: " Impasse de la Côte 16,1562 Corcelles-près-Payerne,Suisse",
-    status: "Expédié",
-    customerInfo: "SRAM force D2 AXS Gruppe"
-  },
-  {
-    trackingNumber: "9000693652782",
-    recipientName: "MORGANE Chenaux",
-    phoneNumber: "",
-    receiptLocation: "St.Gallen",
-    receiptDate: "13-05-2025",
-    deliveryLocation: " MP Numa-Droz, 2000 Neuchâtel, MyPost24 PK752593, Suisse",
-    status: "Expédié",
-    customerInfo: "OSMO POCKET 3"
+    customerInfo: "Onewheel Pinte S"
   },
    {
     trackingNumber: "009863626667400",
