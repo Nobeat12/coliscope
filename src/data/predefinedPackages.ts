@@ -28,6 +28,17 @@ export const predefinedPackages: Package[] = [
     status: "Expédié",
     customerInfo: "Mac Studio M1 Ultra – 128GB RAM / 1TB SSD"
   },
+  
+   {
+    trackingNumber: "093883738380003",
+    recipientName: "Bastien Fracheboud",
+    phoneNumber: "",
+    receiptLocation: "Samnaun",
+    receiptDate: "15-05-2025",
+    deliveryLocation: "Place Val de Marne 10, 1890 Saint-Maurice",
+    status: "Expédié",
+    customerInfo: "Shimano Dura Ace Di2 R9270"
+  },
 ];
 
 // Ajouter un nouveau colis prédéfini
