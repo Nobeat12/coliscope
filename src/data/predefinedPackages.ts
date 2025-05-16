@@ -28,7 +28,6 @@ export const predefinedPackages: Package[] = [
     status: "Expédié",
     customerInfo: "Trottinette Électrique Puissante Dualtron Thunder"
   },
-  
    {
     trackingNumber: "093883738380003",
     recipientName: "Bastien Fracheboud",
@@ -38,6 +37,17 @@ export const predefinedPackages: Package[] = [
     deliveryLocation: "Place Val de Marne 10, 1890 Saint-Maurice",
     status: "Expédié",
     customerInfo: "Shimano Dura Ace Di2 R9270"
+  },
+  
+   {
+    trackingNumber: "007895297720088",
+    recipientName: "UGUES Jean Merlin",
+    phoneNumber: "",
+    receiptLocation: "St. Moritz",
+    receiptDate: "16-05-2025",
+    deliveryLocation: "Chemin de fossey 2b, 1306 Daillens, Suisse",
+    status: "Expédié",
+    customerInfo: "Aspirateur Dyson V15"
   },
 ];
 
