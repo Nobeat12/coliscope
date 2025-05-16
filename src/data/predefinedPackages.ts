@@ -19,14 +19,14 @@ export const predefinedPackages: Package[] = [
     customerInfo: "Onewheel Pinte S"
   },
    {
-    trackingNumber: "009863626667400",
-    recipientName: "Chatri Peter Rutz",
+    trackingNumber: "0098626667400",
+    recipientName: "Dukellaj Agron",
     phoneNumber: "",
-    receiptLocation: "Davos Platz",
-    receiptDate: "14-05-2025",
-    deliveryLocation: "Schulstrasse 1, 8583 Donzhausen, Suisse",
+    receiptLocation: "Sierre",
+    receiptDate: "16-05-2025",
+    deliveryLocation: "Av. du Marché 16, 3960 Sierre, Suisse",
     status: "Expédié",
-    customerInfo: "Mac Studio M1 Ultra – 128GB RAM / 1TB SSD"
+    customerInfo: "Trottinette Électrique Puissante Dualtron Thunder"
   },
   
    {
