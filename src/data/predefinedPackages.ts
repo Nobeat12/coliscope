@@ -9,45 +9,24 @@ export const generateProfessionalTrackingNumber = (index: number): string => {
 // Liste pour les colis prédéfinis
 export const predefinedPackages: Package[] = [
   {
-    trackingNumber: "009287293038",
-    recipientName: "Beda Morger",
+    trackingNumber: "009287263693038",
+    recipientName: "Lamine Diallo ",
     phoneNumber: "",
-    receiptLocation: "Poschiavo",
-    receiptDate: "15-05-2025",
-    deliveryLocation: "Giacomettistrasse 75, 7000 Chur, Suisse",
+    receiptLocation: "Bienne",
+    receiptDate: "19-05-2025",
+    deliveryLocation: "Rue du Jura 48, 2503 Bienne, Suisse",
     status: "Expédié",
-    customerInfo: "Onewheel Pinte S"
+    customerInfo: "Apple iPhone 14 Pro Max 128gb Deep Purple/Lila"
   },
    {
-    trackingNumber: "0098626667400",
-    recipientName: "Dukellaj Agron",
+    trackingNumber: "00997278626667400",
+    recipientName: "David Spasovski",
     phoneNumber: "",
-    receiptLocation: "Sierre",
-    receiptDate: "16-05-2025",
-    deliveryLocation: "Av. du Marché 16, 3960 Sierre, Suisse",
+    receiptLocation: "Genève",
+    receiptDate: "19-05-2025",
+    deliveryLocation: "Altmattweg 1,4802 Strengelbach, Suisse",
     status: "Expédié",
-    customerInfo: "Trottinette Électrique Puissante Dualtron Thunder"
-  },
-   {
-    trackingNumber: "093883738380003",
-    recipientName: "Bastien Fracheboud",
-    phoneNumber: "",
-    receiptLocation: "Samnaun",
-    receiptDate: "15-05-2025",
-    deliveryLocation: "Place Val de Marne 10, 1890 Saint-Maurice",
-    status: "Expédié",
-    customerInfo: "Shimano Dura Ace Di2 R9270"
-  },
-  
-   {
-    trackingNumber: "007895297720088",
-    recipientName: "UGUES Jean Merlin",
-    phoneNumber: "",
-    receiptLocation: "St. Moritz",
-    receiptDate: "16-05-2025",
-    deliveryLocation: "Chemin de fossey 2b, 1306 Daillens, Suisse",
-    status: "Expédié",
-    customerInfo: "Aspirateur Dyson V15"
+    customerInfo: "GoPro héro 13"
   },
 ];
 
