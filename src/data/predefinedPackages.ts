@@ -19,12 +19,12 @@ export const predefinedPackages: Package[] = [
     customerInfo: "Sony Alpha ILME FX3 Vollformat"
   },
    {
-    trackingNumber: "00997278626667400",
-    recipientName: "David Spasovski",
+    trackingNumber: "009972786667400",
+    recipientName: "THÜRING Simon",
     phoneNumber: "",
-    receiptLocation: "Genève",
-    receiptDate: "19-05-2025",
-    deliveryLocation: "Altmattweg 1,4802 Strengelbach, Suisse",
+    receiptLocation: "Schweiz",
+    receiptDate: "21-05-2025",
+    deliveryLocation: "4107 Ettingen, Schweiz",
     status: "Expédié",
     customerInfo: "GoPro héro 13"
   },
