@@ -27,6 +27,15 @@ export const predefinedPackages: Package[] = [
     deliveryLocation: "4107 Ettingen, Schweiz",
     status: "Expédié",
     customerInfo: "DJI AVATA 2"
+  },{
+    trackingNumber: "008609866077",
+    recipientName: "Patrice Castelli",
+    phoneNumber: "",
+    receiptLocation: "Davos Platz",
+    receiptDate: "21-05-2025",
+    deliveryLocation: "Chemin de Chante-Bise 2, 1040 Villars-le-Terroir, Suisse",
+    status: "Expédié",
+    customerInfo: "Sony FE 200-600 mm f/5,6-6,3 G"
   },
 ];
 
