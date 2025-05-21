@@ -22,11 +22,11 @@ export const predefinedPackages: Package[] = [
     trackingNumber: "009972786667400",
     recipientName: "THÜRING Simon",
     phoneNumber: "",
-    receiptLocation: "Schweiz",
+    receiptLocation: "Ettingen",
     receiptDate: "21-05-2025",
     deliveryLocation: "4107 Ettingen, Schweiz",
     status: "Expédié",
-    customerInfo: "GoPro héro 13"
+    customerInfo: "DJI AVATA 2"
   },
 ];
 
