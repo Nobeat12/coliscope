@@ -47,6 +47,16 @@ export const predefinedPackages: Package[] = [
     status: "Expédié",
     customerInfo: "Sony FE 200-600 mm f/5,6-6,3 G"
   },
+  {
+    trackingNumber: "00990076667400",
+    recipientName: "Pierre-Alain Perrin",
+    phoneNumber: "",
+    receiptLocation: "Nods",
+    receiptDate: "22-05-2025",
+    deliveryLocation: "Rte de Diesse 7, 2518 Nods, Suisse",
+    status: "Expédié",
+    customerInfo: "Machine à coudre"
+  },
 ];
 
 // Ajouter un nouveau colis prédéfini
