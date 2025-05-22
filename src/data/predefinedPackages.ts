@@ -57,6 +57,16 @@ export const predefinedPackages: Package[] = [
     status: "Expédié",
     customerInfo: "Machine à coudre"
   },
+  {
+    trackingNumber: "090360407730",
+    recipientName: "Mahmoud Issa",
+    phoneNumber: "",
+    receiptLocation: "Neuhausen",
+    receiptDate: "22-05-2025",
+    deliveryLocation: "Schwannenfelsstrasse 19, 8212 Neuhausen, Suisse",
+    status: "Expédié",
+    customerInfo: "Neue Tissot PRX 80 Ice Black 40 mm Edelstahl-Quarzuhr"
+  },
 ];
 
 // Ajouter un nouveau colis prédéfini
