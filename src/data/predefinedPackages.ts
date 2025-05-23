@@ -8,64 +8,15 @@ export const generateProfessionalTrackingNumber = (index: number): string => {
 
 // Liste pour les colis prédéfinis
 export const predefinedPackages: Package[] = [
-   {
-    trackingNumber: "00092934026393038",
-    recipientName: "Carole Jaccard ",
-    phoneNumber: "",
-    receiptLocation: "Yvonand",
-    receiptDate: "21-05-2025",
-    deliveryLocation: "Avenue des pins 25, 1462 Yvonand, Suisse",
-    status: "Expédié",
-    customerInfo: "Drone DJI mini 4 pro"
-  },
   {
-    trackingNumber: "00928726393038",
-    recipientName: "Tanguy CavercasioSaga  ",
+    trackingNumber: "0092872393038",
+    recipientName: "Ivan Skliaruk ",
     phoneNumber: "",
-    receiptLocation: "Trogen",
-    receiptDate: "21-05-2025",
-    deliveryLocation: "Avenue de la gare 41, 1003 Lausanne, Suisse",
+    receiptLocation: "Würenlos",
+    receiptDate: "23-05-2025",
+    deliveryLocation: "Schulstrasse 20, 5436 Würenlos, Suisse",
     status: "Expédié",
-    customerInfo: "Sony Alpha ILME FX3 Vollformat"
-  },
-   {
-    trackingNumber: "009972786667400",
-    recipientName: "THÜRING Simon",
-    phoneNumber: "",
-    receiptLocation: "Ettingen",
-    receiptDate: "21-05-2025",
-    deliveryLocation: "4107 Ettingen, Schweiz",
-    status: "Expédié",
-    customerInfo: "DJI AVATA 2"
-  },{
-    trackingNumber: "008609866077",
-    recipientName: "Patrice Castelli",
-    phoneNumber: "",
-    receiptLocation: "Davos Platz",
-    receiptDate: "21-05-2025",
-    deliveryLocation: "Chemin de Chante-Bise 2, 1040 Villars-le-Terroir, Suisse",
-    status: "Expédié",
-    customerInfo: "Sony FE 200-600 mm f/5,6-6,3 G"
-  },
-  {
-    trackingNumber: "00990076667400",
-    recipientName: "Pierre-Alain Perrin",
-    phoneNumber: "",
-    receiptLocation: "Nods",
-    receiptDate: "22-05-2025",
-    deliveryLocation: "Rte de Diesse 7, 2518 Nods, Suisse",
-    status: "Expédié",
-    customerInfo: "Machine à coudre"
-  },
-  {
-    trackingNumber: "090360407730",
-    recipientName: "Mahmoud Issa",
-    phoneNumber: "",
-    receiptLocation: "Neuhausen",
-    receiptDate: "22-05-2025",
-    deliveryLocation: "Schwannenfelsstrasse 19, 8212 Neuhausen, Suisse",
-    status: "Expédié",
-    customerInfo: "Neue Tissot PRX 80 Ice Black 40 mm Edelstahl-Quarzuhr"
+    customerInfo: "Samsung Galaxy s20"
   },
 ];
 
