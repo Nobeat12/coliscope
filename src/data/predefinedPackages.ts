@@ -9,14 +9,14 @@ export const generateProfessionalTrackingNumber = (index: number): string => {
 // Liste pour les colis prédéfinis
 export const predefinedPackages: Package[] = [
   {
-    trackingNumber: "0092872393038",
-    recipientName: "Ivan Skliaruk ",
+    trackingNumber: "0092873393038",
+    recipientName: "Helen Sprenger",
     phoneNumber: "",
-    receiptLocation: "Würenlos",
-    receiptDate: "23-05-2025",
-    deliveryLocation: "Schulstrasse 20, 5436 Würenlos, Suisse",
+    receiptLocation: "Sulgen",
+    receiptDate: "27-05-2025",
+    deliveryLocation: "Auwiesenstrasse 5, 8583 Sulgen, Suisse",
     status: "Expédié",
-    customerInfo: "Samsung Galaxy s20"
+    customerInfo: "iPad pro 13"
   },
   {
     trackingNumber: "79868906428",
