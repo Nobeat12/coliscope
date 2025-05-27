@@ -19,12 +19,12 @@ export const predefinedPackages: Package[] = [
     customerInfo: "iPad pro 13"
   },
   {
-    trackingNumber: "79868906428",
-    recipientName: "META Suzana",
+    trackingNumber: "079868906428",
+    recipientName: "VINCENT Pasquier",
     phoneNumber: "",
-    receiptLocation: "Sion",
-    receiptDate: "24-05-2025",
-    deliveryLocation: "Avenue de tourbillon 4, 1950 Sion, Suisse",
+    receiptLocation: "Le Pâquier",
+    receiptDate: "27-05-2025",
+    deliveryLocation: "Rue du Pommeret 21,1661 Le Pâquier, Suisse",
     status: "Expédié",
     customerInfo: "SAMSUNG GALAXY NOTE 20 ULTRA"
   },
