@@ -28,6 +28,16 @@ export const predefinedPackages: Package[] = [
     status: "Expédié",
     customerInfo: "Tissot Couturier  Powermatic 80"
   },
+   {
+    trackingNumber: "07986080306428",
+    recipientName: "Fabian Meier",
+    phoneNumber: "",
+    receiptLocation: "Schneisingen",
+    receiptDate: "29-05-2025",
+    deliveryLocation: "Guggimoos 16 5425 Schneisingen, Suisse",
+    status: "Expédié",
+    customerInfo: "Tissot PRX Goldorak"
+  },
 ];
 
 // Ajouter un nouveau colis prédéfini
