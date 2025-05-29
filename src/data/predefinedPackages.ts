@@ -23,7 +23,7 @@ export const predefinedPackages: Package[] = [
     recipientName: "NOUI FARID",
     phoneNumber: "",
     receiptLocation: "Pringy",
-    receiptDate: "27-05-2025",
+    receiptDate: "29-05-2025",
     deliveryLocation: "Chemin de la loue 30, 1663 pringy, Suisse",
     status: "Expédié",
     customerInfo: "Tissot Couturier  Powermatic 80"
