@@ -19,14 +19,14 @@ export const predefinedPackages: Package[] = [
     customerInfo: "DRONE DJI MINI 3 PRO"
   },
   {
-    trackingNumber: "079868906428",
-    recipientName: "VINCENT Pasquier",
+    trackingNumber: "0798689306428",
+    recipientName: "NOUI FARID",
     phoneNumber: "",
-    receiptLocation: "Le Pâquier",
+    receiptLocation: "Pringy",
     receiptDate: "27-05-2025",
-    deliveryLocation: "Rue du Pommeret 21,1661 Le Pâquier, Suisse",
+    deliveryLocation: "Chemin de la loue 30, 1663 pringy, Suisse",
     status: "Expédié",
-    customerInfo: "SAMSUNG GALAXY NOTE 20 ULTRA"
+    customerInfo: "Tissot Couturier  Powermatic 80"
   },
 ];
 
