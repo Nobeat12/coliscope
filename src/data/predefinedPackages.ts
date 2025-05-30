@@ -38,6 +38,16 @@ export const predefinedPackages: Package[] = [
     status: "Expédié",
     customerInfo: "Tissot PRX Goldorak"
   },
+  {
+    trackingNumber: "00876341902754",
+    recipientName: "Saintlos Natacha",
+    phoneNumber: "",
+    receiptLocation: "Thônex",
+    receiptDate: "30-05-2025",
+    deliveryLocation: "Chemin Édouard Olivet 14, 1226 Thônex, Suisse",
+    status: "Expédié",
+    customerInfo: "Dyson airwap"
+  },
 ];
 
 // Ajouter un nouveau colis prédéfini
