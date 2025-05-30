@@ -19,14 +19,14 @@ export const predefinedPackages: Package[] = [
     customerInfo: "Apple iPhone 15 Pro Max"
   },
   {
-    trackingNumber: "0798689306428",
-    recipientName: "NOUI FARID",
+    trackingNumber: "07986803406428",
+    recipientName: "Brajendra Krishna",
     phoneNumber: "",
-    receiptLocation: "Pringy",
-    receiptDate: "29-05-2025",
-    deliveryLocation: "Chemin de la loue 30, 1663 pringy, Suisse",
+    receiptLocation: "Basel",
+    receiptDate: "30-05-2025",
+    deliveryLocation: "Maulbeerstrasse 23, 4058 Basel, Suisse",
     status: "Expédié",
-    customerInfo: "Tissot Couturier  Powermatic 80"
+    customerInfo: "iPad pro 12,9"
   },
    {
     trackingNumber: "07986080306428",
