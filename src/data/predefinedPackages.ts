@@ -9,14 +9,14 @@ export const generateProfessionalTrackingNumber = (index: number): string => {
 // Liste pour les colis prédéfinis
 export const predefinedPackages: Package[] = [
   {
-    trackingNumber: "0092873639308",
-    recipientName: "Papa Diop",
+    trackingNumber: "01 00092873639308",
+    recipientName: "Yildiz Arda",
     phoneNumber: "",
-    receiptLocation: "Genève",
-    receiptDate: "29-05-2025",
-    deliveryLocation: "Chemin des fins 10, 1218 grand Saconnex, Suisse",
+    receiptLocation: "Basel",
+    receiptDate: "31-05-2025",
+    deliveryLocation: "Julia Gauss-Strasse 12, 4056 Basel, Suisse",
     status: "Expédié",
-    customerInfo: "Apple iPhone 15 Pro Max"
+    customerInfo: "iPad pro 13"
   },
   {
     trackingNumber: "07986803406428",
@@ -27,16 +27,6 @@ export const predefinedPackages: Package[] = [
     deliveryLocation: "Maulbeerstrasse 23, 4058 Basel, Suisse",
     status: "Expédié",
     customerInfo: "iPad pro 12,9"
-  },
-   {
-    trackingNumber: "07986080306428",
-    recipientName: "Fabian Meier",
-    phoneNumber: "",
-    receiptLocation: "Schneisingen",
-    receiptDate: "29-05-2025",
-    deliveryLocation: "Guggimoos 16 5425 Schneisingen, Suisse",
-    status: "Expédié",
-    customerInfo: "Tissot PRX Goldorak"
   },
   {
     trackingNumber: "00876341902754",
