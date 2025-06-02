@@ -9,14 +9,14 @@ export const generateProfessionalTrackingNumber = (index: number): string => {
 // Liste pour les colis prédéfinis
 export const predefinedPackages: Package[] = [
   {
-    trackingNumber: "01 00092873639308",
-    recipientName: "Yildiz Arda",
+    trackingNumber: "01 0009283639308",
+    recipientName: "Luzia Krebs",
     phoneNumber: "",
-    receiptLocation: "Basel",
-    receiptDate: "31-05-2025",
-    deliveryLocation: "Julia Gauss-Strasse 12, 4056 Basel, Suisse",
+    receiptLocation: "Beinwil am See",
+    receiptDate: "02-0e-2025",
+    deliveryLocation: "Sandstrasse 98, 5712 Beinwil am See, Suisse",
     status: "Expédié",
-    customerInfo: "iPad pro 13"
+    customerInfo: "Canon EF 70-200mm f/2.8L IS II USM"
   },
   {
     trackingNumber: "07986803406428",
