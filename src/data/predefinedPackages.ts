@@ -19,14 +19,14 @@ export const predefinedPackages: Package[] = [
     customerInfo: "Canon EF 70-200mm f/2.8L IS II USM"
   },
   {
-    trackingNumber: "07986803406428",
-    recipientName: "Brajendra Krishna",
+    trackingNumber: "0798680406428",
+    recipientName: "DAI Long Pham",
     phoneNumber: "",
-    receiptLocation: "Basel",
-    receiptDate: "30-05-2025",
-    deliveryLocation: "Maulbeerstrasse 23, 4058 Basel, Suisse",
+    receiptLocation: "Köniz",
+    receiptDate: "02-06-2025",
+    deliveryLocation: "Finkenweg 2, 3098 Köniz, Suisse",
     status: "Expédié",
-    customerInfo: "iPad pro 12,9"
+    customerInfo: "IPHONE 12 256GB"
   },
   {
     trackingNumber: "00876341902754",
