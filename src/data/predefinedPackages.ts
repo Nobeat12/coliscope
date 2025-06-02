@@ -13,7 +13,7 @@ export const predefinedPackages: Package[] = [
     recipientName: "Luzia Krebs",
     phoneNumber: "",
     receiptLocation: "Beinwil am See",
-    receiptDate: "02-0e-2025",
+    receiptDate: "02-06-2025",
     deliveryLocation: "Sandstrasse 98, 5712 Beinwil am See, Suisse",
     status: "Expédié",
     customerInfo: "Canon EF 70-200mm f/2.8L IS II USM"
