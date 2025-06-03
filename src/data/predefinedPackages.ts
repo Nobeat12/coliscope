@@ -29,14 +29,14 @@ export const predefinedPackages: Package[] = [
     customerInfo: "IPHONE 12 256GB"
   },
   {
-    trackingNumber: "00876341902754",
-    recipientName: "Saintlos Natacha",
+    trackingNumber: "0087634902754",
+    recipientName: "Hermes Buttigliero",
     phoneNumber: "",
-    receiptLocation: "Thônex",
-    receiptDate: "30-05-2025",
-    deliveryLocation: "Chemin Édouard Olivet 14, 1226 Thônex, Suisse",
+    receiptLocation: "Bern",
+    receiptDate: "03-06-2025",
+    deliveryLocation: "Eigerstrasse 22, 3007 Bern, Suisse",
     status: "Expédié",
-    customerInfo: "Dyson airwap"
+    customerInfo: "E-Bike-Trekking"
   },
 ];
 
