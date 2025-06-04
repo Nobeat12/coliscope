@@ -19,14 +19,14 @@ export const predefinedPackages: Package[] = [
     customerInfo: "Trottinette électrique"
   },
   {
-    trackingNumber: "0798680406428",
-    recipientName: "DAI Long Pham",
+    trackingNumber: "079868049756428",
+    recipientName: "Pandjee Anandraw",
     phoneNumber: "",
-    receiptLocation: "Köniz",
-    receiptDate: "02-06-2025",
-    deliveryLocation: "Finkenweg 2, 3098 Köniz, Suisse",
+    receiptLocation: "Plan-les-Ouates",
+    receiptDate: "04-06-2025",
+    deliveryLocation: "Route du Vélodrome 66, 1228 Plan-les-Ouates, Suisse",
     status: "Expédié",
-    customerInfo: "IPHONE 12 256GB"
+    customerInfo: "Article Samsung Galaxy Z fold 6 256GB"
   },
   {
     trackingNumber: "0087634902754",
