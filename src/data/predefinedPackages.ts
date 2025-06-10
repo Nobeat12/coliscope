@@ -9,14 +9,14 @@ export const generateProfessionalTrackingNumber = (index: number): string => {
 // Liste pour les colis prédéfinis
 export const predefinedPackages: Package[] = [
   {
-    trackingNumber: "0009280536393080",
-    recipientName: "Yannis Hunziker",
+    trackingNumber: "009280536393080",
+    recipientName: "Liu Hanqing",
     phoneNumber: "",
-    receiptLocation: "Fribourg",
-    receiptDate: "05-06-2025",
-    deliveryLocation: "Juchweg 2, 6012 Obernau,Suisse",
+    receiptLocation: "Geneva",
+    receiptDate: "10-06-2025",
+    deliveryLocation: "Chêne-Bougeries 41,apt-16, 1224, Geneva, Suisse",
     status: "Expédié",
-    customerInfo: "DRONE DJI MINI 4 PRO NEUF"
+    customerInfo: "NVIDIA GeForce RTX 4090 Founders Edition"
   },
   {
     trackingNumber: "079868049756428",
