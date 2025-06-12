@@ -19,14 +19,14 @@ export const predefinedPackages: Package[] = [
     customerInfo: "Montre Tissot Powermaatic 80"
   },
   {
-    trackingNumber: "079868049756428",
-    recipientName: "Pandjee Anandraw",
+    trackingNumber: "07986849756428",
+    recipientName: "Maria Victoria Guimaraes",
     phoneNumber: "",
     receiptLocation: "Plan-les-Ouates",
-    receiptDate: "04-06-2025",
-    deliveryLocation: "Route du Vélodrome 66, 1228 Plan-les-Ouates, Suisse",
+    receiptDate: "12-06-2025",
+    deliveryLocation: "Pasaje Vicente Moliner 4, 2º, puerta 8, Schweiz",
     status: "Expédié",
-    customerInfo: "Article Samsung Galaxy Z fold 6 256GB"
+    customerInfo: "iPad pro 13"
   },
   {
     trackingNumber: "0087634902754",
