@@ -9,14 +9,14 @@ export const generateProfessionalTrackingNumber = (index: number): string => {
 // Liste pour les colis prédéfinis
 export const predefinedPackages: Package[] = [
   {
-    trackingNumber: "009280536393080",
-    recipientName: "Liu Hanqing",
+    trackingNumber: "0092805360093080",
+    recipientName: "EMRE KAYA",
     phoneNumber: "",
-    receiptLocation: "Geneva",
-    receiptDate: "10-06-2025",
-    deliveryLocation: "Chêne-Bougeries 41,apt-16, 1224, Geneva, Suisse",
+    receiptLocation: "La Chaux-de-Fonds",
+    receiptDate: "11-06-2025",
+    deliveryLocation: "Rue du Marché 2, 2300 La Chaux-de-Fonds, Suisse",
     status: "Expédié",
-    customerInfo: "NVIDIA GeForce RTX 4090 Founders Edition"
+    customerInfo: "Montre Tissot Powermaatic 80"
   },
   {
     trackingNumber: "079868049756428",
