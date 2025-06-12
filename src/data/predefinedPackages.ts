@@ -15,7 +15,7 @@ export const predefinedPackages: Package[] = [
     receiptLocation: "La Chaux-de-Fonds",
     receiptDate: "11-06-2025",
     deliveryLocation: "Rue du Marché 2, 2300 La Chaux-de-Fonds, Suisse",
-    status: "Expédié",
+    status: "Livré",
     customerInfo: "Montre Tissot Powermaatic 80"
   },
   {
