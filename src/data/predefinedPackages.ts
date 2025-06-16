@@ -15,18 +15,18 @@ export const predefinedPackages: Package[] = [
     receiptLocation: "Moosleerau",
     receiptDate: "16-06-2025",
     deliveryLocation: "Unterdorfstrasse 418, 5054 Moosleerau,Schweiz",
-    status: "Livré",
+    status: "Expédié",
     customerInfo: "Bernina B325 Computer Näh­ma­schi­ne"
   },
   {
-    trackingNumber: "07986849756428",
-    recipientName: "Maria Victoria Guimaraes",
+    trackingNumber: "079868499756428",
+    recipientName: "Fidan Jashari",
     phoneNumber: "",
-    receiptLocation: "Plan-les-Ouates",
+    receiptLocation: "Zurich",
     receiptDate: "16-06-2025",
-    deliveryLocation: "Pasaje Vicente Moliner 4, 2º, puerta 8, Schweiz",
+    deliveryLocation: "Murwiesenstrasse 29, 8057 Zụ̈rich, Schweiz",
     status: "Expédié",
-    customerInfo: "iPad pro 13"
+    customerInfo: "Zipp 454 NSW Tubelless Disc"
   },
   {
     trackingNumber: "00876349302754",
