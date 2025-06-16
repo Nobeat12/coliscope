@@ -9,34 +9,34 @@ export const generateProfessionalTrackingNumber = (index: number): string => {
 // Liste pour les colis prédéfinis
 export const predefinedPackages: Package[] = [
   {
-    trackingNumber: "0092805360093080",
-    recipientName: "EMRE KAYA",
+    trackingNumber: "009280536093080",
+    recipientName: "Anna-Katrina Jenni",
     phoneNumber: "",
-    receiptLocation: "La Chaux-de-Fonds",
-    receiptDate: "11-06-2025",
-    deliveryLocation: "Rue du Marché 2, 2300 La Chaux-de-Fonds, Suisse",
+    receiptLocation: "Moosleerau",
+    receiptDate: "16-06-2025",
+    deliveryLocation: "Unterdorfstrasse 418, 5054 Moosleerau,Schweiz",
     status: "Livré",
-    customerInfo: "Montre Tissot Powermaatic 80"
+    customerInfo: "Bernina B325 Computer Näh­ma­schi­ne"
   },
   {
     trackingNumber: "07986849756428",
     recipientName: "Maria Victoria Guimaraes",
     phoneNumber: "",
     receiptLocation: "Plan-les-Ouates",
-    receiptDate: "12-06-2025",
+    receiptDate: "16-06-2025",
     deliveryLocation: "Pasaje Vicente Moliner 4, 2º, puerta 8, Schweiz",
     status: "Expédié",
     customerInfo: "iPad pro 13"
   },
   {
-    trackingNumber: "0087634902754",
-    recipientName: "Hermes Buttigliero",
+    trackingNumber: "00876349302754",
+    recipientName: "Nazlican Demir",
     phoneNumber: "",
-    receiptLocation: "Bern",
-    receiptDate: "03-06-2025",
-    deliveryLocation: "Eigerstrasse 22, 3007 Bern, Suisse",
+    receiptLocation: "Gretzenbach",
+    receiptDate: "016-06-2025",
+    deliveryLocation: "Staldenacker 15, 5015 Gretzenbach, Schweiz",
     status: "Expédié",
-    customerInfo: "E-Bike-Trekking"
+    customerInfo: "Dyson airtrair"
   },
 ];
 
