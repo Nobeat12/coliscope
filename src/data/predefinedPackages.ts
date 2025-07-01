@@ -9,14 +9,14 @@ export const generateProfessionalTrackingNumber = (index: number): string => {
 // Liste pour les colis prédéfinis
 export const predefinedPackages: Package[] = [
   {
-    trackingNumber: "0092805526093080",
-    recipientName: "Mohamad houssein",
+    trackingNumber: "0092805996093080",
+    recipientName: "ILIR Limani",
     phoneNumber: "",
-    receiptLocation: "Vetroz",
-    receiptDate: "22-06-2025",
-    deliveryLocation: "Route de Bresse 3a 1963 vétroz, Schweiz",
+    receiptLocation: "Cournillens",
+    receiptDate: "01-07-2025",
+    deliveryLocation: "Pré Du Chaty 1, 1721 Cournillens, Schweiz",
     status: "Expédié",
-    customerInfo: "X500 Elektroroller"
+    customerInfo: "Dyson Airstrait "
   },
   {
     trackingNumber: "079868499756428",
