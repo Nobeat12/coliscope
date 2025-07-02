@@ -12,7 +12,7 @@ export const predefinedPackages: Package[] = [
     trackingNumber: "009280596093080",
     recipientName: "Nelson Mario Da Luz",
     phoneNumber: "",
-    receiptLocation: "Lausanne",
+    receiptLocation: "Zürich",
     receiptDate: "02-07-2025",
     deliveryLocation: "Rue St Roch 6,1004-Lausanne, Schweiz",
     status: "Expédié",
