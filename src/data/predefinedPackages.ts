@@ -9,34 +9,14 @@ export const generateProfessionalTrackingNumber = (index: number): string => {
 // Liste pour les colis prédéfinis
 export const predefinedPackages: Package[] = [
   {
-    trackingNumber: "0092805996093080",
-    recipientName: "ILIR Limani",
+    trackingNumber: "009280596093080",
+    recipientName: "Nelson Mario Da Luz",
     phoneNumber: "",
-    receiptLocation: "Cournillens",
-    receiptDate: "01-07-2025",
-    deliveryLocation: "Pré Du Chaty 1, 1721 Cournillens, Schweiz",
+    receiptLocation: "Lausanne",
+    receiptDate: "02-07-2025",
+    deliveryLocation: "Rue St Roch 6,1004-Lausanne, Schweiz",
     status: "Expédié",
-    customerInfo: "Dyson Airstrait "
-  },
-  {
-    trackingNumber: "079868499756428",
-    recipientName: "Fidan Jashari",
-    phoneNumber: "",
-    receiptLocation: "Zurich",
-    receiptDate: "16-06-2025",
-    deliveryLocation: "Murwiesenstrasse 29, 8057 Zụ̈rich, Schweiz",
-    status: "Expédié",
-    customerInfo: "Zipp 454 NSW Tubelless Disc"
-  },
-  {
-    trackingNumber: "00876349302754",
-    recipientName: "Nazlican Demir",
-    phoneNumber: "",
-    receiptLocation: "Gretzenbach",
-    receiptDate: "016-06-2025",
-    deliveryLocation: "Staldenacker 15, 5015 Gretzenbach, Schweiz",
-    status: "Expédié",
-    customerInfo: "Dyson airtrair"
+    customerInfo: "Samsung Galaxy Z Flip 6"
   },
 ];
 
