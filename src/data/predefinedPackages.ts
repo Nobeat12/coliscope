@@ -9,14 +9,14 @@ export const generateProfessionalTrackingNumber = (index: number): string => {
 // Liste pour les colis prédéfinis
 export const predefinedPackages: Package[] = [
   {
-    trackingNumber: "009280596093080",
-    recipientName: "Nelson Mario Da Luz",
+    trackingNumber: "00928056093080",
+    recipientName: "Julien Rossy ",
     phoneNumber: "",
-    receiptLocation: "Zürich",
-    receiptDate: "02-07-2025",
-    deliveryLocation: "Rue St Roch 6,1004-Lausanne, Schweiz",
+    receiptLocation: "La Chaux",
+    receiptDate: "07-07-2025",
+    deliveryLocation: "Rue de la Cantonale 7, 1308 La Chaux, Schweiz",
     status: "Expédié",
-    customerInfo: "Samsung Galaxy Z Flip 6"
+    customerInfo: "Tissot PRX Powermatic 80"
   },
 ];
 
