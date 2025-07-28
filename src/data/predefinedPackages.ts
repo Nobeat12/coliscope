@@ -10,13 +10,13 @@ export const generateProfessionalTrackingNumber = (index: number): string => {
 export const predefinedPackages: Package[] = [
   {
     trackingNumber: "90.10.200482.99035747",
-    recipientName: "Meier Michael",
+    recipientName: "ANDRÉ Molho",
     phoneNumber: "",
-    receiptLocation: "Horw",
-    receiptDate: "18-07-2025",
-    deliveryLocation: "Gemeindehausplatz 24 6048 horw, Schweiz",
+    receiptLocation: "Les Acacias",
+    receiptDate: "28-07-2025",
+    deliveryLocation: "Post 24, 1227 Les Acacias",
     status: "Expédié",
-    customerInfo: "Trotinette Electrique"
+    customerInfo: "MacBook Pro"
   },
 ];
 
