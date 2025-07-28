@@ -12,7 +12,7 @@ export const predefinedPackages: Package[] = [
     trackingNumber: "90.10.200482.99035747",
     recipientName: "ANDRÉ Molho",
     phoneNumber: "",
-    receiptLocation: "Les Acacias",
+    receiptLocation: "7500 St Moritz",
     receiptDate: "28-07-2025",
     deliveryLocation: "Post 24, 1227 Les Acacias",
     status: "Expédié",
