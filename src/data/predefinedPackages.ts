@@ -10,7 +10,7 @@ export const generateProfessionalTrackingNumber = (index: number): string => {
 export const predefinedPackages: Package[] = [
   {
     trackingNumber: "99.60.006482.05005797",
-    recipientName: "",
+    recipientName: "ROMAIN Basilio",
     phoneNumber: "",
     receiptLocation: "7500 St Moritz",
     receiptDate: "06-08-2025",
