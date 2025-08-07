@@ -13,7 +13,7 @@ export const predefinedPackages: Package[] = [
     recipientName: "ROMAIN Basilio",
     phoneNumber: "0786057085",
     receiptLocation: "7500 St Moritz",
-    receiptDate: "06-08-2025",
+    receiptDate: "07-08-2025",
     deliveryLocation: "Chemin De Valerie 84 1292 Chambesy",
     status: "Expédié",
     customerInfo: "DRONE DJI MINI 4 PRO"
