@@ -19,14 +19,14 @@ export const predefinedPackages: Package[] = [
     customerInfo: "DJI MINI 4 PRO FLY"
   },
   {
-    trackingNumber: "9960.006482.05005797",
-    recipientName: "",
+    trackingNumber: "99.60.06482.05005797",
+    recipientName: "FRANCESCO Drago",
     phoneNumber: "",
-    receiptLocation: "2000 Neuchâtel",
-    receiptDate: "18-08-2025",
-    deliveryLocation: "Im Tobelacker 13, 8044 Gockhausen",
+    receiptLocation: "00013 Mentana RM",
+    receiptDate: "19-08-2025",
+    deliveryLocation: "via Palermo 20, Capaci 90040",
     status: "Expédié",
-    customerInfo: "Canapé togo"
+    customerInfo: "APPLE IPHONE 11 128"
   },
 ];
 
