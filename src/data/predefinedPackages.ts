@@ -19,14 +19,14 @@ export const predefinedPackages: Package[] = [
     customerInfo: "DJI MINI 4 PRO FLY"
   },
   {
-    trackingNumber: "99.60.06482.05005797",
-    recipientName: "FRANCESCO Drago",
+    trackingNumber: "60.06482.05005797",
+    recipientName: "MATHIEU Rapin",
     phoneNumber: "",
-    receiptLocation: "00013 Mentana RM",
-    receiptDate: "19-08-2025",
-    deliveryLocation: "via Palermo 20, Capaci 90040",
+    receiptLocation: "7270 Davos Platz",
+    receiptDate: "21-08-2025",
+    deliveryLocation: "Chemin derrière le cretex 1, 1865 Les Diablerets Vaud",
     status: "Expédié",
-    customerInfo: "APPLE IPHONE 11 128"
+    customerInfo: "Base Wheels Shifter Handbrake"
   },
 ];
 
