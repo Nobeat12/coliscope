@@ -28,6 +28,16 @@ export const predefinedPackages: Package[] = [
     status: "Expédié",
     customerInfo: "Canapé 3 pièce Togo"
   },
+  {
+    trackingNumber: "80.006489205605797",
+    recipientName: "HÜSEYIN Selim Özel",
+    phoneNumber: "",
+    receiptLocation: "7270 Davos Platz",
+    receiptDate: "25-08-2025",
+    deliveryLocation: "Langmattring 4, 6370 Stans/Nidwalden",
+    status: "Expédié",
+    customerInfo: "ASUS GeForce RTX 5070 Ti TUF"
+  },
 ];
 
 // Ajouter un nouveau colis prédéfini
