@@ -19,14 +19,14 @@ export const predefinedPackages: Package[] = [
     customerInfo: "Thule EasyFold XT 2"
   },
   {
-    trackingNumber: "60.06482.05005797",
-    recipientName: "MATHIEU Rapin",
+    trackingNumber: "60.06482.050057997",
+    recipientName: "ANDREOLI Florence",
     phoneNumber: "",
-    receiptLocation: "7270 Davos Platz",
-    receiptDate: "21-08-2025",
-    deliveryLocation: "Chemin derrière le cretex 1, 1865 Les Diablerets Vaud",
+    receiptLocation: "1008 Prilly Platz",
+    receiptDate: "25-08-2025",
+    deliveryLocation: "chemin de Closel 3c, 1588 Cudrefin",
     status: "Expédié",
-    customerInfo: "Base Wheels Shifter Handbrake"
+    customerInfo: "Canapé 3 pièce Togo"
   },
 ];
 
