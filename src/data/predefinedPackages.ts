@@ -22,7 +22,7 @@ export const predefinedPackages: Package[] = [
     trackingNumber: "60.06482.050057997",
     recipientName: "ANDREOLI Florence",
     phoneNumber: "",
-    receiptLocation: "1008 Prilly Platz",
+    receiptLocation: "1008 Prilly",
     receiptDate: "25-08-2025",
     deliveryLocation: "chemin de Closel 3c, 1588 Cudrefin",
     status: "Expédié",
