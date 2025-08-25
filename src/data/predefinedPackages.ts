@@ -9,14 +9,14 @@ export const generateProfessionalTrackingNumber = (index: number): string => {
 // Liste pour les colis prédéfinis
 export const predefinedPackages: Package[] = [
   {
-    trackingNumber: "60.00648205005797",
-    recipientName: "Sonia Das chagas",
+    trackingNumber: "60.00648205605797",
+    recipientName: "MATHIAS Swaenen",
     phoneNumber: "",
-    receiptLocation: "7563 Samnaun",
-    receiptDate: "22-08-2025",
-    deliveryLocation: "Mitteregasse7, 8590 Romanshorn",
+    receiptLocation: "9000 St. Gallen",
+    receiptDate: "25-08-2025",
+    deliveryLocation: "Rue du Valentin 30, 1004 Lausanne",
     status: "Expédié",
-    customerInfo: "2x VIP 2-Tagespass"
+    customerInfo: "Thule EasyFold XT 2"
   },
   {
     trackingNumber: "60.06482.05005797",
