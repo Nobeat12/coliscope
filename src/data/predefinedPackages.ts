@@ -20,13 +20,13 @@ export const predefinedPackages: Package[] = [
   },
   {
     trackingNumber: "60.06482.050057997",
-    recipientName: "ANDREOLI Florence",
+    recipientName: "RICARDO Pissu",
     phoneNumber: "",
-    receiptLocation: "1008 Prilly",
-    receiptDate: "25-08-2025",
-    deliveryLocation: "chemin de Closel 3c, 1588 Cudrefin",
+    receiptLocation: "1700 Fribourg",
+    receiptDate: "27-08-2025",
+    deliveryLocation: "Dorfstrasse 49 shönried,3778 Beme",
     status: "Expédié",
-    customerInfo: "Canapé 3 pièce Togo"
+    customerInfo: "TISSOT PRX Powermatic 80"
   },
   {
     trackingNumber: "80.006489205605797",
