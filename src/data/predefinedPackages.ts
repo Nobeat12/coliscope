@@ -29,14 +29,14 @@ export const predefinedPackages: Package[] = [
     customerInfo: "TISSOT PRX Powermatic 80"
   },
   {
-    trackingNumber: "80.006489205605797",
-    recipientName: "HÜSEYIN Selim Özel",
+    trackingNumber: "80.06489205605797",
+    recipientName: "Monoco Alexandra Guizano",
     phoneNumber: "",
-    receiptLocation: "7270 Davos Platz",
-    receiptDate: "25-08-2025",
-    deliveryLocation: "Langmattring 4, 6370 Stans/Nidwalden",
+    receiptLocation: "7500 St.Moritz",
+    receiptDate: "01-09-2025",
+    deliveryLocation: "Rue du petit Bâle 12, 2710 Tavannes",
     status: "Expédié",
-    customerInfo: "ASUS GeForce RTX 5070 Ti TUF"
+    customerInfo: "Canon Powershot G7x Mark III"
   },
 ];
 
