@@ -9,14 +9,14 @@ export const generateProfessionalTrackingNumber = (index: number): string => {
 // Liste pour les colis prédéfinis
 export const predefinedPackages: Package[] = [
   {
-    trackingNumber: "09.00648205605797",
-    recipientName: "ANDRÉ Gomes",
+    trackingNumber: "09.00648208605797",
+    recipientName: "MANUEL Beck",
     phoneNumber: "",
-    receiptLocation: "1700 Fribourg",
-    receiptDate: "28-08-2025",
-    deliveryLocation: "Gumpenwiesenstrasse 30, 8157 Dielsdorf",
+    receiptLocation: "5703 Seon AG",
+    receiptDate: "03-08-2025",
+    deliveryLocation: "Rte de Lausanne 6.1432 Gressy",
     status: "Expédié",
-    customerInfo: "DELL LATITUDE 7440"
+    customerInfo: "APPLE AIRPODS MAX"
   },
   {
     trackingNumber: "60.06482.050057997",
