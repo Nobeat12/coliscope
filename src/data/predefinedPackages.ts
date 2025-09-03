@@ -13,20 +13,20 @@ export const predefinedPackages: Package[] = [
     recipientName: "MANUEL Beck",
     phoneNumber: "",
     receiptLocation: "5703 Seon AG",
-    receiptDate: "03-08-2025",
+    receiptDate: "03-09-2025",
     deliveryLocation: "Rte de Lausanne 6.1432 Gressy",
     status: "Expédié",
     customerInfo: "APPLE AIRPODS MAX"
   },
   {
-    trackingNumber: "60.06482.050057997",
-    recipientName: "RICARDO Pissu",
+    trackingNumber: "60.00482.050057997",
+    recipientName: "ANTONYO Lee John",
     phoneNumber: "",
-    receiptLocation: "1700 Fribourg",
-    receiptDate: "27-08-2025",
-    deliveryLocation: "Dorfstrasse 49 shönried,3778 Beme",
+    receiptLocation: "1227 Carouge",
+    receiptDate: "03-09-2025",
+    deliveryLocation: "Mätzistrasse 1, 3945 Gampel",
     status: "Expédié",
-    customerInfo: "TISSOT PRX Powermatic 80"
+    customerInfo: "MacBook pro"
   },
   {
     trackingNumber: "80.06489205605797",
