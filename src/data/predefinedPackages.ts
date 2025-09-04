@@ -29,14 +29,14 @@ export const predefinedPackages: Package[] = [
     customerInfo: "MacBook pro"
   },
   {
-    trackingNumber: "80.06489205605797",
-    recipientName: "Monoco Alexandra Guizano",
+    trackingNumber: "840.06489205605797",
+    recipientName: "FLORIAN Stadelmann",
     phoneNumber: "",
-    receiptLocation: "7500 St.Moritz",
-    receiptDate: "01-09-2025",
-    deliveryLocation: "Rue du petit Bâle 12, 2710 Tavannes",
+    receiptLocation: "1227 Carouge",
+    receiptDate: "03-09-2025",
+    deliveryLocation: "Frauentalstrasse 3, 6332 Hagendom",
     status: "Expédié",
-    customerInfo: "Canon Powershot G7x Mark III"
+    customerInfo: "Cerchi da 18" per VW T6 Multivan"
   },
 ];
 
