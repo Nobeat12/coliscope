@@ -36,7 +36,7 @@ export const predefinedPackages: Package[] = [
     receiptDate: "03-09-2025",
     deliveryLocation: "Frauentalstrasse 3, 6332 Hagendom",
     status: "Expédié",
-    customerInfo: "Cerchi da 18" per VW T6 Multivan"
+    customerInfo: "Cerchi da 18 per VW T6 Multivan"
   },
 ];
 
