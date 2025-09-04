@@ -19,14 +19,14 @@ export const predefinedPackages: Package[] = [
     customerInfo: "APPLE AIRPODS MAX"
   },
   {
-    trackingNumber: "60.00482.050057997",
-    recipientName: "ANTONYO Lee John",
+    trackingNumber: "60.90482.050057997",
+    recipientName: "Davide Marinaci",
     phoneNumber: "",
-    receiptLocation: "1227 Carouge",
-    receiptDate: "03-09-2025",
-    deliveryLocation: "Mätzistrasse 1, 3945 Gampel",
+    receiptLocation: "3013 Bern",
+    receiptDate: "04-09-2025",
+    deliveryLocation: "Rue Des eaux vives 25, 1207 Genève",
     status: "Expédié",
-    customerInfo: "MacBook pro"
+    customerInfo: "Garmin edge 1050"
   },
   {
     trackingNumber: "840.06489205605797",
