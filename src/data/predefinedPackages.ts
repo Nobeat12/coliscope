@@ -29,14 +29,14 @@ export const predefinedPackages: Package[] = [
     customerInfo: "Garmin edge 1050"
   },
   {
-    trackingNumber: "840.06489205605797",
-    recipientName: "FLORIAN Stadelmann",
+    trackingNumber: "840.06489295605797",
+    recipientName: "Aditya Bhaty",
     phoneNumber: "",
-    receiptLocation: "1227 Carouge",
-    receiptDate: "03-09-2025",
-    deliveryLocation: "Frauentalstrasse 3, 6332 Hagendom",
+    receiptLocation: "1206 Genève",
+    receiptDate: "10-09-2025",
+    deliveryLocation: "Taj restaurant Länggassstrasse, 43 3012 Bern",
     status: "Expédié",
-    customerInfo: "Cerchi da 18 per VW T6 Multivan"
+    customerInfo: "MacBook pro"
   },
 ];
 
