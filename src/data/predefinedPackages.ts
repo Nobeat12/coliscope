@@ -19,14 +19,14 @@ export const predefinedPackages: Package[] = [
     customerInfo: "GARMIN EDGE 1050"
   },
   {
-    trackingNumber: "60.90482.050057997",
-    recipientName: "Davide Marinaci",
+    trackingNumber: "60.90482.050257997",
+    recipientName: "SERIGNE Samb",
     phoneNumber: "",
-    receiptLocation: "3013 Bern",
-    receiptDate: "04-09-2025",
-    deliveryLocation: "Rue Des eaux vives 25, 1207 Genève",
+    receiptLocation: "00013 Mentana RM",
+    receiptDate: "12-09-2025",
+    deliveryLocation: "Via Giovanni boine 3/34, 16139 Genova",
     status: "Expédié",
-    customerInfo: "Garmin edge 1050"
+    customerInfo: "APPLE IPHONE 11"
   },
   {
     trackingNumber: "840.06489295605797",
