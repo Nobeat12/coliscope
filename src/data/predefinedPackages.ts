@@ -29,14 +29,14 @@ export const predefinedPackages: Package[] = [
     customerInfo: "DJI mini 4 Pro"
   },
   {
-    trackingNumber: "840.06489295605797",
-    recipientName: "Aditya Bhaty",
+    trackingNumber: "840.06489295695797",
+    recipientName: "MROZIK Bartosz Marek",
     phoneNumber: "",
-    receiptLocation: "1206 Genève",
-    receiptDate: "10-09-2025",
-    deliveryLocation: "Taj restaurant Länggassstrasse, 43 3012 Bern",
+    receiptLocation: "7270 Davos Platz",
+    receiptDate: "18-09-2025",
+    deliveryLocation: "Bachstrasse 13, Niederuzwil 9244",
     status: "Expédié",
-    customerInfo: "MacBook pro"
+    customerInfo: "ASUS GeForce RTX 5070 Ti Tuf"
   },
 ];
 
