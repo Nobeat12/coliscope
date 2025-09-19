@@ -19,14 +19,14 @@ export const predefinedPackages: Package[] = [
     customerInfo: "Apple iPhone 14 Pro Max"
   },
   {
-    trackingNumber: "99.60.994482.05005797",
-    recipientName: "Lionel Wüthrich",
+    trackingNumber: "99.60.894482.05005797",
+    recipientName: "SARAH Bernadette Luyet",
     phoneNumber: "",
-    receiptLocation: "7500 St Moritz",
-    receiptDate: "12-09-2025",
-    deliveryLocation: "Chemin de Lizet 8 1026 Echandens",
+    receiptLocation: "1024 Genève",
+    receiptDate: "19-09-2025",
+    deliveryLocation: "Av de la Gare 33, 1950 Sion",
     status: "Expédié",
-    customerInfo: "DJI mini 4 Pro"
+    customerInfo: "KitchenAid artisan"
   },
   {
     trackingNumber: "840.06489295695797",
