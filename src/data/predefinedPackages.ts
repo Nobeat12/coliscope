@@ -39,14 +39,14 @@ export const predefinedPackages: Package[] = [
     customerInfo: "ASUS GeForce RTX 5070 Ti Tuf"
   },
 {
-    trackingNumber: "97463920.02",
-    recipientName: "Alfred",
-    phoneNumber: "975653586",
-    receiptLocation: "Parak",
+    trackingNumber: "99.44.776482.058857",
+    recipientName: "SOMAR Alnawaqil",
+    phoneNumber: "+41 78 616 61 18",
+    receiptLocation: "7500 St. Moritz",
     receiptDate: "23-09-2025",
-    deliveryLocation: "cotonou",
+    deliveryLocation: "Rue du Vieux-Moulin 23, 1950 Sion, Suisse",
     status: "Expédié",
-    customerInfo: "Astrait"
+    customerInfo: "INSTA 360 GO 3S"
   },
 ];
 
