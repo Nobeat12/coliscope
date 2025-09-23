@@ -105,7 +105,7 @@ const PackageForm = ({
               <FormItem>
                 <FormLabel>{t.phone}</FormLabel>
                 <FormControl>
-                  <Input placeholder="+410848888" {...field} />
+                  <Input placeholder="+410848888888" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
