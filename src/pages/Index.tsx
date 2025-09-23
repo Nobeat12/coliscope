@@ -914,7 +914,7 @@ const Index = () => {
               <h3 className="text-lg font-semibold mb-4 text-gray-800">Contact</h3>
               <address className="not-italic text-gray-700">
                 <p>Email: contact@post.ch</p>
-                <p>Téléphone: +41 0848 888</p>
+                <p>Téléphone: +41 0848 888 888</p>
               </address>
             </div>
           </div>
