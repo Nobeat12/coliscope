@@ -38,6 +38,16 @@ export const predefinedPackages: Package[] = [
     status: "Expédié",
     customerInfo: "ASUS GeForce RTX 5070 Ti Tuf"
   },
+{
+    trackingNumber: "97463920.02",
+    recipientName: "Alfred",
+    phoneNumber: "975653586",
+    receiptLocation: "Parak",
+    receiptDate: "23-09-2025",
+    deliveryLocation: "cotonou",
+    status: "Expédié",
+    customerInfo: "Astrait"
+  },
 ];
 
 // Ajouter un nouveau colis prédéfini
