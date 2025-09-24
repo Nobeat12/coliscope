@@ -39,14 +39,14 @@ export const predefinedPackages: Package[] = [
     customerInfo: "ASUS GeForce RTX 5070 Ti Tuf"
   },
 {
-    trackingNumber: "99.44.776482.058857",
-    recipientName: "SOMAR Alnawaqil",
-    phoneNumber: "+41 78 616 61 18",
+    trackingNumber: "99.44.776482.0588570765",
+    recipientName: "CIOBANU Valentin",
+    phoneNumber: "+41 77 216 22 98",
     receiptLocation: "7500 St. Moritz",
-    receiptDate: "23-09-2025",
-    deliveryLocation: "Rue du Vieux-Moulin 23, 1950 Sion, Suisse",
+    receiptDate: "24-09-2025",
+    deliveryLocation: "Frutigenstrasse 68, 3604 Thun",
     status: "Expédié",
-    customerInfo: "INSTA 360 GO 3S"
+    customerInfo: "DRONE DJI AVATA 2"
   },
 ];
 
