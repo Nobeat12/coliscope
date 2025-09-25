@@ -9,35 +9,17 @@ export const generateProfessionalTrackingNumber = (index: number): string => {
 // Liste pour les colis prédéfinis
 export const predefinedPackages: Package[] = [
   {
-    trackingNumber: "6445797.09",
-    recipientName: "GONÇALO Dias Roque",
+    trackingNumber: "99.44.776482.05885707",
+    recipientName: "Trescal Tec Srl",
     phoneNumber: "",
-    receiptLocation: "7270 Davos Platz",
-    receiptDate: "19-09-2025",
-    deliveryLocation: "Chemin d'en bas 12, 1912 leytron valais",
+    receiptLocation: "7500 St. Moritz",
+    receiptDate: "24-09-2025",
+    deliveryLocation: "Via Zamboni 60
+Campogalliano (MO) 410111",
     status: "Expédié",
-    customerInfo: "Apple iPhone 14 Pro Max"
+    customerInfo: "GARMIN EDGE 830"
   },
-  {
-    trackingNumber: "99.60.894482.05005797",
-    recipientName: "SARAH Bernadette Luyet",
-    phoneNumber: "",
-    receiptLocation: "1024 Genève",
-    receiptDate: "19-09-2025",
-    deliveryLocation: "Av de la Gare 33, 1950 Sion",
-    status: "Expédié",
-    customerInfo: "KitchenAid artisan"
-  },
-  {
-    trackingNumber: "840.06489295695797",
-    recipientName: "MROZIK Bartosz Marek",
-    phoneNumber: "",
-    receiptLocation: "7270 Davos Platz",
-    receiptDate: "18-09-2025",
-    deliveryLocation: "Bachstrasse 13, Niederuzwil 9244",
-    status: "Expédié",
-    customerInfo: "ASUS GeForce RTX 5070 Ti Tuf"
-  },
+  
 {
     trackingNumber: "99.44.776482.0588570765",
     recipientName: "CIOBANU Valentin",
