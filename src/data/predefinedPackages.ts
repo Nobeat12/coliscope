@@ -14,8 +14,7 @@ export const predefinedPackages: Package[] = [
     phoneNumber: "",
     receiptLocation: "7500 St. Moritz",
     receiptDate: "24-09-2025",
-    deliveryLocation: "Via Zamboni 60
-Campogalliano (MO) 410111",
+    deliveryLocation: "Via Zamboni 60, Campogalliano(MO) 410111",
     status: "Expédié",
     customerInfo: "GARMIN EDGE 830"
   },
