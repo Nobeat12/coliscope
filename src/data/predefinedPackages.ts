@@ -9,7 +9,7 @@ export const generateProfessionalTrackingNumber = (index: number): string => {
 // Liste pour les colis prédéfinis
 export const predefinedPackages: Package[] = [
   {
-    trackingNumber: "99.44.776482.05885707",
+    trackingNumber: "99.44.776482",
     recipientName: "Trescal Tec Srl",
     phoneNumber: "",
     receiptLocation: "7500 St. Moritz",
@@ -20,14 +20,15 @@ export const predefinedPackages: Package[] = [
   },
   
 {
-    trackingNumber: "99.44.776482.0588570765",
-    recipientName: "CIOBANU Valentin",
-    phoneNumber: "+41 77 216 22 98",
-    receiptLocation: "7500 St. Moritz",
-    receiptDate: "24-09-2025",
-    deliveryLocation: "Frutigenstrasse 68, 3604 Thun",
+    trackingNumber: "99.44.776482.05885707",
+    recipientName: "RÉMI Picard",
+    phoneNumber: "",
+    receiptLocation: "7270 Davos Platz",
+    receiptDate: "30-09-2025",
+    deliveryLocation: "Route Principale 1,
+2914 Damvant",
     status: "Expédié",
-    customerInfo: "DRONE DJI AVATA 2"
+    customerInfo: "STROMER ST5"
   },
 ];
 
