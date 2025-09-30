@@ -25,8 +25,7 @@ export const predefinedPackages: Package[] = [
     phoneNumber: "",
     receiptLocation: "7270 Davos Platz",
     receiptDate: "30-09-2025",
-    deliveryLocation: "Route Principale 1,
-2914 Damvant",
+    deliveryLocation: "Route Principale 1, 2914 Damvant",
     status: "Expédié",
     customerInfo: "STROMER ST5"
   },
