@@ -9,14 +9,14 @@ export const generateProfessionalTrackingNumber = (index: number): string => {
 // Liste pour les colis prédéfinis
 export const predefinedPackages: Package[] = [
   {
-    trackingNumber: "99.44.776482",
-    recipientName: "Trescal Tec Srl",
+    trackingNumber: "99.44.776482.05885707",
+    recipientName: "RÉMI Picard",
     phoneNumber: "",
-    receiptLocation: "7500 St. Moritz",
-    receiptDate: "24-09-2025",
-    deliveryLocation: "Via Zamboni 60, Campogalliano(MO) 410111",
+    receiptLocation: "7270 Davos Platz",
+    receiptDate: "30-09-2025",
+    deliveryLocation: "Route Principale 1, 2914 Damvant",
     status: "Expédié",
-    customerInfo: "GARMIN EDGE 830"
+    customerInfo: "STROMER ST5"
   },
   
 {
