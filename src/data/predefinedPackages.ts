@@ -20,7 +20,7 @@ export const predefinedPackages: Package[] = [
   },
   
 {
-    trackingNumber: "99.44.776482.05885707",
+    trackingNumber: "99.44.776482.05885707.",
     recipientName: "RÉMI Picard",
     phoneNumber: "",
     receiptLocation: "7270 Davos Platz",
