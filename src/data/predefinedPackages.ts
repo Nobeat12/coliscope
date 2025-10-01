@@ -9,14 +9,14 @@ export const generateProfessionalTrackingNumber = (index: number): string => {
 // Liste pour les colis prédéfinis
 export const predefinedPackages: Package[] = [
   {
-    trackingNumber: "99.44.776482.05885707",
-    recipientName: "RÉMI Picard",
+    trackingNumber: "99.44.776482.0585109",
+    recipientName: "Daniel Studer",
     phoneNumber: "",
-    receiptLocation: "7270 Davos Platz",
-    receiptDate: "30-09-2025",
-    deliveryLocation: "Route Principale 1, 2914 Damvant",
+    receiptLocation: "7562 Samnaun",
+    receiptDate: "01-10-2025",
+    deliveryLocation: "Schwerzenbachstrasse 3a, 8604 Volketswil",
     status: "Expédié",
-    customerInfo: "STROMER ST5"
+    customerInfo: "Fanatec Gran Turismo DD Pro 8NM"
   },
   
 {
