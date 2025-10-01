@@ -14,7 +14,7 @@ export const predefinedPackages: Package[] = [
     phoneNumber: "",
     receiptLocation: "7562 Samnaun",
     receiptDate: "01-10-2025",
-    deliveryLocation: "",
+    deliveryLocation: "Schwerzenbachstrasse 3a, 8604 Volketswil",
     status: "Expédié",
     customerInfo: "Fanatec Gran Turismo DD Pro 8NM"
   },
