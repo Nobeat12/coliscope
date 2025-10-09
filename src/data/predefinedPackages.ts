@@ -14,7 +14,7 @@ export const predefinedPackages: Package[] = [
     phoneNumber: "",
     receiptLocation: "9000 St Gallen",
     receiptDate: "09-10-2025",
-    deliveryLocation: "Rue des cheminte 46 1400 Yverdon les bains",
+    deliveryLocation: "Rue des cheminte 46, 1400 Yverdon les bains",
     status: "Expédié",
     customerInfo: "Vélo électrique"
   },
