@@ -20,14 +20,14 @@ export const predefinedPackages: Package[] = [
   },
   
 {
-    trackingNumber: "99.44.776482.05885707.",
-    recipientName: "RÉMI Picard",
+    trackingNumber: "99.44.776482.05885707.041.CH",
+    recipientName: "André Stern",
     phoneNumber: "",
-    receiptLocation: "7270 Davos Platz",
-    receiptDate: "30-09-2025",
-    deliveryLocation: "Route Principale 1, 2914 Damvant",
+    receiptLocation: "1213 petit-lancy",
+    receiptDate: "09-10-2025",
+    deliveryLocation: "Rte de Chaffeiru 32, 1745 Lentigny",
     status: "Expédié",
-    customerInfo: "STROMER ST5"
+    customerInfo: "Home Trainer"
   },
 ];
 
