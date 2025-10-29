@@ -21,13 +21,13 @@ export const predefinedPackages: Package[] = [
   
 {
     trackingNumber: "99.44.776482.0588.5707.041.CH",
-    recipientName: "VEDAT BEKJIRI",
-    phoneNumber: "+41 76 453 11 03",
+    recipientName: "AMOS Jerome",
+    phoneNumber: "+41797167984",
     receiptLocation: "7500 ST MORITZ",
-    receiptDate: "17-10-2025",
-    deliveryLocation: "Grenzstrasse 7a 9430 St. Margrethen SG",
+    receiptDate: "29-10-2025",
+    deliveryLocation: "Rue De La Chapelle 27, 1958 Uvrier",
     status: "Expédié",
-    customerInfo: "DJI AVATA 2 FLY MORE COMBO"
+    customerInfo: "DJI AVATA 2"
   },
 ];
 
