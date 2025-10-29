@@ -9,12 +9,13 @@ export const generateProfessionalTrackingNumber = (index: number): string => {
 // Liste pour les colis prédéfinis
 export const predefinedPackages: Package[] = [
   {
-    trackingNumber: "99.44.776482.05885707.fr",
+    trackingNumber: "",
     recipientName: "Josephine Sara",
     phoneNumber: "",
     receiptLocation: "Paris France. Guichet s2",
     receiptDate: "16-10-2025",
-    deliveryLocation: "1958 Broadway Street Apt B7 Iowa City IA, 52240",
+    deliveryLocation: "1958 Broadway Street Apt B7 Iowa City IA, 
+52240",
     status: "Expédié",
     customerInfo: "Thé duo choc"
   },
