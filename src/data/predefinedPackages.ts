@@ -9,27 +9,16 @@ export const generateProfessionalTrackingNumber = (index: number): string => {
 // Liste pour les colis prédéfinis
 export const predefinedPackages: Package[] = [
   {
-    trackingNumber: "",
-    recipientName: "Josephine Sara",
-    phoneNumber: "",
-    receiptLocation: "Paris France. Guichet s2",
-    receiptDate: "16-10-2025",
-    deliveryLocation: "1958 Broadway Street Apt B7 Iowa City IA, 
-52240",
+    trackingNumber: "99.44.776482.05885707.51.CH",
+    recipientName: "DANIEL Gonzalez Filipov",
+    phoneNumber: "+41 77 418 55 48",
+    receiptLocation: "7500 St Moritz ",
+    receiptDate: "03-11-2025",
+    deliveryLocation: "Poste Filiale, 1024 Ecublens VD, Chem. Du Croset 3",
     status: "Expédié",
-    customerInfo: "Thé duo choc"
+    customerInfo: "Elite Suito-T"
   },
   
-{
-    trackingNumber: "99.44.776482.0588.5707.041.CH",
-    recipientName: "AMOS Jerome",
-    phoneNumber: "+41797167984",
-    receiptLocation: "7500 ST MORITZ",
-    receiptDate: "29-10-2025",
-    deliveryLocation: "Rue De La Chapelle 27, 1958 Uvrier",
-    status: "Expédié",
-    customerInfo: "DJI AVATA 2"
-  },
 ];
 
 // Ajouter un nouveau colis prédéfini
