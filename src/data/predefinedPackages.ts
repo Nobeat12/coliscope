@@ -10,13 +10,13 @@ export const generateProfessionalTrackingNumber = (index: number): string => {
 export const predefinedPackages: Package[] = [
   {
     trackingNumber: "99.44.776482.05885707.51.CH",
-    recipientName: "DANIEL Gonzalez Filipov",
-    phoneNumber: "+41 77 418 55 48",
-    receiptLocation: "7500 St Moritz ",
-    receiptDate: "03-11-2025",
-    deliveryLocation: "Poste Filiale, 1024 Ecublens VD, Chem. Du Croset 3",
+    recipientName: "Bruno Da Cunha",
+    phoneNumber: "",
+    receiptLocation: "9000 St gallen ",
+    receiptDate: "05-11-2025",
+    deliveryLocation: "Chemin de la Morgettaz 2, 1110 Morges",
     status: "Expédié",
-    customerInfo: "Elite Suito-T"
+    customerInfo: "Montre Tissot prx"
   },
   
 ];
