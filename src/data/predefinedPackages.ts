@@ -9,14 +9,14 @@ export const generateProfessionalTrackingNumber = (index: number): string => {
 // Liste pour les colis prédéfinis
 export const predefinedPackages: Package[] = [
   {
-    trackingNumber: "99.44.776482.05885707.51.CH",
-    recipientName: "LÉA Roulin",
-    phoneNumber: "0787486662",
-    receiptLocation: "7500 St. Moritz",
+    trackingNumber: "99.44.776482.05885707.41CH",
+    recipientName: "Fernando Martins",
+    phoneNumber: "",
+    receiptLocation: "9536 Schwarzenbach",
     receiptDate: "10-11-2025",
-    deliveryLocation: "Promenade de l'Eglantine 8 , 1110 Morges",
+    deliveryLocation: "Rua da Estrada Larga, n47, 3130-080 Granja do Ulmeiro Portugal",
     status: "Expédié",
-    customerInfo: "HOME TRAINER SUITO-T"
+    customerInfo: "Gigabyte GeForce RTX 5080"
   },
   
 ];
