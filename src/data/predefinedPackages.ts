@@ -14,7 +14,7 @@ export const predefinedPackages: Package[] = [
     phoneNumber: "",
     receiptLocation: "2000 Neuchâtel",
     receiptDate: "17-11-2025",
-    deliveryLocation: "Rua da Morèces 52 1943 Praz-de-Fort",
+    deliveryLocation: "Rua da Morèces 52, 1943 Praz-de-Fort",
     status: "Expédié",
     customerInfo: "Home Trainer"
   },
