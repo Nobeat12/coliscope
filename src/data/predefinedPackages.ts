@@ -11,7 +11,7 @@ export const predefinedPackages: Package[] = [
     trackingNumber: "99.0976.8768787563CH",
     recipientName: "Lella Rossi",
     phoneNumber: "",
-    receiptLocation: "2000 Neuchâtel",
+    receiptLocation: "9000 st gallen",
     receiptDate: "18-11-2025",
     deliveryLocation: "19 rue du Môle, 1201 Genève",
     status: "Expédié",
