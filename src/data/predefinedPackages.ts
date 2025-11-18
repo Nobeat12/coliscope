@@ -19,12 +19,11 @@ export const predefinedPackages: Package[] = [
   },
 {
     trackingNumber: "99.44.776482.058.6585707.41CH",
-    recipientName: "",
+    recipientName: "Rajasingham",
     phoneNumber: "",
     receiptLocation: "3130-080 Granja do Ulmeiro Portugal",
     receiptDate: "10-11-2025",
-    deliveryLocation: "rajasinghamHusmatt 10, 6443 Morschach
-",
+    deliveryLocation: "Husmatt 10, 6443 Morschach",
     status: "Expédié",
     customerInfo: "Gigabyte GeForce RTX 5080"
   },
