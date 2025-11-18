@@ -62,4 +62,29 @@ export interface TranslationType {
   success: string;
   warning: string;
   confirm: string;
+  // Track page translations
+  trackPackage: string;
+  trackButton: string;
+  trackingPlaceholder: string;
+  ourServices: string;
+  packageTracking: string;
+  shippingCosts: string;
+  virtualMailbox: string;
+  deliveryPlanning: string;
+  login: string;
+  welcomeBack: string;
+  enterTrackingNumber: string;
+  searchingPackage: string;
+  trackingDescription: string;
+  costsDescription: string;
+  mailboxDescription: string;
+  planningDescription: string;
+  menuTrack: string;
+  menuServices: string;
+  menuHelp: string;
+  menuFaq: string;
+  menuContact: string;
+  packageDetails: string;
+  packageNotFound: string;
+  tryAgain: string;
 }
