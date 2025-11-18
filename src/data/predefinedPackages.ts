@@ -1,4 +1,3 @@
-
 import { Package } from "@/types/package";
 
 // Génère des numéros de suivi avec un format professionnel
