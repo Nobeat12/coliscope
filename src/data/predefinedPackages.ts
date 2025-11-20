@@ -12,7 +12,7 @@ export const predefinedPackages: Package[] = [
     recipientName: "Matteo Limpo",
     phoneNumber: "",
     receiptLocation: "7500 St Moritz",
-    receiptDate: "19-11-2025",
+    receiptDate: "20-11-2025",
     deliveryLocation: "Rue du fort-barreau 15 1201 Genève",
     status: "Expédié",
     customerInfo: "DJI AVATA 2"
