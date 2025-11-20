@@ -18,14 +18,14 @@ export const predefinedPackages: Package[] = [
     customerInfo: "HOME TRAINER"
   },
 {
-    trackingNumber: "",
-    recipientName: "Rajasingham",
+    trackingNumber: "99.0976.8768987563CH",
+    recipientName: "Alfredo Modica",
     phoneNumber: "",
-    receiptLocation: "3130-080 Granja do Ulmeiro Portugal",
-    receiptDate: "10-11-2025",
-    deliveryLocation: "Husmatt 10, 6443 Morschach",
+    receiptLocation: "9000 st gallen",
+    receiptDate: "20-11-2025",
+    deliveryLocation: "Rue du vieux canal 1 1227 Genève",
     status: "Expédié",
-    customerInfo: "Gigabyte GeForce RTX 5080"
+    customerInfo: "Tissot PRX Uhr"
   },
   
 ];
